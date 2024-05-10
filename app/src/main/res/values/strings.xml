@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">API SETUP</string>
+
+    //Home come
+    <string name="home">Home</string>
+    <string name="matches">Matches</string>
+    <string name="discover">Discover</string>
+    <string name="profile">Profile</string>
+    <string name="up_coming">Upcoming</string>
+    <string name="live">Live</string>
+    <string name="hot">Hot</string>
+    <string name="finish">Finish</string>
+
+
+    //shared preference
+    <string name="app_pref_name">sports_app</string>
+
 </resources>
