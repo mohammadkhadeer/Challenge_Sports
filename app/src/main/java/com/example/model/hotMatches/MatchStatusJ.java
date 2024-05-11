@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.model.hotMatches;
 
 public class MatchStatusJ {
     String name;

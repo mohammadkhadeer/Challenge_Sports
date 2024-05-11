@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                app:cardCornerRadius="@dimen/_8sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+                    <RelativeLayout
+                        android:id="@+id/language_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:elevation="@dimen/_6sdp"
+                        android:padding="@dimen/_8sdp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_3sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                app:tint="@color/brand_color" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_15sdp" />
+
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="@dimen/_17sdp"
+                            android:layout_height="@dimen/_17sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            app:tint="@color/brand_color_dark" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                app:cardCornerRadius="@dimen/_8sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/privacy_policy_rl"
+                    android:padding="@dimen/_8sdp"
+                    android:background="?android:attr/selectableItemBackground"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            app:tint="@color/brand_color_dark"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/_17sdp"
+                        android:layout_height="@dimen/_17sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_alignParentEnd="true"
+                        app:tint="@color/brand_color_dark"
+                        />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                app:cardCornerRadius="@dimen/_8sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/share_app_rl"
+                    android:padding="@dimen/_8sdp"
+                    android:background="?android:attr/selectableItemBackground"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            app:tint="@color/brand_color_dark"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/_17sdp"
+                        android:layout_height="@dimen/_17sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_alignParentEnd="true"
+                        app:tint="@color/brand_color_dark"
+                        />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                app:cardCornerRadius="@dimen/_8sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/feed_back_rl"
+                    android:padding="@dimen/_8sdp"
+                    android:background="?android:attr/selectableItemBackground"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            app:tint="@color/brand_color_dark"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/_17sdp"
+                        android:layout_height="@dimen/_17sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_alignParentEnd="true"
+                        app:tint="@color/brand_color_dark"
+                        />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                app:cardCornerRadius="@dimen/_8sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rate_us_rl"
+                    android:padding="@dimen/_8sdp"
+                    android:background="?android:attr/selectableItemBackground"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            app:tint="@color/brand_color_dark"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/_17sdp"
+                        android:layout_height="@dimen/_17sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_alignParentEnd="true"
+                        app:tint="@color/brand_color_dark"
+                        />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                app:cardCornerRadius="@dimen/_8sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/exit_app_rl"
+                    android:padding="@dimen/_8sdp"
+                    android:background="?android:attr/selectableItemBackground"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            app:tint="@color/brand_color_dark"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/_17sdp"
+                        android:layout_height="@dimen/_17sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_alignParentEnd="true"
+                        app:tint="@color/brand_color_dark"
+                        />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_3sdp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:id="@+id/top_selectors"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_55sdp"-->
+<!--        android:background="@color/colorPrimary">-->
+<!--        <Spinner-->
+<!--            android:id="@+id/league_selector_dropdown"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_margin="@dimen/_10sdp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:gravity="center"-->
+<!--            android:background="@null"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textAlignment="center"-->
+<!--            style="@style/dropdown_custom"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            />-->
+<!--        <TextView-->
+<!--            android:id="@+id/league_selector"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_margin="@dimen/_10sdp"-->
+<!--            android:background="@drawable/league_selector_rect_background"-->
+<!--            android:spinnerMode="dropdown"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:gravity="center"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="@dimen/_14sdp"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:paddingHorizontal="@dimen/_5sdp"-->
+<!--            app:drawableEndCompat="@drawable/ic_dropdown" />-->
+
+
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    -->
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/top_selectors"-->
+<!--        android:id="@+id/tab_layout_standings"-->
+<!--        android:layout_width="match_parent"-->
+<!--        app:tabSelectedTextColor="@color/white"-->
+<!--        app:tabTextColor="@color/grey_text"-->
+<!--        app:tabIndicatorFullWidth="false"-->
+<!--        app:tabTextAppearance="@style/TabtextAppearence"-->
+<!--        app:tabIndicatorColor="@color/white"-->
+<!--        android:paddingBottom="@dimen/_5sdp"-->
+<!--        android:background="@color/tablayout_color"-->
+<!--        android:layout_height="@dimen/_25sdp"/>-->
+
+<!--    <androidx.viewpager2.widget.ViewPager2-->
+<!--        android:id="@+id/standings_viewpager"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tab_layout_standings" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

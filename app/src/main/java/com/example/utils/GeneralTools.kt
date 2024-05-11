@@ -10,7 +10,7 @@ import android.net.Uri
 import android.os.Parcelable
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
-import com.example.model.MatchStatusJ
+import com.example.model.hotMatches.MatchStatusJ
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,10 +22,34 @@ object GeneralTools {
         var match_status_list: ArrayList<MatchStatusJ> = ArrayList()
 
 
-        match_status_list.add(MatchStatusJ(context.getString(R.string.matches), true))
-        match_status_list.add(MatchStatusJ(context.getString(R.string.live), false))
-        match_status_list.add(MatchStatusJ(context.getString(R.string.up_coming), false))
-        match_status_list.add(MatchStatusJ(context.getString(R.string.finish), false))
+        match_status_list.add(
+            MatchStatusJ(
+                context.getString(
+                    R.string.matches
+                ), true
+            )
+        )
+        match_status_list.add(
+            MatchStatusJ(
+                context.getString(
+                    R.string.live
+                ), false
+            )
+        )
+        match_status_list.add(
+            MatchStatusJ(
+                context.getString(
+                    R.string.up_coming
+                ), false
+            )
+        )
+        match_status_list.add(
+            MatchStatusJ(
+                context.getString(
+                    R.string.finish
+                ), false
+            )
+        )
 //        match_status_list.add(context.getString(R.string.hot))
 //        match_status_list.add(context.getString(R.string.live))
 //        match_status_list.add(context.getString(R.string.up_coming))

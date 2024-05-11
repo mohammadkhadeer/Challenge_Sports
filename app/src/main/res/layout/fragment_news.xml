@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs_news"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabSelectedTextColor="@color/white"
+        app:tabRippleColor="@null"
+        app:tabTextColor="@color/main_tab_not_selected_color"
+        app:tabBackground="@drawable/time_tab_selector"
+        app:tabIndicatorColor="@color/colorPrimary"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        />
+<!--    app:tabBackground="@drawable/tab_selector_news"-->
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_viewpager"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/tabs_news"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <FrameLayout
+    android:id="@+id/news_detail_frag_container"
+    android:layout_width="match_parent"
+    android:visibility="gone"
+    android:layout_height="match_parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

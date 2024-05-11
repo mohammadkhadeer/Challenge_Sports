@@ -2,20 +2,13 @@ package com.example.view.splashScreen
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Configuration
-import android.content.res.Resources
-import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.util.DisplayMetrics
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.apisetup.R
 import com.example.utils.GeneralTools
 import com.example.utils.SharedPreference
-import com.example.view.MainActivity
-import org.json.JSONException
+import com.example.view.mainActivity.MainActivity
 import java.util.*
 
 @SuppressLint("CustomSplashScreen")
