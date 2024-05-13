@@ -11,6 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.apisetup.R
 import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.hotMatches.HotMatche
+import com.example.utils.GeneralTools
+import com.example.utils.SharedPreference
+import java.sql.DriverManager.println
 import java.util.*
 
 class MatchesAdapter (var context: Context
@@ -48,6 +51,14 @@ class MatchesAdapter (var context: Context
         var away_image=itemView.findViewById<ImageView>(R.id.away_team_image)
         var leagua_image=itemView.findViewById<ImageView>(R.id.leagua_image)
 
+        var weather_status_txt=itemView.findViewById<TextView>(R.id.wither_status_txt)
+
+        var weather_status_image=itemView.findViewById<ImageView>(R.id.wither_image)
+
+        var match_time=itemView.findViewById<TextView>(R.id.match_time)
+        var match_date=itemView.findViewById<TextView>(R.id.date_txt)
+
+
 
         var fragment_container=itemView.findViewById<FrameLayout>(R.id.fragment_container)
         init {
@@ -63,21 +74,35 @@ class MatchesAdapter (var context: Context
 
     override fun onBindViewHolder(holder: MainAdapterViewHolder, position: Int) {
 
-        Log.i("TAG","dataList.hotMatches "+ (dataList.hotMatches?.size ?: 10))
-        Log.i("TAG","dataList.hotMatches!!.get(position) "+ dataList.hotMatches!!.get(position)!!.id)
-
         val dataObject = dataList.hotMatches!!.get(position)
 
-        holder.leagueNameShort.text = "mohamamd"
-
-        Log.i("TAG","dataObject?.homeInfo "+ dataObject?.homeInfo?.enName)
-
+        holder.leagueNameShort.text = dataObject?.leagueInfo?.enName
         holder.home_team_name.text= dataObject?.homeInfo?.enName
 
         holder.away_team_name.text=dataObject?.awayInfo?.enName
 
+        var weather_number = dataObject?.environment?.weather
+        if (weather_number != null) {
+            holder.weather_status_txt.text = GeneralTools.getWeatherStatus(context, weather_number )
+        }else{
+            holder.weather_status_txt.text = context.getString(R.string.weather_empty)
+        }
+
+        var match_score = dataObject?.homeInfo?.homeScore.toString() + " - " + dataObject?.awayInfo?.awayScore.toString()
+        holder.match_score.text = match_score
+
+
+        val time_and_date:String = dataObject?.matchTiming.toString()
+        val list: List<String> = time_and_date.split(" ").toList()
+        println(list)
+        holder.match_date.text = list.get(0)
+        val mints_hours = list.get(1)
+        val list2: List<String> = mints_hours.split(":").toList()
+        holder.match_time.text = list2.get(0) + ":" + list2.get(1)
+
         Glide.with(context).load(dataObject?.homeInfo?.logo).into(holder.home_image)
         Glide.with(context).load(dataObject?.awayInfo?.logo).into(holder.away_image)
+        Glide.with(context).load(dataObject?.leagueInfo?.logo).into(holder.leagua_image)
 
 
 //        if (position==dataList.size-1&&loadMore)

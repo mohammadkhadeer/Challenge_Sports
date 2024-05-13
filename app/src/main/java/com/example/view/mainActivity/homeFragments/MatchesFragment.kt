@@ -58,21 +58,12 @@ class MatchesFragment : Fragment() {
     }
 
     private fun handelHotMatchesResponse(vm: MyViewModel) {
-
         vm.matches_root.observe(requireActivity()){
             if (it.status== Status.SUCCESS){
 
                 if (it.data!!.hotMatches?.get(0) != null)
                 {
-                    Log.i("TAG" ,"data.hotMatches[0] != null ")
-                    Log.i("TAG" ,"data.hotMatches[0] id "+ it.data.hotMatches!![0]?.id)
-                    Log.i("TAG" ,"data.hotMatches[0] seasonId "+it!!.data!!.hotMatches!![0]?.seasonId)
-
-//                    Log.i("TAG" ,"data.hotMatches[0].coverage.mlive "+it.data.hotMatches[0].coverage.mlive)
-//                    Log.i("TAG" ,"data.hotMatches[0] "+it.data.hotMatches[0].homeInfo.enName)
                     passADataToMainAdapter(it)
-                }else{
-                    Log.i("TAG" ,"data.hotMatches[0] == null ")
                 }
 
             }else{
@@ -82,7 +73,6 @@ class MatchesFragment : Fragment() {
         }
 
     }
-
 
 
     private fun passADataToMainAdapter(it: Resource<HotMatchBaseClass>?) {

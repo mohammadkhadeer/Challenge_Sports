@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Parcelable
+import android.provider.Settings.Global.getString
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
 import com.example.model.hotMatches.MatchStatusJ
@@ -61,6 +62,25 @@ object GeneralTools {
     fun getLocale(context: Context): String {
         return SharedPreference.getInstance().getStringValueFromPreference(SharedPreference.LOCALE_KEY,SharedPreference.CHINESE,context)
     }
+
+    fun getWeatherStatus(context: Context,weather_status_number : Int): String {
+        var weathr_status_string:String = ""
+
+        when (weather_status_number) {
+            1 -> {
+                weathr_status_string = context.getString(R.string.home)
+            }
+            2 -> {
+                weathr_status_string = context.getString(R.string.home)
+            }
+            3 -> {
+                weathr_status_string = context.getString(R.string.home)
+            }
+        }
+
+        return weathr_status_string
+    }
+
     fun setLocale(context: Context,locale:String) {
         SharedPreference.getInstance().saveStringToPreferences(SharedPreference.LOCALE_KEY,locale,context)
     }

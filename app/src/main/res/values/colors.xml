@@ -60,5 +60,6 @@
     <color name="dark_text">#2F3D1B</color>
     <color name="space_between_leags">#F7F7F7</color>
     <color name="bottom_tab_not_selected_color">#9F9F9F</color>
+    <color name="secondry_text_color">#C4C4C7</color>
 
 </resources>

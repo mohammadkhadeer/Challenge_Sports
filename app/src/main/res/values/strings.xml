@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">API SETUP</string>
 
+    //matches adapter status
+    <string name="weather_empty">Weather not available</string>
+
     //Home come
     <string name="home">Home</string>
     <string name="matches">Matches</string>

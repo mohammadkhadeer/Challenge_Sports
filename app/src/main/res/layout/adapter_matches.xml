@@ -38,7 +38,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginStart="@dimen/_6sdp"
-                android:background="@color/grey"/>
+                />
 
             <TextView
                 android:id="@+id/group_indicator"
@@ -46,13 +46,35 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="Group-A"
-                android:textColor="@color/black"
+                android:textColor="@color/secondry_text_color"
                 android:layout_marginStart="@dimen/_23sdp"
                 android:textSize="15sp"
-                app:layout_constraintEnd_toStartOf="@+id/match_date"
+                app:layout_constraintEnd_toStartOf="@+id/match_time"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
+
+
+            <ImageView
+                android:id="@+id/time_icon"
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/clock_ic"
+                android:layout_marginEnd="@dimen/_3sdp"
+                app:layout_constraintEnd_toEndOf="@+id/group_indicator"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/match_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sat, 21 Nov"
+                android:textColor="@color/secondry_text_color"
+                android:textSize="14sp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -65,17 +87,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/group_indicator"
                 />
 
-
-            <TextView
-                android:id="@+id/match_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sat, 21 Nov"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,7 +117,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="2"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:paddingHorizontal="@dimen/_2sdp"
                         android:text="Chicago"
                         android:layout_marginStart="@dimen/_30sdp"
@@ -133,7 +144,7 @@
                         android:maxLines="1"
                         android:layout_marginVertical="@dimen/_3sdp"
                         android:paddingHorizontal="@dimen/_6sdp"
-                        android:text="9 - 9"
+                        android:text=""
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -153,7 +164,7 @@
                         android:id="@+id/away_team_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:maxLines="2"
                         android:paddingHorizontal="@dimen/_2sdp"
                         android:layout_marginEnd="@dimen/_30sdp"
@@ -183,38 +194,45 @@
                 app:layout_constraintTop_toBottomOf="@+id/teams_info_ll" />
 
 
-            <TextView
-                android:id="@+id/c_ht_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/c_ht_bg_color"
-                android:text="C=10:5 HT=6:7"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:layout_marginTop="@dimen/_4sdp"
-                app:layout_constraintTop_toBottomOf="@+id/bottom_divider"
+
+
+            <ImageView
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_12sdp"
+                android:id="@+id/wither_image"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="@dimen/_6sdp"
-                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@+id/bottom_divider"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/wb_cloudy"
+                android:layout_marginStart="@dimen/_6sdp"
                 />
 
             <TextView
-                android:id="@+id/wither_text"
-                android:layout_width="wrap_content"
-                android:backgroundTint="@color/c_ht_bg_color"
-                android:text="C=10:5 HT=6:7"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:id="@+id/wither_status_txt"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Colud"
+                android:textColor="@color/secondry_text_color"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@+id/wither_image"
                 app:layout_constraintTop_toBottomOf="@+id/bottom_divider"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="@dimen/_6sdp"
-                tools:ignore="MissingConstraints"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 />
+
+            <TextView
+                android:id="@+id/date_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sat, 21 Nov"
+                android:textColor="@color/secondry_text_color"
+                android:textSize="14sp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bottom_divider"
+                />
+
 
             <View
                 android:id="@+id/bottom_divider2"
@@ -223,7 +241,7 @@
                 android:visibility="visible"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:foregroundGravity="center"
-                app:layout_constraintTop_toBottomOf="@+id/c_ht_text"
+                app:layout_constraintTop_toBottomOf="@+id/wither_image"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
