@@ -15,11 +15,14 @@ import java.sql.DriverManager.println
 
 class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     var matches_root = MutableLiveData<Resource<HotMatchBaseClass>>()
+    var matches_upcoming = MutableLiveData<Resource<HotMatchBaseClass>>()
+    var matches_finished = MutableLiveData<Resource<HotMatchBaseClass>>()
+    var matches_live = MutableLiveData<Resource<HotMatchBaseClass>>()
 
     init {
 
  }
-     fun makeCallAPI(){
+     fun getHotMatches(){
         viewModelScope.launch {
             matches_root.postValue(Resource.loading(null))
             try {
@@ -32,4 +35,49 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             }
         }
     }
+
+    fun getUpcomingMatches(){
+        viewModelScope.launch {
+            matches_upcoming.postValue(Resource.loading(null))
+            try {
+                val myData=apiHelper.getUpcomingMatches()
+                //println(myData)
+                Log.i("TAG","myData "+myData)
+                matches_upcoming.postValue(Resource.success(myData))
+            }catch (e:Exception){
+                println(e.message)
+            }
+        }
+    }
+
+
+    fun getFinishedMatches(){
+        viewModelScope.launch {
+            matches_finished.postValue(Resource.loading(null))
+            try {
+                val myData=apiHelper.getFinishedMatches()
+                //println(myData)
+                Log.i("TAG","myData "+myData)
+                matches_finished.postValue(Resource.success(myData))
+            }catch (e:Exception){
+                println(e.message)
+            }
+        }
+    }
+
+    fun getLiveMatches(){
+        viewModelScope.launch {
+            matches_live.postValue(Resource.loading(null))
+            try {
+                val myData=apiHelper.getLiveMatches()
+                //println(myData)
+                Log.i("TAG","myData "+myData)
+                matches_live.postValue(Resource.success(myData))
+            }catch (e:Exception){
+                println(e.message)
+            }
+        }
+    }
+
+
 }

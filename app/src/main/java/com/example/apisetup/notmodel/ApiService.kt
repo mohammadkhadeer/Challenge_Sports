@@ -9,4 +9,14 @@ interface ApiService {
 
     @GET(" api/football/matchlist/today")
     suspend fun getHotMatches(@Query("hotMatches") hotMatches:Boolean) : HotMatchBaseClass
+
+    @GET(" api/football/matchlist/today?matchStatus=upcoming")
+    suspend fun getUpcomingMatches() : HotMatchBaseClass
+
+    @GET(" api/football/matchlist/today?matchStatus=finished")
+    suspend fun getFinishedMatches() : HotMatchBaseClass
+
+    @GET(" api/football/matchlist/today?matchStatus=live")
+    suspend fun getLiveMatches() : HotMatchBaseClass
+
 }

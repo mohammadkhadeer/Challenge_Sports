@@ -7,5 +7,7 @@ data class HotMatchBaseClass(
     @SerializedName("hotLeagues")
     val hotLeagues: List<HotLeague?>?,
     @SerializedName("hotMatches")
-    val hotMatches: List<HotMatche?>?
+    val hotMatches: List<HotMatche?>?,
+    @SerializedName("matchList")
+    val matchList: List<HotMatche?>?
 )

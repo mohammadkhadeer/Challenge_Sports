@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +16,7 @@ import com.example.apisetup.R
 import com.example.apisetup.notmodel.Resource
 import com.example.apisetup.notmodel.Status
 import com.example.model.hotMatches.HotMatchBaseClass
+import com.example.model.hotMatches.HotMatche
 import com.example.model.hotMatches.MatchStatusJ
 import com.example.presnter.OnDetailListener
 import com.example.presnter.RecyclerViewOnclick
@@ -27,8 +31,10 @@ import java.util.*
 
 class MatchesFragment : Fragment() {
 
+    private lateinit var vm: MyViewModel
     private lateinit var recycler_view: RecyclerView
     private lateinit var recyclerViewMain: RecyclerView
+    private lateinit var pro_bar: ProgressBar
 
     var match_status_list: ArrayList<MatchStatusJ> = ArrayList()
     var adpterMatchStatus: MatchStatusAdapter? = null
@@ -52,39 +58,79 @@ class MatchesFragment : Fragment() {
         match_status_list = fillMatchesStatus(requireContext())
         createRecyclerViewMatchStatus()
 
-        val vm= SpewViewModel.giveMeViewModel(requireActivity())
-        vm.makeCallAPI()
-        handelHotMatchesResponse(vm)
+        vm = SpewViewModel.giveMeViewModel(requireActivity())
+        vm.getHotMatches()
+        //here i will use Int number to detect witch type
+        //hot matches number "0" upcoming number "1" ... etc
+        handelHotMatchesResponse(vm,0)
     }
 
-    private fun handelHotMatchesResponse(vm: MyViewModel) {
-        vm.matches_root.observe(requireActivity()){
-            if (it.status== Status.SUCCESS){
+    private fun handelHotMatchesResponse(vm: MyViewModel, match_type: Int) {
+        when (match_type) {
+            0 -> {
+                observeTheResponseForHotMatches(vm.matches_root)
+            }
 
-                if (it.data!!.hotMatches?.get(0) != null)
-                {
-                    passADataToMainAdapter(it)
+            1 -> {
+                vm.matches_live.observe(requireActivity()){
+                    if (it.status== Status.SUCCESS){
+                        passADataToMainAdapter(it.data!!.matchList)
+                    }else{
+                        //handel error case
+                        Log.i("TAG" ,"data.status "+it.status)
+                    }
                 }
+            }
 
-            }else{
-                //handel error case
-                Log.i("TAG" ,"data.status "+it.status)
+            2 -> {
+                vm.matches_upcoming.observe(requireActivity()){
+                    if (it.status== Status.SUCCESS){
+                        passADataToMainAdapter(it.data!!.matchList)
+                    }else{
+                        //handel error case
+                        Log.i("TAG" ,"data.status "+it.status)
+                    }
+                }
+            }
+            3 -> {
+                vm.matches_finished.observe(requireActivity()){
+                    if (it.status== Status.SUCCESS){
+                        passADataToMainAdapter(it.data!!.matchList)
+                    }else{
+                        //handel error case
+                        Log.i("TAG" ,"data.status "+it.status)
+                    }
+                }
             }
         }
 
     }
 
+    private fun observeTheResponseForHotMatches(matchesRoot: MutableLiveData<Resource<HotMatchBaseClass>>) {
+        matchesRoot.observe(requireActivity()){
+            if (it.status== Status.SUCCESS){
+                passADataToMainAdapter(it.data!!.hotMatches)
+            }else{
+                //handel error case
+                Log.i("TAG" ,"data.status "+it.status)
+            }
+        }
+    }
 
-    private fun passADataToMainAdapter(it: Resource<HotMatchBaseClass>?) {
+    private fun passADataToMainAdapter(matches: List<HotMatche?>?) {
         mainAdapter = MatchesAdapter(
             requireContext(),
-            it!!.data!!
+            matches!!
         )
 
         recyclerViewMain.adapter = mainAdapter
         recyclerViewMain.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        recyclerViewMain.isVisible = true
+        pro_bar.isVisible = false
     }
+
 
     private fun createRecyclerViewMatchStatus() {
         recycler_view.setNestedScrollingEnabled(false);
@@ -92,12 +138,38 @@ class MatchesFragment : Fragment() {
         recycler_view.adapter= MatchStatusAdapter(requireContext(), match_status_list,
             object : RecyclerViewOnclick {
                 override fun onClick(position: Int) {
+                    handleCaseReq(position)
                     upadateTheSelectedItemInRecyclerView(position)
 
                     createRecyclerViewMatchStatus()
                 }
             })
         recycler_view.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+    }
+
+    private fun handleCaseReq(position: Int) {
+        recyclerViewMain.isVisible = false
+        pro_bar.isVisible = true
+
+        vm = SpewViewModel.giveMeViewModel(requireActivity())
+        when (position) {
+            0 -> {
+                vm.getHotMatches()
+                handelHotMatchesResponse(vm,0)
+            }
+            1 -> {
+                vm.getLiveMatches()
+                handelHotMatchesResponse(vm,1)
+            }
+            2 -> {
+                vm.getUpcomingMatches()
+                handelHotMatchesResponse(vm,2)
+            }
+            3 -> {
+                vm.getFinishedMatches()
+                handelHotMatchesResponse(vm,3)
+            }
+        }
     }
 
     private fun upadateTheSelectedItemInRecyclerView(position: Int) {
@@ -115,6 +187,7 @@ class MatchesFragment : Fragment() {
     private fun casting(view: View) {
         recycler_view = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerViewMain = view.findViewById<RecyclerView>(R.id.main_recycler_view)
+        pro_bar = view.findViewById<ProgressBar>(R.id.pro_bar)
 
     }
 
@@ -126,6 +199,5 @@ class MatchesFragment : Fragment() {
                 }
             }
     }
-
 
 }

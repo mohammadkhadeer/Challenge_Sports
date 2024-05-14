@@ -1,7 +1,6 @@
 package com.example.view.mainActivity.homeAdapter.matches
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +11,16 @@ import com.example.apisetup.R
 import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.hotMatches.HotMatche
 import com.example.utils.GeneralTools
-import com.example.utils.SharedPreference
 import java.sql.DriverManager.println
 import java.util.*
 
 class MatchesAdapter (var context: Context
-, var dataList: HotMatchBaseClass)
+, var dataList: List<HotMatche?>)
     : RecyclerView.Adapter<MatchesAdapter.MainAdapterViewHolder>(),
     Filterable {
 
-    var originalList = dataList.hotMatches
+    private var originalList = dataList
+
     var listMatches= ArrayList<HotMatche>()
 
     init {
@@ -74,7 +73,7 @@ class MatchesAdapter (var context: Context
 
     override fun onBindViewHolder(holder: MainAdapterViewHolder, position: Int) {
 
-        val dataObject = dataList.hotMatches!!.get(position)
+        val dataObject = dataList.get(position)
 
         holder.leagueNameShort.text = dataObject?.leagueInfo?.enName
         holder.home_team_name.text= dataObject?.homeInfo?.enName
@@ -111,7 +110,7 @@ class MatchesAdapter (var context: Context
 
 
     override fun getItemCount(): Int {
-        return dataList.hotMatches?.size ?: 0
+        return dataList?.size ?: 0
     }
 
     override fun getFilter(): Filter? {

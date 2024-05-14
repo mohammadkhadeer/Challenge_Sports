@@ -50,4 +50,8 @@
 
     </style>
 
+    <style name="progressBarBlue" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/main_adapter_background_color_comp1</item>
+    </style>
+
 </resources>
