@@ -26,7 +26,7 @@ object GeneralTools {
         match_status_list.add(
             MatchStatusJ(
                 context.getString(
-                    R.string.matches
+                    R.string.hot
                 ), true
             )
         )
@@ -67,14 +67,44 @@ object GeneralTools {
         var weathr_status_string:String = ""
 
         when (weather_status_number) {
+            0 -> {
+                weathr_status_string = context.getString(R.string.weather_case_0)
+            }
             1 -> {
-                weathr_status_string = context.getString(R.string.home)
+                weathr_status_string = context.getString(R.string.weather_case_1)
             }
             2 -> {
-                weathr_status_string = context.getString(R.string.home)
+                weathr_status_string = context.getString(R.string.weather_case_2)
             }
             3 -> {
-                weathr_status_string = context.getString(R.string.home)
+                weathr_status_string = context.getString(R.string.weather_case_3)
+            }
+            4 -> {
+                weathr_status_string = context.getString(R.string.weather_case_4)
+            }
+            5 -> {
+                weathr_status_string = context.getString(R.string.weather_case_5)
+            }
+            6 -> {
+                weathr_status_string = context.getString(R.string.weather_case_6)
+            }
+            7 -> {
+                weathr_status_string = context.getString(R.string.weather_case_7)
+            }
+            8 -> {
+                weathr_status_string = context.getString(R.string.weather_case_8)
+            }
+            9 -> {
+                weathr_status_string = context.getString(R.string.weather_case_9)
+            }
+            10 -> {
+                weathr_status_string = context.getString(R.string.weather_case_10)
+            }
+            11 -> {
+                weathr_status_string = context.getString(R.string.weather_case_11)
+            }
+            12 -> {
+                weathr_status_string = context.getString(R.string.weather_case_12)
             }
         }
 

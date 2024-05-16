@@ -10,12 +10,15 @@ import com.bumptech.glide.Glide
 import com.example.apisetup.R
 import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.hotMatches.HotMatche
+import com.example.presnter.RecyclerViewOnclick
+import com.example.presnter.RecyclerViewOnclickMatch
 import com.example.utils.GeneralTools
 import java.sql.DriverManager.println
 import java.util.*
 
 class MatchesAdapter (var context: Context
-, var dataList: List<HotMatche?>)
+, var dataList: List<HotMatche?>, var onclick: RecyclerViewOnclickMatch
+)
     : RecyclerView.Adapter<MatchesAdapter.MainAdapterViewHolder>(),
     Filterable {
 
@@ -60,11 +63,13 @@ class MatchesAdapter (var context: Context
 
 
         var fragment_container=itemView.findViewById<FrameLayout>(R.id.fragment_container)
+
         init {
             itemView.setOnClickListener {
-
+                onclick.onClick(absoluteAdapterPosition, dataList.get(position)!!)
             }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapterViewHolder {
@@ -102,6 +107,7 @@ class MatchesAdapter (var context: Context
         Glide.with(context).load(dataObject?.homeInfo?.logo).into(holder.home_image)
         Glide.with(context).load(dataObject?.awayInfo?.logo).into(holder.away_image)
         Glide.with(context).load(dataObject?.leagueInfo?.logo).into(holder.leagua_image)
+
 
 
 //        if (position==dataList.size-1&&loadMore)

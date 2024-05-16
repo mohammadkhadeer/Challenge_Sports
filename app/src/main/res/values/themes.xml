@@ -24,6 +24,7 @@
     <style name="TabtextAppearence" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
         <item name="textAllCaps">false</item>
+<!--        <item name="android:textStyle">bold</item>-->
     </style>
 
 
@@ -53,5 +54,14 @@
     <style name="progressBarBlue" parent="@style/Theme.AppCompat">
         <item name="colorAccent">@color/main_adapter_background_color_comp1</item>
     </style>
+
+    <style name="Theme.APISETUP.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.APISETUP.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.APISETUP.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

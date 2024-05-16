@@ -4,6 +4,14 @@
     //matches adapter status
     <string name="weather_empty">Weather not available</string>
 
+    //Match details
+    <string name="match_details">Match Details</string>
+    <string name="match_info">Match Info</string>
+    <string name="odds">Odds</string>
+    <string name="h2h">H2H</string>
+
+
+
     //Home come
     <string name="home">Home</string>
     <string name="matches">Matches</string>
@@ -30,4 +38,27 @@
     //shared preference
     <string name="app_pref_name">sports_app</string>
 
+    //Weather cases
+    <string name="weather_case_0">Weather not available</string>
+    <string name="weather_case_1">Partially Cloudy</string>
+    <string name="weather_case_2">Partially Cloudy Or Rain</string>
+    <string name="weather_case_3">Snow</string>
+    <string name="weather_case_4">Sunny</string>
+    <string name="weather_case_5">Overcast Rain</string>
+    <string name="weather_case_6">overcast</string>
+    <string name="weather_case_7">mist</string>
+    <string name="weather_case_8">cloudy With Rain</string>
+    <string name="weather_case_9">cloudy With Rain2</string>
+    <string name="weather_case_10">cloudy With Rain Rartial Thunder storms</string>
+    <string name="weather_case_11">Clouds Rains And Thunder storms Locally</string>
+    <string name="weather_case_12">Fog</string>
+    <string name="title_activity_match_details">MatchDetails</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

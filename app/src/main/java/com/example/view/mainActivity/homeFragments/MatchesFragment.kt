@@ -1,15 +1,16 @@
 package com.challenge.sports.view.HomeActivity.homeFragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
@@ -20,12 +21,14 @@ import com.example.model.hotMatches.HotMatche
 import com.example.model.hotMatches.MatchStatusJ
 import com.example.presnter.OnDetailListener
 import com.example.presnter.RecyclerViewOnclick
+import com.example.presnter.RecyclerViewOnclickMatch
 import com.example.utils.GeneralTools.fillMatchesStatus
+import com.example.utils.MySharableObject
 import com.example.view.mainActivity.homeAdapter.matches.MatchStatusAdapter
 import com.example.view.mainActivity.homeAdapter.matches.MatchesAdapter
+import com.example.view.matchDetails.MatchDetails
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
-import com.example.viewmodel.ViewModelFactory
 import java.util.*
 
 
@@ -35,6 +38,7 @@ class MatchesFragment : Fragment() {
     private lateinit var recycler_view: RecyclerView
     private lateinit var recyclerViewMain: RecyclerView
     private lateinit var pro_bar: ProgressBar
+    private lateinit var empty_view: RelativeLayout
 
     var match_status_list: ArrayList<MatchStatusJ> = ArrayList()
     var adpterMatchStatus: MatchStatusAdapter? = null
@@ -76,7 +80,6 @@ class MatchesFragment : Fragment() {
                     if (it.status== Status.SUCCESS){
                         passADataToMainAdapter(it.data!!.matchList)
                     }else{
-                        //handel error case
                         Log.i("TAG" ,"data.status "+it.status)
                     }
                 }
@@ -87,7 +90,6 @@ class MatchesFragment : Fragment() {
                     if (it.status== Status.SUCCESS){
                         passADataToMainAdapter(it.data!!.matchList)
                     }else{
-                        //handel error case
                         Log.i("TAG" ,"data.status "+it.status)
                     }
                 }
@@ -97,7 +99,6 @@ class MatchesFragment : Fragment() {
                     if (it.status== Status.SUCCESS){
                         passADataToMainAdapter(it.data!!.matchList)
                     }else{
-                        //handel error case
                         Log.i("TAG" ,"data.status "+it.status)
                     }
                 }
@@ -110,6 +111,7 @@ class MatchesFragment : Fragment() {
         matchesRoot.observe(requireActivity()){
             if (it.status== Status.SUCCESS){
                 passADataToMainAdapter(it.data!!.hotMatches)
+
             }else{
                 //handel error case
                 Log.i("TAG" ,"data.status "+it.status)
@@ -118,19 +120,39 @@ class MatchesFragment : Fragment() {
     }
 
     private fun passADataToMainAdapter(matches: List<HotMatche?>?) {
-        mainAdapter = MatchesAdapter(
-            requireContext(),
-            matches!!
-        )
 
-        recyclerViewMain.adapter = mainAdapter
-        recyclerViewMain.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        if (matches?.size == 0)
+        {
+            empty_view.isVisible =true
+        }else{
+            mainAdapter = MatchesAdapter(
+                requireContext(),
+                matches!!
+            , object : RecyclerViewOnclickMatch{
+                    override fun onClick(position: Int, match_obj: HotMatche) {
+                        //pass to details activity
+                        Log.i("TAG","position: "+position)
+                        Log.i("TAG","adapter match_obj.homeInfo.enName: "+match_obj.homeInfo?.enName)
 
-        recyclerViewMain.isVisible = true
-        pro_bar.isVisible = false
+
+
+                        val intent = Intent(this@MatchesFragment.requireContext(), MatchDetails::class.java)
+                        MySharableObject.matchObject=match_obj
+                        startActivity(intent)
+                    }
+            })
+
+            recyclerViewMain.adapter = mainAdapter
+            recyclerViewMain.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+            //handel what should be visible what should be gone
+            recyclerViewMain.isVisible = true
+            empty_view.isVisible = false
+            pro_bar.isVisible = false
+        }
+
     }
-
 
     private fun createRecyclerViewMatchStatus() {
         recycler_view.setNestedScrollingEnabled(false);
@@ -138,6 +160,9 @@ class MatchesFragment : Fragment() {
         recycler_view.adapter= MatchStatusAdapter(requireContext(), match_status_list,
             object : RecyclerViewOnclick {
                 override fun onClick(position: Int) {
+//                    val intent = Intent(this@MatchesFragment.requireContext(), MatchDetails::class.java)
+//                    startActivity(intent)
+
                     handleCaseReq(position)
                     upadateTheSelectedItemInRecyclerView(position)
 
@@ -149,7 +174,9 @@ class MatchesFragment : Fragment() {
 
     private fun handleCaseReq(position: Int) {
         recyclerViewMain.isVisible = false
+        empty_view.isVisible =false
         pro_bar.isVisible = true
+
 
         vm = SpewViewModel.giveMeViewModel(requireActivity())
         when (position) {
@@ -188,6 +215,7 @@ class MatchesFragment : Fragment() {
         recycler_view = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerViewMain = view.findViewById<RecyclerView>(R.id.main_recycler_view)
         pro_bar = view.findViewById<ProgressBar>(R.id.pro_bar)
+        empty_view = view.findViewById<RelativeLayout>(R.id.empty_view)
 
     }
 

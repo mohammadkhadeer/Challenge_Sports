@@ -11,11 +11,20 @@
 
    <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="?actionBarSize"
+       android:layout_height="@dimen/_30sdp"
        android:id="@+id/header"
-       android:background="@color/black"
        tools:ignore="MissingConstraints">
 
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/matches"
+           android:layout_marginStart="@dimen/_9sdp"
+           android:layout_marginBottom="@dimen/_3sdp"
+           android:layout_alignParentBottom="true"
+           android:textColor="@color/black"
+           android:textSize="@dimen/_16sdp"
+           android:textStyle="bold"/>
 
    </RelativeLayout>
 
@@ -34,11 +43,10 @@
         android:id="@+id/main_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_82sdp"
+        android:layout_marginTop="@dimen/_70sdp"
         android:nestedScrollingEnabled="false"
         tools:ignore="MissingConstraints"
         />
-
 
     <ProgressBar
         android:id="@+id/pro_bar"
@@ -51,5 +59,26 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:id="@+id/empty_view"
+        >
+
+    <ImageView
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/nodata"/>
+
+
+    </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
