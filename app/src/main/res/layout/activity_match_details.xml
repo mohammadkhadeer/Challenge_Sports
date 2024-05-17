@@ -10,32 +10,32 @@
 
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
-        android:id="@+id/header"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_8sdp"
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="match_parent"
-
-            android:src="@drawable/ic_launcher_foreground"
             android:id="@+id/back_image"
-            />
+            android:layout_width="@dimen/_30sdp"
 
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_foreground" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/match_details"
-            android:gravity="center"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/_40sdp"
             android:layout_marginEnd="@dimen/_40sdp"
             android:layout_marginBottom="@dimen/_3sdp"
-            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="@string/match_details"
             android:textColor="@color/black"
             android:textSize="@dimen/_16sdp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -66,7 +66,7 @@
                 android:id="@+id/leagua_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:layout_marginStart="@dimen/_6sdp"
                 />
 
@@ -78,6 +78,7 @@
                 android:text="Group-A"
                 android:textColor="@color/black"
                 android:layout_marginStart="@dimen/_23sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toStartOf="@+id/match_time"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +90,7 @@
                 android:id="@+id/time_icon"
                 android:layout_width="@dimen/_12sdp"
                 android:layout_height="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:background="@drawable/clock_ic"
                 android:layout_marginEnd="@dimen/_3sdp"
                 app:layout_constraintEnd_toEndOf="@+id/group_indicator"
@@ -103,6 +104,7 @@
                 android:textColor="@color/secondry_text_color"
                 android:textSize="14sp"
                 android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -288,13 +290,16 @@
             android:id="@+id/tabLayoutMatchFragments"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_25sdp"
-            android:layout_margin="@dimen/_2sdp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginEnd="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_1sdp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            app:tabIndicatorHeight="0dp"
-            app:tabIndicatorColor="@color/bg_color_1i"
             app:tabBackground="@drawable/match_details_tab_selector"
+            app:tabIndicatorColor="@color/bg_color_1i"
             app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="0dp"
             app:tabSelectedTextColor="@color/black"
             app:tabTextAppearance="@style/TabtextAppearence"
             app:tabTextColor="@color/bottom_tab_not_selected_color" />
@@ -305,7 +310,7 @@
         android:id="@+id/baseViewPagerMatchScreen"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_2sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tab_layout_cont" />
 

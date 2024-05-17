@@ -7,16 +7,16 @@
             android:shape="rectangle">
 
             <solid
-                android:color="@color/bg_color_1i" >
+                android:color="@color/white" >
             </solid>
 
             <stroke
                 android:width="1dp"
-                android:color="@color/bg_color_1i" >
+                android:color="@color/white" >
             </stroke>
 
             <corners
-                android:radius="@dimen/_5sdp"
+                android:radius="@dimen/_12sdp"
                 android:color="@color/text_color_tab" >
             </corners>
         </shape>
@@ -28,16 +28,16 @@
             android:shape="rectangle">
 
             <solid
-                android:color="@color/bg_color_1i" >
+                android:color="@color/white" >
             </solid>
 
             <stroke
                 android:width="1dp"
-                android:color="@color/bg_color_1i" >
+                android:color="@color/white" >
             </stroke>
 
             <corners
-                android:radius="@dimen/_5sdp"
+                android:radius="@dimen/_12sdp"
                 android:color="@color/text_color_tab" >
             </corners>
         </shape>
@@ -48,16 +48,16 @@
             android:shape="rectangle">
 
             <solid
-                android:color="@color/grey_main_segment" >
+                android:color="@color/white" >
             </solid>
 
             <stroke
                 android:width="1dp"
-                android:color="@color/grey_main_segment" >
+                android:color="@color/white" >
             </stroke>
 
             <corners
-                android:radius="@dimen/_5sdp"
+                android:radius="@dimen/_12sdp"
                 android:color="@color/text_color_tab" >
             </corners>
         </shape>

@@ -10,6 +10,19 @@
     <string name="odds">Odds</string>
     <string name="h2h">H2H</string>
 
+    //Match Info
+    <string name="about">About the match</string>
+    <string name="vs">VS</string>
+    <string name="at">At</string>
+    <string name="league_info">League info</string>
+    <string name="league_name">League name</string>
+    <string name="weather">Weather</string>
+
+    //Match odds
+    <string name="to_win">To win</string>
+    <string name="handicap">Handicap</string>
+    <string name="goals">Goals</string>
+    <string name="corners">Corners</string>
 
 
     //Home come

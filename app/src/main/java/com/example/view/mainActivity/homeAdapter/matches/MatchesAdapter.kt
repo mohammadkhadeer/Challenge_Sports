@@ -108,8 +108,6 @@ class MatchesAdapter (var context: Context
         Glide.with(context).load(dataObject?.awayInfo?.logo).into(holder.away_image)
         Glide.with(context).load(dataObject?.leagueInfo?.logo).into(holder.leagua_image)
 
-
-
 //        if (position==dataList.size-1&&loadMore)
 //            communicator.onMessageFromAdapter(MainAdapterMessages.LOAD_MORE,position,0)
     }

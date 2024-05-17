@@ -24,15 +24,4 @@ class H2HFragment : Fragment() {
 
     }
 
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance() =
-            H2HFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
-    }
-
 }

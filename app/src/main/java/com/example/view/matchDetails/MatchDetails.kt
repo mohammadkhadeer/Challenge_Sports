@@ -46,9 +46,9 @@ class MatchDetails : AppCompatActivity() {
     private lateinit var baseViewPager: ViewPager2
     private lateinit var fragsList: ArrayList<Fragment>
 
-    val match_info= MatchInfoFragment.newInstance()
-    val odds= OddsFragment.newInstance()
-    val h2h= H2HFragment.newInstance()
+    val match_info= MatchInfoFragment()
+    val odds= OddsFragment()
+    val h2h= H2HFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,13 +62,8 @@ class MatchDetails : AppCompatActivity() {
         tabLayoutController()
         if (MySharableObject.matchObject != null)
         {
-            Log.i("TAG","MySharableObject.matchObject "+ MySharableObject.matchObject)
-            Log.i("TAG","MatchDetails match_obj.homeInfo.enName: "+ MySharableObject.matchObject?.homeInfo?.enName)
             fillABasicInfo()
-        }else{
-            Log.i("TAG","Null")
         }
-
     }
 
     private fun handleAViewPagerAdapter() {
@@ -99,7 +94,7 @@ class MatchDetails : AppCompatActivity() {
             }
         }.attach()
 
-        tabLayout.getTabAt(0)?.select();
+        tabLayout.getTabAt(1)?.select();
     }
 
     private fun fillABasicInfo() {
