@@ -10,6 +10,7 @@ import com.challenge.sports.view.HomeActivity.homeFragments.MatchesFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
 import com.example.presnter.ViewPagerAdapter
+import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
 import com.example.view.mainActivity.homeFragments.NewsFragment
 import com.example.view.mainActivity.homeFragments.StandingBaseFragment
 import com.example.viewmodel.SpewViewModel
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     val newsFrag= NewsFragment.newInstance(false,":")
     val homeFragment= ProfileFragment.newInstance()
     val matchFrag= MatchesFragment.newInstance()
-    val profileFrag= ProfileFragment.newInstance()
+    val profileFrag= DiscoverFragment.newInstance("","")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
