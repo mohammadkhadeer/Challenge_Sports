@@ -9,16 +9,213 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Parcelable
 import android.provider.Settings.Global.getString
+import android.util.Log
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
 import com.example.model.hotMatches.MatchStatusJ
+import com.example.model.odds.Oddlist
+import com.example.model.odds.OddsRoot
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 object GeneralTools {
 
-    fun  fillMatchesStatus(context: Context):ArrayList<MatchStatusJ>{
+    fun filterOddRoot(company_id:Int,data: List<OddsRoot> ,odd_type:String): List<List<String>> {
+        var odd_list_data: List<List<String>> = ArrayList()
+        val list_size = data!!.size - 1
+        for (i in 0..list_size) {
+            if (data?.get(i)!!.companyId == company_id)
+            {
+                odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+            }
+            when(company_id){
+
+                2->{
+                    //BET365
+                    Log.i("TAG" ,"TAG BET365 @@@ im here")
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                3->{
+                    //Crown
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                4->{
+                    //Bet10
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                5->{
+                    //Ladbrokes
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                6->{
+                    //Mansion88
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                7->{
+                    //Macauslot
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                8->{
+                    //SNAI
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                9->{
+                    //William
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                10->{
+                    //Easybets
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                11->{
+                    //Vcbet
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                12->{
+                    //EuroBet
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                13->{
+                    //Interwetten
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                14->{
+                    //Bet12
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                15->{
+                    //Mansion88
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                16->{
+                    //Wewbet
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                17->{
+                    //Bet18
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                18->{
+                    //Fun88
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                21->{
+                    //Bet188
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+                22->{
+                    //Pinnacle
+                    odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+                }
+
+            }
+        }
+        return odd_list_data
+    }
+
+    fun getOddsList(oddsList: List<Oddlist> , odd_type:String ): List<List<String>>{
+        var odd_list_data: List<List<String>> = ArrayList()
+        val odd_list_size = oddsList.size - 1
+        for (j in 0..odd_list_size) {
+            if (oddsList.get(j).type == odd_type)
+            {
+                odd_list_data = oddsList.get(j).odds
+            }
+        }
+        return odd_list_data
+    }
+
+    fun companyName(company_id:Int): String {
+
+        var company_name: String = ""
+
+        when(company_id){
+
+            2->{
+                //BET365
+                company_name = "BET365"
+            }
+            3->{
+                //Crown
+                company_name = "BET365"
+            }
+            4->{
+                //Bet10
+                company_name = "BET365"
+            }
+            5->{
+                //Ladbrokes
+                company_name = "BET365"
+            }
+            6->{
+                //Mansion88
+                company_name = "BET365"
+            }
+            7->{
+                //Macauslot
+                company_name = "BET365"
+            }
+            8->{
+                //SNAI
+                company_name = "BET365"
+            }
+            9->{
+                //William
+                company_name = "BET365"
+            }
+            10->{
+                //Easybets
+                company_name = "BET365"
+            }
+            11->{
+                //Vcbet
+                company_name = "BET365"
+            }
+            12->{
+                //EuroBet
+                company_name = "BET365"
+            }
+            13->{
+                //Interwetten
+                company_name = "BET365"
+            }
+            14->{
+                //Bet12
+                company_name = "BET365"
+            }
+            15->{
+                //Mansion88
+                company_name = "BET365"
+            }
+            16->{
+                //Wewbet
+                company_name = "BET365"
+            }
+            17->{
+                //Bet18
+                company_name = "BET365"
+            }
+            18->{
+                //Fun88
+                company_name = "BET365"
+            }
+            21->{
+                //Bet188
+                company_name = "BET365"
+            }
+            22->{
+                //Pinnacle
+                company_name = "BET365"
+            }
+
+        }
+
+
+        return company_name
+    }
+
+    fun  fillMatchesStatus(context: Context,):ArrayList<MatchStatusJ>{
 
         var match_status_list: ArrayList<MatchStatusJ> = ArrayList()
 

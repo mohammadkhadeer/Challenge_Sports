@@ -4,6 +4,8 @@
     //matches adapter status
     <string name="weather_empty">Weather not available</string>
 
+
+
     //Match details
     <string name="match_details">Match Details</string>
     <string name="match_info">Match Info</string>
@@ -23,6 +25,14 @@
     <string name="handicap">Handicap</string>
     <string name="goals">Goals</string>
     <string name="corners">Corners</string>
+    <string name="home_team">Home</string>
+    <string name="away">Away</string>
+    <string name="x">X</string>
+    <string name="goal">Goals</string>
+    <string name="over">Over</string>
+    <string name="under">Under</string>
+
+
 
 
     //Home come
@@ -41,6 +51,8 @@
     <string name="highlights">Highlights</string>
 
 
+
+
     //video
     <string name="match_highlights">Match Highlights</string>
     <string name="see_all">See All</string>
@@ -48,9 +60,13 @@
     <string name="auto_play">Auto Play</string>
     <string name="related_videos">Related videos</string>
 
+
+
+
+
+    //######################### for all the app
     //shared preference
     <string name="app_pref_name">sports_app</string>
-
     //Weather cases
     <string name="weather_case_0">Weather not available</string>
     <string name="weather_case_1">Partially Cloudy</string>

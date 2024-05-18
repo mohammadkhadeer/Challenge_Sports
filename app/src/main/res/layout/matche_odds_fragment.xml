@@ -35,4 +35,216 @@
     </RelativeLayout>
 
 
+    <LinearLayout
+        android:id="@+id/teams_info_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout_cont"
+        tools:ignore="NotSibling">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40">
+
+            <!--            android:layout_centerHorizontal="true"-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/home_team_image"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/x1bet"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/arrow_down"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_text_1"
+                android:textSize="@dimen/_13sdp"
+                android:text="@string/home_team"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/x"
+                android:id="@+id/header_text_2"
+                android:textSize="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/away"
+                android:id="@+id/header_text_3"
+                android:textSize="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/teams_info_ll_handicap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout_cont"
+        tools:ignore="NotSibling">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40">
+
+            <!--            android:layout_centerHorizontal="true"-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/home_team_image_handicap"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/x1bet"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/arrow_down"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_team"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/away"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/odds_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_59sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/teams_info_ll"
+        android:nestedScrollingEnabled="false"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/odds_recycler_view_handicap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_59sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/teams_info_ll"
+        android:nestedScrollingEnabled="false"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

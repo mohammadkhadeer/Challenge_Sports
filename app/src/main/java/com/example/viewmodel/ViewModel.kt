@@ -32,7 +32,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getHotMatches(true)
                 //println(myData)
-                Log.i("TAG","myData "+myData)
+//                Log.i("TAG","myData "+myData)
                 matches_root.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -46,7 +46,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getUpcomingMatches()
                 //println(myData)
-                Log.i("TAG","myData "+myData)
+//                Log.i("TAG","myData "+myData)
                 matches_upcoming.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -61,7 +61,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getFinishedMatches()
                 //println(myData)
-                Log.i("TAG","myData "+myData)
+//                Log.i("TAG","myData "+myData)
                 matches_finished.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -75,7 +75,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getLiveMatches()
                 //println(myData)
-                Log.i("TAG","myData "+myData)
+//                Log.i("TAG","myData "+myData)
                 matches_live.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -91,7 +91,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getMatchOdds(match_id)
                 //println(myData)
-                Log.i("TAG","myData "+myData)
+//                Log.i("TAG","myData "+myData)
                 matches_odds.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
