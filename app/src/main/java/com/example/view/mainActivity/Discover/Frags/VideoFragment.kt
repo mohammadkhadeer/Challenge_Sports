@@ -24,6 +24,7 @@ class VideoFragment : Fragment() {
     private var param2: String? = null
 
     var videoView : VideoView? = null
+    var commentsButton:View ? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -47,6 +48,12 @@ class VideoFragment : Fragment() {
         videoView?.setOnPreparedListener {
             println("Play Now")
             videoView?.start()
+        }
+        commentsButton = view.findViewById(R.id.comments_btn)
+        commentsButton?.setOnClickListener {
+            val commentsBottomSheetFragment = CommentBottomSheetFrag()
+            commentsBottomSheetFragment.show(childFragmentManager, "commentsBottomSheet")
+
         }
     }
 
