@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -16,15 +17,18 @@ import com.challenge.sports.view.HomeActivity.homeFragments.MatchInfoFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.OddsFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
+import com.example.model.odds.OddsCompanyComp
+import com.example.presnter.FillCompanyInfo
 import com.example.presnter.ViewPagerAdapter
 import com.example.utils.GeneralTools
 import com.example.utils.MySharableObject
+import com.example.utils.SelectedCompanyObj
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import java.sql.DriverManager
 import java.util.*
 
-class MatchDetails : AppCompatActivity() {
+class MatchDetails : AppCompatActivity() , FillCompanyInfo {
     private lateinit var back_image: ImageView
 
     private lateinit var home_image: ImageView
@@ -49,6 +53,8 @@ class MatchDetails : AppCompatActivity() {
     val match_info= MatchInfoFragment()
     val odds= OddsFragment()
     val h2h= H2HFragment()
+
+    private val companyObjShared: SelectedCompanyObj? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -163,5 +169,10 @@ class MatchDetails : AppCompatActivity() {
         match_time= findViewById<TextView>(R.id.match_time)
         match_date= findViewById<TextView>(R.id.date_txt)
     }
+
+    override fun onFill(company_obj: OddsCompanyComp) {
+        Log.i("TAG","TAG onFill onActivity: "+ company_obj.name)
+    }
 }
+
 

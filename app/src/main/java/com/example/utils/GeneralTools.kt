@@ -9,16 +9,84 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Parcelable
 import android.provider.Settings.Global.getString
+import android.util.Log
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
 import com.example.model.hotMatches.MatchStatusJ
+import com.example.model.odds.Oddlist
+import com.example.model.odds.OddsCompanyComp
+import com.example.model.odds.OddsRoot
+import java.sql.DriverManager
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 object GeneralTools {
 
-    fun  fillMatchesStatus(context: Context):ArrayList<MatchStatusJ>{
+    fun convertTimeFormat(timeStamp: String): String{
+
+        var intValue = timeStamp
+        val number: Int? = intValue.toIntOrNull()
+        val dateFormatter = SimpleDateFormat("h:mm a EEEE, MMMM dd, yyyy", Locale.getDefault())
+        val date = Date(number?.times(1000L) ?: 0)  // Kotlin uses milliseconds for the Date constructor
+
+        val dateString = dateFormatter.format(date)
+
+        return dateString
+    }
+
+    fun filterOddRoot(company_id:Int,data: List<OddsRoot> ,odd_type:String): List<List<String>> {
+        var odd_list_data: List<List<String>> = ArrayList()
+        val list_size = data!!.size - 1
+        for (i in 0..list_size) {
+            if (data?.get(i)!!.companyId == company_id)
+            {
+                odd_list_data = getOddsList(data?.get(i)!!.oddlist,odd_type)
+            }
+        }
+        return odd_list_data
+    }
+
+    fun getOddsList(oddsList: List<Oddlist> , odd_type:String ): List<List<String>>{
+        var odd_list_data: List<List<String>> = ArrayList()
+        val odd_list_size = oddsList.size - 1
+        for (j in 0..odd_list_size) {
+            if (oddsList.get(j).type == odd_type)
+            {
+                odd_list_data = oddsList.get(j).odds
+            }
+        }
+        return odd_list_data
+    }
+
+    fun fillCompanyList(context: Context): ArrayList<OddsCompanyComp> {
+
+        var company_list: ArrayList<OddsCompanyComp> = ArrayList()
+
+        company_list.add(OddsCompanyComp(context.getString(R.string.BET365), R.drawable.bet365,2))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Crown), R.drawable.crown,3))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Bet10), R.drawable.x1bet,4))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Ladbrokes), R.drawable.ladbrokes,5))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Mansion88), R.drawable.mansion88,6))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Macauslot), R.drawable.macauslot,7))
+        company_list.add(OddsCompanyComp(context.getString(R.string.SNAI), R.drawable.sani,8))
+        company_list.add(OddsCompanyComp(context.getString(R.string.William), R.drawable.william_hill,9))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Easybets), R.drawable.easybets,10))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Vcbet), R.drawable.vcbet,11))
+        company_list.add(OddsCompanyComp(context.getString(R.string.EuroBet), R.drawable.euro_bet,12))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Interwetten), R.drawable.interwetten,13))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Bet12), R.drawable.bet12,14))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Sbobet), R.drawable.sbobet,15))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Wewbet), R.drawable.wewbet,16))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Bet18), R.drawable.bet18,17))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Fun88), R.drawable.fun88,18))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Bet188), R.drawable.bet188,21))
+        company_list.add(OddsCompanyComp(context.getString(R.string.Pinnacle), R.drawable.pinnacle,22))
+
+        return company_list
+    }
+
+    fun  fillMatchesStatus(context: Context,):ArrayList<MatchStatusJ>{
 
         var match_status_list: ArrayList<MatchStatusJ> = ArrayList()
 

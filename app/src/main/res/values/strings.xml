@@ -4,6 +4,8 @@
     //matches adapter status
     <string name="weather_empty">Weather not available</string>
 
+
+
     //Match details
     <string name="match_details">Match Details</string>
     <string name="match_info">Match Info</string>
@@ -23,6 +25,14 @@
     <string name="handicap">Handicap</string>
     <string name="goals">Goals</string>
     <string name="corners">Corners</string>
+    <string name="home_team">Home</string>
+    <string name="away">Away</string>
+    <string name="x">X</string>
+    <string name="goal">Goals</string>
+    <string name="over">Over</string>
+    <string name="under">Under</string>
+
+
 
 
     //Home come
@@ -41,6 +51,8 @@
     <string name="highlights">Highlights</string>
 
 
+
+
     //video
     <string name="match_highlights">Match Highlights</string>
     <string name="see_all">See All</string>
@@ -48,8 +60,36 @@
     <string name="auto_play">Auto Play</string>
     <string name="related_videos">Related videos</string>
 
+
+
+
+
+    //######################### for all the app
     //shared preference
     <string name="app_pref_name">sports_app</string>
+    //company namse
+    <string name="BET365">BET365</string>
+    <string name="Crown">Crown</string>
+    <string name="Bet10">Bet10</string>
+    <string name="Ladbrokes">Ladbrokes</string>
+    <string name="Mansion88">Mansion88</string>
+
+    <string name="Macauslot">Macauslot</string>
+    <string name="SNAI">SNAI</string>
+    <string name="William">William</string>
+    <string name="Easybets">Easybets</string>
+    <string name="Vcbet">Vcbet</string>
+
+    <string name="EuroBet">EuroBet</string>
+    <string name="Interwetten">Interwetten</string>
+    <string name="Bet12">Bet12</string>
+    <string name="Sbobet">Sbobet</string>
+    <string name="Wewbet">Wewbet</string>
+
+    <string name="Bet18">Bet18</string>
+    <string name="Fun88">Fun88</string>
+    <string name="Bet188">Bet188</string>
+    <string name="Pinnacle">Pinnacle</string>
 
     //Weather cases
     <string name="weather_case_0">Weather not available</string>

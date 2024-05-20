@@ -130,12 +130,6 @@ class MatchesFragment : Fragment() {
                 matches!!
             , object : RecyclerViewOnclickMatch{
                     override fun onClick(position: Int, match_obj: HotMatche) {
-                        //pass to details activity
-                        Log.i("TAG","position: "+position)
-                        Log.i("TAG","adapter match_obj.homeInfo.enName: "+match_obj.homeInfo?.enName)
-
-
-
                         val intent = Intent(this@MatchesFragment.requireContext(), MatchDetails::class.java)
                         MySharableObject.matchObject=match_obj
                         startActivity(intent)
