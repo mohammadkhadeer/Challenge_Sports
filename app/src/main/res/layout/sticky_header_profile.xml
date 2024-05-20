@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="@dimen/_25sdp">
+    <ImageView
+        android:id="@+id/my_vids_btn"
+        android:layout_width="0dp"
+        android:padding="@dimen/_5sdp"
+        android:layout_height="match_parent"
+        android:src="@drawable/videos_icon"
+        android:layout_weight="1"
+        app:tint="@color/grey" />
+    <ImageView
+        android:id="@+id/liked_btn"
+        android:layout_width="0dp"
+        android:padding="@dimen/_5sdp"
+        android:layout_height="match_parent"
+        android:src="@drawable/upvote_icon"
+        android:layout_weight="1"
+        app:tint="@color/grey" />
+    <ImageView
+        android:id="@+id/saved_btn"
+        android:padding="@dimen/_5sdp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/bookmark"
+        android:layout_weight="1"
+        app:tint="@color/grey" />
+    <ImageView
+        android:layout_width="0dp"
+        android:padding="@dimen/_5sdp"
+
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+</LinearLayout>

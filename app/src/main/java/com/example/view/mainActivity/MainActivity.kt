@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
         fragsList.add(newsFrag)
         fragsList.add(matchFrag)
         fragsList.add(StandingBaseFragment.newInstance("",""))
-        fragsList.add(homeFragment)
         fragsList.add(profileFrag)
+        fragsList.add(homeFragment)
 
 
 

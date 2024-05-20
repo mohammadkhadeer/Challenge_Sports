@@ -68,5 +68,6 @@
     <color name="green_text_color">#34C759</color>
     <color name="red_text_color">#FF3B30</color>
     <color name="grey_main_segment">#D1D1D7</color>
+    <color name="background_grey_light">#f2f2f7</color>
 
 </resources>
