@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
 import com.example.model.odds.Oddlist
+import com.example.utils.GeneralTools
 import java.sql.DriverManager.println
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AdapterOddsHandicap (var context: Context, var oddsList:  List<Oddlist>)
+class AdapterOddsHandicap (var context: Context, var oddsList:  List<List<String>>)
     : RecyclerView.Adapter<AdapterOddsHandicap.AdapterOddsHandicapViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterOddsHandicap.AdapterOddsHandicapViewHolder {
@@ -22,21 +23,13 @@ class AdapterOddsHandicap (var context: Context, var oddsList:  List<Oddlist>)
 
     override fun onBindViewHolder(holder: AdapterOddsHandicap.AdapterOddsHandicapViewHolder, position: Int) {
 
-        holder.odd_time_txt.text = oddsList.get(0).odds[position][0]
-        holder.home_txt_1.text = oddsList.get(0).odds[position][2]
-        holder.home_txt_2.text = oddsList.get(0).odds[position][2]
-        holder.away_txt_1.text = oddsList.get(0).odds[position][4]
-        holder.away_txt_2.text = oddsList.get(0).odds[position][4]
+        holder.odd_time_txt.text = oddsList[position][0]
+        holder.home_txt_1.text = oddsList[position][0][2].toString()
+        holder.home_txt_2.text = oddsList[position][0][2].toString()
+        holder.away_txt_1.text = oddsList[position][0][4].toString()
+        holder.away_txt_2.text = oddsList[position][0][4].toString()
 
-        //make a method in general
-        var intValue = oddsList.get(0).odds[position][0]
-        val number: Int? = intValue.toIntOrNull()
-        val dateFormatter = SimpleDateFormat("h:mm a EEEE, MMMM dd, yyyy", Locale.getDefault())
-        val date = Date(number?.times(1000L) ?: 0)  // Kotlin uses milliseconds for the Date constructor
-
-        val dateString = dateFormatter.format(date)
-        println("Human-readable date: $dateString")
-        holder.odd_time_txt.text = dateString
+        holder.odd_time_txt.text = GeneralTools.convertTimeFormat(oddsList[position][0])
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -52,6 +45,6 @@ class AdapterOddsHandicap (var context: Context, var oddsList:  List<Oddlist>)
     }
 
     override fun getItemCount(): Int {
-        return oddsList.get(0).odds.size
+        return oddsList.size
     }
 }

@@ -67,6 +67,30 @@
     //######################### for all the app
     //shared preference
     <string name="app_pref_name">sports_app</string>
+    //company namse
+    <string name="BET365">BET365</string>
+    <string name="Crown">Crown</string>
+    <string name="Bet10">Bet10</string>
+    <string name="Ladbrokes">Ladbrokes</string>
+    <string name="Mansion88">Mansion88</string>
+
+    <string name="Macauslot">Macauslot</string>
+    <string name="SNAI">SNAI</string>
+    <string name="William">William</string>
+    <string name="Easybets">Easybets</string>
+    <string name="Vcbet">Vcbet</string>
+
+    <string name="EuroBet">EuroBet</string>
+    <string name="Interwetten">Interwetten</string>
+    <string name="Bet12">Bet12</string>
+    <string name="Sbobet">Sbobet</string>
+    <string name="Wewbet">Wewbet</string>
+
+    <string name="Bet18">Bet18</string>
+    <string name="Fun88">Fun88</string>
+    <string name="Bet188">Bet188</string>
+    <string name="Pinnacle">Pinnacle</string>
+
     //Weather cases
     <string name="weather_case_0">Weather not available</string>
     <string name="weather_case_1">Partially Cloudy</string>

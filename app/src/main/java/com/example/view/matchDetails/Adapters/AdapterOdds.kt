@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
 import com.example.model.odds.Oddlist
+import com.example.utils.GeneralTools
 import java.sql.DriverManager.println
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,28 +20,13 @@ class AdapterOdds (var context: Context, var oddsList:  List<List<String>>)
         return AdapterOddsViewHolder(LayoutInflater.from(context).inflate(R.layout.adapter_odds,parent,false))
     }
 
-
     override fun onBindViewHolder(holder: AdapterOdds.AdapterOddsViewHolder, position: Int) {
 
-        holder.odd_time_txt.text = oddsList[position][0]
         holder.home_txt.text = oddsList[position][0]
         holder.vs_x_txt.text = oddsList[position][2]
         holder.away_txt.text = oddsList[position][4]
 
-        var intValue = oddsList[position][0]
-        val number: Int? = intValue.toIntOrNull()
-        val dateFormatter = SimpleDateFormat("h:mm a EEEE, MMMM dd, yyyy", Locale.getDefault())
-        val date = Date(number?.times(1000L) ?: 0)  // Kotlin uses milliseconds for the Date constructor
-
-//        if (lang() == "zh") {
-//            dateFormatter.locale = Locale("zh", "CN")
-//        } else {
-//            dateFormatter.locale = Locale("en")
-//        }
-
-        val dateString = dateFormatter.format(date)
-        println("Human-readable date: $dateString")
-        holder.odd_time_txt.text = dateString
+        holder.odd_time_txt.text = GeneralTools.convertTimeFormat(oddsList[position][0])
     }
 
     override fun getItemViewType(position: Int): Int {
