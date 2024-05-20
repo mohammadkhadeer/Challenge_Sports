@@ -25,4 +25,5 @@ interface ApiService {
     @GET(" api/football/match/odd/detail/withcompany/{matchid}")
     suspend fun getMatchOddList(@Path("matchid") matchid:String) : List<OddsRoot>
 
+
 }
