@@ -1,34 +1,28 @@
 package com.example.view.matchDetails
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.challenge.sports.view.HomeActivity.homeFragments.H2HFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.MatchInfoFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.OddsFragment
-import com.challenge.sports.view.HomeActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
 import com.example.model.odds.OddsCompanyComp
-import com.example.presnter.FillCompanyInfo
 import com.example.presnter.ViewPagerAdapter
 import com.example.utils.GeneralTools
 import com.example.utils.MySharableObject
 import com.example.utils.SelectedCompanyObj
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import java.sql.DriverManager
 import java.util.*
 
-class MatchDetails : AppCompatActivity() , FillCompanyInfo {
+class MatchDetails : AppCompatActivity() {
     private lateinit var back_image: ImageView
 
     private lateinit var home_image: ImageView
@@ -170,9 +164,6 @@ class MatchDetails : AppCompatActivity() , FillCompanyInfo {
         match_date= findViewById<TextView>(R.id.date_txt)
     }
 
-    override fun onFill(company_obj: OddsCompanyComp) {
-        Log.i("TAG","TAG onFill onActivity: "+ company_obj.name)
-    }
 }
 
 

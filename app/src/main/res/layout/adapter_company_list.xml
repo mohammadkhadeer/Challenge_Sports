@@ -15,6 +15,7 @@
         android:layout_marginHorizontal="@dimen/_6sdp"
         android:orientation="horizontal"
         android:weightSum="100"
+        android:layout_marginTop="@dimen/_3sdp"
         android:layout_marginBottom="@dimen/_4sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="40">
+            android:layout_weight="30">
 
             <!--            android:layout_centerHorizontal="true"-->
             <RelativeLayout
@@ -34,7 +35,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:id="@+id/company_image_view"/>
 
 
@@ -47,17 +48,21 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20">
+            android:layout_weight="70">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:id="@+id/company_name_txt"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:gravity="left"
+                android:layout_marginTop="@dimen/_7sdp"
                 android:layout_centerVertical="true"
+                android:textSize="@dimen/_14sdp"
+                android:layout_marginStart="@dimen/_4sdp"
                 android:text="@string/home_team"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
 
         </RelativeLayout>
 

@@ -12,6 +12,7 @@ import com.example.utils.GeneralTools
 import java.sql.DriverManager.println
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.time.times
 
 class AdapterOddsHandicap (var context: Context, var oddsList:  List<List<String>>)
     : RecyclerView.Adapter<AdapterOddsHandicap.AdapterOddsHandicapViewHolder>() {
@@ -23,10 +24,13 @@ class AdapterOddsHandicap (var context: Context, var oddsList:  List<List<String
 
     override fun onBindViewHolder(holder: AdapterOddsHandicap.AdapterOddsHandicapViewHolder, position: Int) {
 
-        holder.odd_time_txt.text = oddsList[position][0]
-        holder.home_txt_1.text = oddsList[position][0][2].toString()
+        var y : Double = oddsList[position][0][3].toDouble()
+        var x:Double = -1 * y
+
+        holder.home_txt_1.text = "$x"
         holder.home_txt_2.text = oddsList[position][0][2].toString()
-        holder.away_txt_1.text = oddsList[position][0][4].toString()
+
+        holder.away_txt_1.text = oddsList[position][0][3].toString()
         holder.away_txt_2.text = oddsList[position][0][4].toString()
 
         holder.odd_time_txt.text = GeneralTools.convertTimeFormat(oddsList[position][0])

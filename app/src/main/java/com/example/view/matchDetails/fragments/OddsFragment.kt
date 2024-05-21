@@ -1,6 +1,5 @@
 package com.challenge.sports.view.HomeActivity.homeFragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,37 +8,26 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.apisetup.R
 import com.example.apisetup.notmodel.Status
-import com.example.model.hotMatches.HotMatche
-import com.example.model.hotMatches.MatchStatusJ
-import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsCompanyComp
-import com.example.model.odds.OddsRoot
-import com.example.presnter.FillCompanyInfo
-import com.example.presnter.RecyclerViewOnclickMatch
 import com.example.utils.GeneralTools
 import com.example.utils.MySharableObject
+import com.example.utils.SelectedCompanyObj
 import com.example.view.bottomSheet.ModalBottomSheetFragment
-import com.example.view.mainActivity.homeAdapter.matches.MatchStatusAdapter
-import com.example.view.mainActivity.homeAdapter.matches.MatchesAdapter
-import com.example.view.mainActivity.homeFragments.StandingBaseFragment
-import com.example.view.matchDetails.Adapters.AdapterCompanyList
 import com.example.view.matchDetails.Adapters.AdapterOdds
 import com.example.view.matchDetails.Adapters.AdapterOddsHandicap
-import com.example.view.matchDetails.MatchDetails
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.google.android.material.tabs.TabLayoutMediator
-import java.util.*
 
-
-class OddsFragment : Fragment() , FillCompanyInfo {
+class OddsFragment : Fragment()  {
     private lateinit var tabLayout: TabLayout
     private lateinit var vm: MyViewModel
     private lateinit var recycler_view: RecyclerView
@@ -58,8 +46,17 @@ class OddsFragment : Fragment() , FillCompanyInfo {
     private lateinit var header_text_1: TextView
     private lateinit var header_text_2: TextView
     private lateinit var header_text_3: TextView
-    private var oddsList: List<List<String>>? = null
+
+
+    //use it to pass a value from bottomSheet to this fragment
+    //where create a object and set observer to see when this object will get a data
+    private val sharedViewModel: SelectedCompanyObj by activityViewModels()
+    //i use this to can pass a company id from tabLayout "to win,handicap ..etc"
+    //i get a value from observer i will put it on this vale to can access from
+    //tabLayout the default value for a company_id is "2"
+    //the bet365
     private var company_selected: OddsCompanyComp? = null
+    private var selected_tab: String = "eu"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +90,21 @@ class OddsFragment : Fragment() , FillCompanyInfo {
         }
 
         //odds type To win in response is asia
-        createOddList("asia")
+        createOddList(selected_tab!!,company_selected!!.id)
+
+        //when the select to see all a company avalible to see the bet
+        //i active this observer to can pass a selected value from a bottom sheet to the odds fragment
+        sharedViewModel.selectedValue.observe(viewLifecycleOwner, Observer { value ->
+            Log.i("TAG","TAG OddsFragment company_obj: "+value.name)
+            company_selected = value
+            updateImage()
+            if (selected_tab == "")
+            {
+                passADataToOddsAdapterHandicap(company_selected!!.id)
+            }else{
+                createOddList(selected_tab,company_selected!!.id)
+            }
+        })
     }
 
     private fun actionListenerToCompanyImage() {
@@ -110,6 +121,11 @@ class OddsFragment : Fragment() , FillCompanyInfo {
 
     private fun fillBasicInfo() {
         company_selected = OddsCompanyComp(requireActivity().getString(R.string.BET365), R.drawable.bet365,2)
+        //image for all cases
+        updateImage()
+    }
+
+    private fun updateImage() {
         Glide.with(requireActivity()).load(company_selected!!.image_path).into(company_image)
         Glide.with(requireActivity()).load(company_selected!!.image_path).into(company_image_handicap)
     }
@@ -130,26 +146,30 @@ class OddsFragment : Fragment() , FillCompanyInfo {
                         handleToWinHeader()
 
                         //odds type To win in response is asia
-                        createOddList("asia")
+                        selected_tab = "eu"
+                        createOddList(selected_tab,company_selected!!.id)
                     }
                     1->{
                         handleHandicapHeader()
 
                         //odds type handicap in response is asia
                         //createOddList("eu")
-                        passADataToOddsAdapterHandicap()
+                        selected_tab = "asia"
+                        passADataToOddsAdapterHandicap(company_selected!!.id)
                     }
                     2->{
                         handleGoalsHeader()
 
                         //odds type goals in response is asia
-                        createOddList("bs")
+                        selected_tab = "bs"
+                        createOddList(selected_tab,company_selected!!.id)
                     }
                     3->{
                         handleCornersHeader()
 
                         //odds type corners in response is asia
-                        createOddList("cr")
+                        selected_tab = "cr"
+                        createOddList(selected_tab,company_selected!!.id)
                     }
                 }
             }
@@ -162,9 +182,9 @@ class OddsFragment : Fragment() , FillCompanyInfo {
     }
 
     private fun handleCornersHeader() {
-        header_text_1.text = context!!.getString(R.string.corners)
-        header_text_2.text = context!!.getString(R.string.over)
-        header_text_3.text = context!!.getString(R.string.under)
+        header_text_1.text = requireContext().getString(R.string.corners)
+        header_text_2.text = requireContext().getString(R.string.over)
+        header_text_3.text = requireContext().getString(R.string.under)
 
         recycler_view.isVisible = true
         recycler_view_handicap.isVisible = false
@@ -174,9 +194,9 @@ class OddsFragment : Fragment() , FillCompanyInfo {
     }
 
     private fun handleGoalsHeader() {
-        header_text_1.text = context!!.getString(R.string.goal)
-        header_text_2.text = context!!.getString(R.string.over)
-        header_text_3.text = context!!.getString(R.string.under)
+        header_text_1.text = requireContext().getString(R.string.goal)
+        header_text_2.text = requireContext().getString(R.string.over)
+        header_text_3.text = requireContext().getString(R.string.under)
 
 
         recycler_view.isVisible = true
@@ -195,9 +215,9 @@ class OddsFragment : Fragment() , FillCompanyInfo {
     }
 
     private fun handleToWinHeader() {
-        header_text_1.text = context!!.getString(R.string.home_team)
-        header_text_2.text = context!!.getString(R.string.x)
-        header_text_3.text = context!!.getString(R.string.away)
+        header_text_1.text = requireContext().getString(R.string.home_team)
+        header_text_2.text = requireContext().getString(R.string.x)
+        header_text_3.text = requireContext().getString(R.string.away)
 
         recycler_view.isVisible = true
         recycler_view_handicap.isVisible = false
@@ -226,12 +246,12 @@ class OddsFragment : Fragment() , FillCompanyInfo {
     }
 
 
-    private fun createOddList(odds_type:String) {
+    private fun createOddList(odds_type:String,company_id:Int) {
         vm.matches_odds.observe(requireActivity()){
             if (it.status== Status.SUCCESS){
                 pro_bar.isVisible = false
 
-                var odd_list_data = GeneralTools.filterOddRoot(2,it.data!!,odds_type)
+                var odd_list_data = GeneralTools.filterOddRoot(company_id,it.data!!,odds_type)
 
                 if (odd_list_data.size == 0) {
                     empty_view_rl.isVisible = true
@@ -252,12 +272,10 @@ class OddsFragment : Fragment() , FillCompanyInfo {
         }
     }
 
-
-
-    private fun passADataToOddsAdapterHandicap() {
+    private fun passADataToOddsAdapterHandicap(company_id:Int) {
         vm.matches_odds.observe(requireActivity()){
             if (it.status== Status.SUCCESS){
-                var odd_list_data = GeneralTools.filterOddRoot(2,it.data!!,"eu")
+                var odd_list_data = GeneralTools.filterOddRoot(company_id,it.data!!,"eu")
 
                 if (odd_list_data.size == 0) {
                     empty_view_rl.isVisible = true
@@ -277,10 +295,5 @@ class OddsFragment : Fragment() , FillCompanyInfo {
 
     }
 
-
-    override fun onFill(company_obj: OddsCompanyComp) {
-        Log.i("TAG","TAG company_obj.name: "+company_obj.name)
-    }
-
-
 }
+

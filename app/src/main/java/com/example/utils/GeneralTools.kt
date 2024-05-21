@@ -22,6 +22,27 @@ import java.util.*
 
 
 object GeneralTools {
+    fun getFirstDigOnly(number: String): Int {
+        val myDouble: Double = number.toDouble()
+        val myInt: Int = myDouble.toInt()
+
+        return myInt
+    }
+    fun hasFractionalPart25(number: String): Boolean {
+        val myDouble: Double = number.toDouble()
+        // Extract the fractional part of the number
+        val fractionalPart = myDouble - myDouble.toInt()
+        // Check if the fractional part is 0.25
+        return fractionalPart == 0.25
+    }
+
+    fun hasFractionalPart75(number: String): Boolean {
+        val myDouble: Double = number.toDouble()
+        // Extract the fractional part of the number
+        val fractionalPart = myDouble - myDouble.toInt()
+        // Check if the fractional part is 0.25
+        return fractionalPart == 0.75
+    }
 
     fun convertTimeFormat(timeStamp: String): String{
 
@@ -37,6 +58,7 @@ object GeneralTools {
 
     fun filterOddRoot(company_id:Int,data: List<OddsRoot> ,odd_type:String): List<List<String>> {
         var odd_list_data: List<List<String>> = ArrayList()
+
         val list_size = data!!.size - 1
         for (i in 0..list_size) {
             if (data?.get(i)!!.companyId == company_id)

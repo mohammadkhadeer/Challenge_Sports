@@ -4,20 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="@dimen/_10sdp"
+        android:id="@+id/header_rl"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_1"
+            android:layout_marginHorizontal="@dimen/_100sdp"/>
+
+
+    </RelativeLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/company_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="700dp"
-        android:layout_marginTop="@dimen/_90sdp"
+        app:layout_constraintTop_toBottomOf="@+id/header_rl"
+        android:layout_marginTop="@dimen/_2sdp"
         android:nestedScrollingEnabled="false"
-        tools:ignore="MissingConstraints" />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
