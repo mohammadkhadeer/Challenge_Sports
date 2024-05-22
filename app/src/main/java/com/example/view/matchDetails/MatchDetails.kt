@@ -1,7 +1,6 @@
 package com.example.view.matchDetails
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,9 +10,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.challenge.sports.view.HomeActivity.homeFragments.H2HFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.MatchInfoFragment
-import com.challenge.sports.view.HomeActivity.homeFragments.OddsFragment
+import com.example.view.matchDetails.fragments.OddsFragment
 import com.example.apisetup.R
-import com.example.model.odds.OddsCompanyComp
 import com.example.presnter.ViewPagerAdapter
 import com.example.utils.GeneralTools
 import com.example.utils.MySharableObject

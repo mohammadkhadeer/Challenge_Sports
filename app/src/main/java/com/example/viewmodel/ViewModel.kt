@@ -10,6 +10,7 @@ import com.example.apisetup.notmodel.Resource
 import com.example.model.hotMatches.HotMatchBaseClass
 
 import com.example.apisetup.notmodel.Resource.Companion.loading
+import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.odds.OddsRoot
 import kotlinx.coroutines.launch
 import java.sql.DriverManager.println
@@ -20,8 +21,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     var matches_finished = MutableLiveData<Resource<HotMatchBaseClass>>()
     var matches_live = MutableLiveData<Resource<HotMatchBaseClass>>()
 
-
+    //match details
     var matches_odds = MutableLiveData<Resource< List<OddsRoot> >>()
+    var h2hList = MutableLiveData<Resource< H2HRoot >>()
 
     init {
 
@@ -93,6 +95,20 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
                 //println(myData)
 //                Log.i("TAG","myData "+myData)
                 matches_odds.postValue(Resource.success(myData))
+            }catch (e:Exception){
+                println(e.message)
+            }
+        }
+    }
+
+    fun getH2HListMatches(match_id:String){
+        viewModelScope.launch {
+            h2hList.postValue(Resource.loading(null))
+            try {
+                val myData=apiHelper.getH2HListMatches(match_id)
+                //println(myData)
+                Log.i("TAG","myData "+myData)
+                h2hList.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
             }

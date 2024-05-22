@@ -12,6 +12,8 @@ import android.provider.Settings.Global.getString
 import android.util.Log
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
+import com.example.model.headToHeadMatches.History
+import com.example.model.headToHeadMatches.MatchInfo
 import com.example.model.hotMatches.MatchStatusJ
 import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsCompanyComp
@@ -54,6 +56,18 @@ object GeneralTools {
         val dateString = dateFormatter.format(date)
 
         return dateString
+    }
+
+    // List<MatchInfo>
+    fun getH2HListMatches(homeOrAway:String,data: History): List<MatchInfo> {
+        var matchList: List<MatchInfo> = ArrayList()
+
+        matchList = if (homeOrAway == "home")
+            data.homeMatchInfo
+        else
+            data.awayMatchInfo
+
+        return matchList
     }
 
     fun filterOddRoot(company_id:Int,data: List<OddsRoot> ,odd_type:String): List<List<String>> {

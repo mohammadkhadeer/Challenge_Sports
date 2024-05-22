@@ -10,7 +10,7 @@ import com.example.apisetup.R
 import com.example.utils.GeneralTools
 import java.util.*
 
-class AdapterOdds (var context: Context, var oddsList:  List<List<String>>)
+class AdapterOdds (var context: Context, var oddsList:  List<List<String>>,var oddsType: String)
     : RecyclerView.Adapter<AdapterOdds.AdapterOddsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterOdds.AdapterOddsViewHolder {
@@ -18,15 +18,32 @@ class AdapterOdds (var context: Context, var oddsList:  List<List<String>>)
     }
 
     override fun onBindViewHolder(holder: AdapterOdds.AdapterOddsViewHolder, position: Int) {
-
-        holder.home_txt.text = oddsList[position][2]
-
-        //fill "X" value
-        fillXValue(oddsList[position][3],holder.vs_x_txt)
-
-        holder.away_txt.text = oddsList[position][4]
-
         holder.odd_time_txt.text = GeneralTools.convertTimeFormat(oddsList[position][0])
+
+        when(oddsType)
+        {
+            "eu"->{
+                //fill "X" value
+                fillXValue(oddsList[position][3],holder.vs_x_txt)
+                fillHomeAndAwayText(holder.home_txt,oddsList[position][2],holder.away_txt,oddsList[position][4])
+            }
+            "bs"->{
+                //fill "over" value
+                fillXValue(oddsList[position][2],holder.vs_x_txt)
+                fillHomeAndAwayText(holder.home_txt,oddsList[position][3],holder.away_txt,oddsList[position][4])
+            }
+            "cr"->{
+                //fill "over" value
+                fillXValue(oddsList[position][2],holder.vs_x_txt)
+                fillHomeAndAwayText(holder.home_txt,oddsList[position][3],holder.away_txt,oddsList[position][4])
+            }
+        }
+
+    }
+
+    private fun fillHomeAndAwayText(homeTxt: TextView?, homeValue: String, awayTxt: TextView?, awayValue: String) {
+        homeTxt?.text = homeValue
+        awayTxt?.text = awayValue
     }
 
     private fun fillXValue(x_value: String, vsXTxt: TextView) {

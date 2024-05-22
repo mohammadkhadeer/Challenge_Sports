@@ -34,7 +34,6 @@
 
     </RelativeLayout>
 
-
     <LinearLayout
         android:id="@+id/teams_info_ll"
         android:layout_width="match_parent"
@@ -225,7 +224,6 @@
 
     </LinearLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/odds_recycler_view"
         android:layout_width="match_parent"
@@ -271,6 +269,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/teams_info_ll"
         android:nestedScrollingEnabled="false"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.challenge.sports.view.HomeActivity.homeFragments
+package com.example.view.matchDetails.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -28,33 +28,33 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
 class OddsFragment : Fragment()  {
+    //ui
     private lateinit var tabLayout: TabLayout
-    private lateinit var vm: MyViewModel
     private lateinit var recycler_view: RecyclerView
     private lateinit var recycler_view_handicap: RecyclerView
     private lateinit var empty_view_rl: RelativeLayout
     private lateinit var pro_bar: ProgressBar
     private lateinit var company_image: ImageView
     private lateinit var company_image_handicap: ImageView
-
     private lateinit var teams_info_ll: LinearLayout
     private lateinit var teams_info_ll_handicap: LinearLayout
-
-    private var oddsAdapter: AdapterOdds? = null
-    private var oddsAdapterHandicap: AdapterOddsHandicap? = null
-
     private lateinit var header_text_1: TextView
     private lateinit var header_text_2: TextView
     private lateinit var header_text_3: TextView
 
-
+    //values
+    private lateinit var vm: MyViewModel
+    private var oddsAdapter: AdapterOdds? = null
+    private var oddsAdapterHandicap: AdapterOddsHandicap? = null
     //use it to pass a value from bottomSheet to this fragment
     //where create a object and set observer to see when this object will get a data
     private val sharedViewModel: SelectedCompanyObj by activityViewModels()
-    //i use this to can pass a company id from tabLayout "to win,handicap ..etc"
-    //i get a value from observer i will put it on this vale to can access from
-    //tabLayout the default value for a company_id is "2"
-    //the bet365
+    /*
+    i use this to can pass a company id from tabLayout "to win,handicap ..etc"
+      i get a value from observer i will put it on this vale to can access from
+      tabLayout the default value for a company_id is "2"
+      the bet365
+    */
     private var company_selected: OddsCompanyComp? = null
     private var selected_tab: String = "eu"
 
@@ -82,23 +82,23 @@ class OddsFragment : Fragment()  {
         tabLayoutController()
 
         vm = SpewViewModel.giveMeViewModel(requireActivity())
-
         if (MySharableObject.matchObject != null)
         {
-            Log.i("TAG","TAG MySharableObject.matchObject?.id!! "+MySharableObject.matchObject?.id!!)
+//            Log.i("TAG","TAG MySharableObject.matchObject?.id!! "+MySharableObject.matchObject?.id!!)
             vm.getMatchOdds(MySharableObject.matchObject?.id!!)
         }
 
         //odds type To win in response is asia
         createOddList(selected_tab!!,company_selected!!.id)
 
-        //when the select to see all a company avalible to see the bet
+        //when the select to see all a company available to see the bet list according the selected company
         //i active this observer to can pass a selected value from a bottom sheet to the odds fragment
         sharedViewModel.selectedValue.observe(viewLifecycleOwner, Observer { value ->
-            Log.i("TAG","TAG OddsFragment company_obj: "+value.name)
+            //after get a value from bottomSheet i pass it to general value in this fragment
+            //to can access in tabLayout
             company_selected = value
             updateImage()
-            if (selected_tab == "")
+            if (selected_tab == "asia")
             {
                 passADataToOddsAdapterHandicap(company_selected!!.id)
             }else{
@@ -245,7 +245,6 @@ class OddsFragment : Fragment()  {
         pro_bar = view.findViewById<ProgressBar>(R.id.pro_bar)
     }
 
-
     private fun createOddList(odds_type:String,company_id:Int) {
         vm.matches_odds.observe(requireActivity()){
             if (it.status== Status.SUCCESS){
@@ -260,7 +259,7 @@ class OddsFragment : Fragment()  {
                     empty_view_rl.isVisible = false
                     recycler_view.isVisible = true
 
-                    oddsAdapter = AdapterOdds(requireContext(),odd_list_data)
+                    oddsAdapter = AdapterOdds(requireContext(),odd_list_data,odds_type)
                     recycler_view.adapter = oddsAdapter
                     recycler_view.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -275,7 +274,7 @@ class OddsFragment : Fragment()  {
     private fun passADataToOddsAdapterHandicap(company_id:Int) {
         vm.matches_odds.observe(requireActivity()){
             if (it.status== Status.SUCCESS){
-                var odd_list_data = GeneralTools.filterOddRoot(company_id,it.data!!,"eu")
+                var odd_list_data = GeneralTools.filterOddRoot(company_id,it.data!!,"asia")
 
                 if (odd_list_data.size == 0) {
                     empty_view_rl.isVisible = true
@@ -292,7 +291,6 @@ class OddsFragment : Fragment()  {
                 Log.i("TAG" ,"data.status "+it.status)
             }
         }
-
     }
 
 }

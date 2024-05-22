@@ -24,14 +24,14 @@ class AdapterOddsHandicap (var context: Context, var oddsList:  List<List<String
 
     override fun onBindViewHolder(holder: AdapterOddsHandicap.AdapterOddsHandicapViewHolder, position: Int) {
 
-        var y : Double = oddsList[position][0][3].toDouble()
+        var y : Double = oddsList[position][3].toDouble()
         var x:Double = -1 * y
 
-        holder.home_txt_1.text = "$x"
-        holder.home_txt_2.text = oddsList[position][0][2].toString()
+        holder.home_txt_1.text = x.toString()
+        holder.home_txt_2.text = oddsList[position][2]
 
-        holder.away_txt_1.text = oddsList[position][0][3].toString()
-        holder.away_txt_2.text = oddsList[position][0][4].toString()
+        holder.away_txt_1.text = oddsList[position][3]
+        holder.away_txt_2.text = oddsList[position][4]
 
         holder.odd_time_txt.text = GeneralTools.convertTimeFormat(oddsList[position][0])
     }

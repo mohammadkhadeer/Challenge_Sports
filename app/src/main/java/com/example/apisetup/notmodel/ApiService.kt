@@ -1,5 +1,6 @@
 package com.example.apisetup.notmodel
 
+import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsRoot
@@ -25,5 +26,7 @@ interface ApiService {
     @GET(" api/football/match/odd/detail/withcompany/{matchid}")
     suspend fun getMatchOddList(@Path("matchid") matchid:String) : List<OddsRoot>
 
+    @GET(" api/football/match-analysis/statics/{matchid}")
+    suspend fun getH2HListMatches(@Path("matchid") matchid:String) : H2HRoot
 
 }
