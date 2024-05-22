@@ -46,8 +46,6 @@ class MatchDetails : AppCompatActivity() {
     val odds= OddsFragment()
     val h2h= H2HFragment()
 
-    private val companyObjShared: SelectedCompanyObj? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match_details)

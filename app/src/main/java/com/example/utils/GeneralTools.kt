@@ -21,6 +21,7 @@ import com.example.model.odds.OddsRoot
 import java.sql.DriverManager
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.time.Duration.Companion.hours
 
 
 object GeneralTools {
@@ -68,6 +69,110 @@ object GeneralTools {
             data.awayMatchInfo
 
         return matchList
+    }
+
+    fun getSomeOfStatisticsAboutMatch(data: History,home_team_name_en:String,away_team_name_en:String): List<String> {
+        var number_of_win_matches_for_home_team:Int = 0
+        var number_of_lose_matches_for_home_team:Int = 0
+
+        var number_of_win_matches_for_away_team:Int = 0
+        var number_of_lose_matches_for_away_team:Int = 0
+
+        var matchesHome: List<MatchInfo> = ArrayList()
+        var matchesAway: List<MatchInfo> = ArrayList()
+        matchesHome = getH2HListMatches("home",data)
+        matchesAway = getH2HListMatches("away",data)
+        for (i in matchesHome.indices) {
+            /*
+                i check here to confirm if home_team_name_en was a home team or away in
+                matchesHome list if he was a home then i will compere he is score with away score
+                else he will be away in that match then i will take a way score for him
+                for lose matches same strategy
+             */
+            if (matchesHome[i].homeEnName == home_team_name_en)
+            {
+                if (matchesHome[i].homeTeamScore > matchesHome[i].awayTeamScore)
+                {
+                    number_of_win_matches_for_home_team += 1
+                }
+
+                if (matchesHome[i].homeTeamScore < matchesHome[i].awayTeamScore)
+                {
+                    number_of_lose_matches_for_home_team += 1
+                }
+
+            }else{
+                if (matchesHome[i].awayTeamScore > matchesHome[i].homeTeamScore)
+                {
+                    number_of_win_matches_for_home_team += 1
+                }
+
+                if (matchesHome[i].awayTeamScore < matchesHome[i].homeTeamScore)
+                {
+                    number_of_lose_matches_for_home_team += 1
+                }
+            }
+        }
+
+        for (i in matchesAway.indices) {
+            if (matchesAway[i].homeEnName == away_team_name_en)
+            {
+                if (matchesAway[i].homeTeamScore > matchesAway[i].awayTeamScore)
+                {
+                    number_of_win_matches_for_away_team += 1
+                }
+                if (matchesAway[i].homeTeamScore < matchesAway[i].awayTeamScore)
+                {
+                    number_of_lose_matches_for_away_team += 1
+                }
+
+            }else{
+                if (matchesAway[i].awayTeamScore > matchesAway[i].homeTeamScore)
+                {
+                    number_of_win_matches_for_away_team += 1
+                }
+                if (matchesAway[i].awayTeamScore < matchesAway[i].homeTeamScore)
+                {
+                    number_of_lose_matches_for_away_team += 1
+                }
+            }
+        }
+
+        /*
+             Statistics contain:
+             1.index[0] number_of_win_matches_for_home_team
+             2.index[1] number_of_lose_matches_for_home_team
+             3.index[2] number_of_win_matches_for_away_team
+             4.index[3] number_of_lose_matches_for_away_team
+             5.index[4] total home games
+             6.index[5] total away games
+             7.index[6] percent of win game to home team
+             8.index[7] percent of win game to away team
+         */
+        val list = listOf("number_of_win_matches_for_home_team"
+            , "number_of_lose_matches_for_home_team"
+            , "number_of_win_matches_for_away_team"
+            ,"number_of_lose_matches_for_away_team"
+            ,"total home games"
+            ,"total away games"
+            ,"percent of win game to home team"
+            ,"percent of win game to away team"
+        )
+        var homeWinPercent:Double = number_of_win_matches_for_home_team.toDouble() / matchesHome.size
+        var awayWinPercent:Double = number_of_win_matches_for_away_team.toDouble() / matchesAway.size
+
+        val mutableList = list.toMutableList()
+        mutableList[0] = number_of_win_matches_for_home_team.toString()
+        mutableList[1] = number_of_lose_matches_for_home_team.toString()
+        mutableList[2] = number_of_win_matches_for_away_team.toString()
+        mutableList[3] = number_of_lose_matches_for_away_team.toString()
+        mutableList[4] = matchesHome.size.toString()
+        mutableList[5] = matchesAway.size.toString()
+        mutableList[6] = homeWinPercent.toString()
+        mutableList[7] = awayWinPercent.toString()
+        val statisticsList = mutableList.toList()
+
+        return statisticsList
     }
 
     fun filterOddRoot(company_id:Int,data: List<OddsRoot> ,odd_type:String): List<List<String>> {

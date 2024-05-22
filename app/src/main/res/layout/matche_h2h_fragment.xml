@@ -6,12 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     >
 
     <RelativeLayout
         android:id="@+id/tab_layout_cont"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_27sdp"
+        android:background="@drawable/bg_3"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_2sdp"
         >
@@ -33,6 +35,110 @@
             app:tabTextColor="@color/blue_text_color" />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout_cont"
+        android:background="@drawable/bg_4"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        android:id="@+id/ber_rl"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/green_1"
+            android:text="@string/won"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_2sdp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:text="@string/lose"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textColor="@color/red_1"
+            android:textSize="@dimen/_10sdp" />
+
+        <com.tomlecollegue.progressbars.HorizontalProgressView
+            android:id="@+id/horizontalProgressView"
+            android:layout_width="match_parent"
+            app:colorBackground="@color/red_1"
+            app:colorProgress="@color/green_1"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_centerVertical="true"
+            app:defaultValue="45"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:text="total matches"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/total_matches_txt"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/green_1"
+            android:text="22"
+            android:id="@+id/number_of_win_txt"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/red_1"
+            android:text="22"
+            android:id="@+id/number_of_lose_txt"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/ber_rl"
+        android:layout_marginTop="@dimen/_88sdp"
+        android:background="@drawable/bg_2"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/ber_rl"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:nestedScrollingEnabled="false"
+            />
+
+    </RelativeLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

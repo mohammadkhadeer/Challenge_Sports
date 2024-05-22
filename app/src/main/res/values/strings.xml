@@ -11,6 +11,8 @@
     <string name="match_info">Match Info</string>
     <string name="odds">Odds</string>
     <string name="h2h">H2H</string>
+    <string name="won">Won</string>
+    <string name="lose">Lose</string>
 
     //Match Info
     <string name="about">About the match</string>
