@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">API SETUP</string>
+    <string name="app_name">Challenge Sports</string>
 
     //matches adapter status
     <string name="weather_empty">Weather not available</string>

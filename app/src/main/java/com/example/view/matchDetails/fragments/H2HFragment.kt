@@ -24,13 +24,13 @@ import com.example.view.matchDetails.Adapters.AdapterOdds
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 import com.google.android.material.tabs.TabLayout
-import com.tomlecollegue.progressbars.HorizontalProgressView
+//import com.tomlecollegue.progressbars.HorizontalProgressView
 
 class H2HFragment : Fragment() {
     //ui
     private lateinit var tabLayout: TabLayout
     private lateinit var recyclerView: RecyclerView
-    private lateinit var horizontalProgressView: HorizontalProgressView
+//    private lateinit var horizontalProgressView: HorizontalProgressView
     private lateinit var number_of_win_txt: TextView
     private lateinit var total_matches_txt: TextView
     private lateinit var number_of_lose_txt: TextView
@@ -72,7 +72,7 @@ class H2HFragment : Fragment() {
         //odds_recycler_view_handicap
         tabLayout = view.findViewById<TabLayout>(R.id.tabLayoutH2HFragments)
         recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-        horizontalProgressView = view.findViewById<HorizontalProgressView>(R.id.horizontalProgressView)
+//        horizontalProgressView = view.findViewById<HorizontalProgressView>(R.id.horizontalProgressView)
         number_of_win_txt = view.findViewById<TextView>(R.id.number_of_win_txt)
         total_matches_txt = view.findViewById<TextView>(R.id.total_matches_txt)
         number_of_lose_txt = view.findViewById<TextView>(R.id.number_of_lose_txt)
@@ -129,7 +129,6 @@ class H2HFragment : Fragment() {
 
     private fun fillProgressViewInfo(history: History,home_or_away:String) {
        // Between 0 and 100 (%)
-        horizontalProgressView.progress = 85
         var statisticsList = GeneralTools.getSomeOfStatisticsAboutMatch(history,
             MySharableObject.matchObject?.homeInfo?.enName!!,MySharableObject.matchObject?.awayInfo?.enName!!)
 
@@ -137,7 +136,7 @@ class H2HFragment : Fragment() {
         {
             var x = statisticsList[6].toDouble() * 100
             var xy = x.toInt()
-            horizontalProgressView.progress = xy
+//            horizontalProgressView.progress = xy
 
             number_of_win_txt.text = "(${statisticsList[0]} / ${statisticsList[4]})"
             number_of_lose_txt.text = "(${statisticsList[1]} / ${statisticsList[4]})"
@@ -147,7 +146,7 @@ class H2HFragment : Fragment() {
         }else{
             var x = statisticsList[7].toDouble() * 100
             var xy = x.toInt()
-            horizontalProgressView.progress = xy
+//            horizontalProgressView.progress = xy
 
             number_of_win_txt.text = "(${statisticsList[2]} / ${statisticsList[5]})"
             number_of_lose_txt.text = "(${statisticsList[3]} / ${statisticsList[5]})"
