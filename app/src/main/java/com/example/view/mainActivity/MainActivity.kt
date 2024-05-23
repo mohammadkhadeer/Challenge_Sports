@@ -2,21 +2,16 @@ package com.example.view.mainActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
+import android.view.View
+import android.widget.Toast
 import com.challenge.sports.view.HomeActivity.homeFragments.MatchesFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
-import com.example.presnter.ViewPagerAdapter
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
 import com.example.view.mainActivity.homeFragments.NewsFragment
-import com.example.view.mainActivity.homeFragments.StandingBaseFragment
-import com.example.viewmodel.SpewViewModel
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import java.util.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,61 +22,51 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.base_activity_drawer_container)
 
         statusBarColor()
         tabLayout()
-
     }
 
     private fun tabLayout() {
-        val baseViewPager=findViewById<ViewPager2>(R.id.baseViewPager)
-
-        val fragsList= ArrayList<Fragment>()
-        fragsList.add(newsFrag)
-        fragsList.add(matchFrag)
-        fragsList.add(StandingBaseFragment.newInstance("",""))
-        fragsList.add(profileFrag)
-        fragsList.add(homeFragment)
-
-
-
-        baseViewPager.adapter= ViewPagerAdapter(supportFragmentManager,lifecycle,fragsList)
-        baseViewPager.isUserInputEnabled=false
-        baseViewPager.offscreenPageLimit=4
-
-        val tabLayout=findViewById<TabLayout>(R.id.tabLayoutMain)
-        TabLayoutMediator(tabLayout,baseViewPager){tab,position->
-            when(position){
-                0->{
-                    tab.text=getString(R.string.home)
-                    tab.icon=getDrawable(R.drawable.ic_home)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.home_tab -> {
+                    replaceFragment(newsFrag)
                 }
-                1->{
-                    tab.text=getString(R.string.matches)
-                    tab.icon= ContextCompat.getDrawable(this,R.drawable.matches)
+                R.id.matches_tab -> {
+                    replaceFragment(matchFrag)
                 }
-                2->{
-                    tab.text=" "
-                    tab.icon= ContextCompat.getDrawable(this,R.drawable.upload)
-
+                R.id.discover_tab -> {
+                    replaceFragment(profileFrag)
                 }
-                3->{
-                    tab.text=getString(R.string.discover)
-                    tab.icon= ContextCompat.getDrawable(this,R.drawable.discoveries)
-                }
-                4->{
-                    tab.text=getString(R.string.profile)
-                    tab.icon= ContextCompat.getDrawable(this,R.drawable.profile_ic)
+                R.id.profile_tab -> {
+                    replaceFragment(homeFragment)
                 }
             }
-        }.attach()
+            true
+        }
 
-        //to detect tab bar will start from where
-        tabLayout.getTabAt(1)?.select();
+        replaceFragment(newsFrag)
+        bottomNavigationView.selectedItemId = R.id.matches_tab
+
+        val addFab = findViewById<FloatingActionButton>(R.id.addFabBtn)
+        addFab.setOnClickListener {
+            Toast.makeText(this,"Add Clicked", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     private fun statusBarColor() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.bottomFragment,fragment)
+            .commit()
+    }
+
 }
