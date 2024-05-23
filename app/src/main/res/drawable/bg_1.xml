@@ -21,6 +21,7 @@
             </corners>
         </shape>
     </item><!-- pressed -->
+
     <item
         android:state_focused="true"
         >
@@ -62,4 +63,5 @@
             </corners>
         </shape>
     </item><!-- default -->
+
 </selector>

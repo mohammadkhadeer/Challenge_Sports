@@ -148,6 +148,8 @@ object GeneralTools {
              6.index[5] total away games
              7.index[6] percent of win game to home team
              8.index[7] percent of win game to away team
+             9.index[8] percent of lose game to away team
+             10.index[9] percent of lose game to away team
          */
         val list = listOf("number_of_win_matches_for_home_team"
             , "number_of_lose_matches_for_home_team"
@@ -157,9 +159,14 @@ object GeneralTools {
             ,"total away games"
             ,"percent of win game to home team"
             ,"percent of win game to away team"
+            ,"percent of lose game to away team"
+            ,"percent of lose game to away team"
         )
         var homeWinPercent:Double = number_of_win_matches_for_home_team.toDouble() / matchesHome.size
         var awayWinPercent:Double = number_of_win_matches_for_away_team.toDouble() / matchesAway.size
+
+        var homeLosePercent:Double = number_of_lose_matches_for_home_team.toDouble() / matchesHome.size
+        var awayLosePercent:Double = number_of_lose_matches_for_away_team.toDouble() / matchesAway.size
 
         val mutableList = list.toMutableList()
         mutableList[0] = number_of_win_matches_for_home_team.toString()
@@ -170,6 +177,8 @@ object GeneralTools {
         mutableList[5] = matchesAway.size.toString()
         mutableList[6] = homeWinPercent.toString()
         mutableList[7] = awayWinPercent.toString()
+        mutableList[8] = homeLosePercent.toString()
+        mutableList[9] = awayLosePercent.toString()
         val statisticsList = mutableList.toList()
 
         return statisticsList

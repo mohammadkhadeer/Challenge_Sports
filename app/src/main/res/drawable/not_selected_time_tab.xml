@@ -3,7 +3,7 @@
     <!-- UNSELECTED TAB STATE -->
     <item android:state_selected="false" android:state_pressed="false">
         <shape>
-            <solid android:color="@color/colorPrimary"/>
+            <solid android:color="@color/grey_main_segment"/>
         </shape>
 
 <!--        <layer-list>-->

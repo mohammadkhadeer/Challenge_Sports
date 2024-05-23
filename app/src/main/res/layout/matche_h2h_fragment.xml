@@ -65,17 +65,35 @@
             android:textColor="@color/red_1"
             android:textSize="@dimen/_10sdp" />
 
-<!--        <com.tomlecollegue.progressbars.HorizontalProgressView-->
-<!--            android:id="@+id/horizontalProgressView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            app:colorBackground="@color/red_1"-->
-<!--            app:colorProgress="@color/green_1"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:layout_marginStart="12dp"-->
-<!--            android:layout_marginEnd="12dp"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            app:defaultValue="45"-->
-<!--            />-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_height="18dp">
+
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:progress="50"
+                android:progressTint="@color/green_1"
+                android:progressBackgroundTint="@color/red_1"
+                android:textAlignment="center"
+                android:id="@+id/progressBar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/per_text"
+                android:text=""
+                android:textSize="11sp"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+
 
         <TextView
             android:layout_width="wrap_content"
