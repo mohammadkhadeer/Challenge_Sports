@@ -11,6 +11,7 @@ import com.example.apisetup.R
 
 import com.example.presnter.OnBackPressedListener
 import com.example.presnter.OnDetailListener
+import com.example.viewmodel.SpewViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,10 +50,7 @@ class VideoBaseFragment : Fragment() {
         val moreVidsRecyclerView = view.findViewById<RecyclerView>(R.id.more_vids_recycler_view)
         val loadingMoreBar=view.findViewById<View>(R.id.loading_more_bar)
 
-//        val viewModel = ViewModelProvider(
-//            requireActivity().viewModelStore,
-//            ViewModelFactory(ApiHelperImpl(RetroInstance.apiService))
-//        ).get(MainViewModel::class.java)
+
 
 
     }

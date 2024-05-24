@@ -36,6 +36,7 @@ class VideoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         videoView = view.findViewById(R.id.video_view_discover)
+
         videoView?.setVideoPath("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
         videoView?.start()
         videoView?.setOnPreparedListener {

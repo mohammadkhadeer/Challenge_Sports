@@ -3,6 +3,7 @@ package com.example.apisetup.notmodel
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.odds.OddsRoot
+import com.example.model.videos.random.RandomVidsBase
 
 class ApiImpl(private val apiService: ApiService) : ApiHelper {
     //matches
@@ -14,4 +15,5 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     //match details
     override suspend fun getMatchOdds(match_id: String): List<OddsRoot> = apiService.getMatchOddList(match_id)
     override suspend fun getH2HListMatches(match_id: String): H2HRoot  = apiService.getH2HListMatches(match_id)
+    override suspend fun getVideos(type: String): RandomVidsBase = apiService.getVideos(type)
 }

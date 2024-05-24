@@ -10,6 +10,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apisetup.R
+import com.example.apisetup.notmodel.Status
+import com.example.model.videos.random.Data
+import com.example.viewmodel.SpewViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,8 +43,23 @@ class DiscoverFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val viewModel = SpewViewModel.giveViewModelVideos(requireActivity())
+        viewModel.getRandomVids()
+        viewModel.videoRandom.observe(viewLifecycleOwner){ resource->
+            when(resource.status){
+                Status.SUCCESS -> {
+                    mainViewPager?.adapter=VideoViewPagerAdapter(requireActivity(),resource.data!!)
+                }
+                Status.ERROR -> {
+
+                }
+                Status.LOADING -> {
+
+                }
+            }
+        }
         mainViewPager = view.findViewById(R.id.main_viewpager_discover)
-        mainViewPager?.adapter=VideoViewPagerAdapter(requireActivity())
+
 
     }
     companion object {
@@ -64,15 +82,12 @@ class DiscoverFragment : Fragment() {
             }
     }
 }
-class VideoViewPagerAdapter(activity: FragmentActivity): FragmentStateAdapter(activity) {
+class VideoViewPagerAdapter(activity: FragmentActivity,var list: List<Data>): FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int {
-        return 2  // this indicates number of items or fragments in our case (0,1)
+        return  list.size // this indicates number of items or fragments in our case (0,1)
     }
 
-    override fun createFragment(position: Int): Fragment = when (position) {
-        0 -> VideoFragment.newInstance("","")
-        1 -> VideoFragment.newInstance("","")
-        else -> throw IllegalStateException("Invalid adapter position")
-    }
+    override fun createFragment(position: Int): Fragment = VideoFragment
+        .newInstance("", list[position].videoUrl!!)
 }

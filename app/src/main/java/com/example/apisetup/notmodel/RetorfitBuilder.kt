@@ -4,17 +4,34 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetorfitBuilder {
-    var baseUrl = "https://sportsapi3.com/sportsapi/"
+    private var slug="/sportsapi/"
+    var baseUrl = "https://sportsapi3.com$slug"
     private var retrofit: Retrofit? = null
-    val retroClient:Retrofit?
-    get() {
-        if (retrofit == null){
+
+    var retroClient:Retrofit? = null
+        get() {
+            baseUrl = "https://sportsapi3.com$slug"
+            if (retrofit == null){
             retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory( GsonConverterFactory.create())
                 .build()
         }
         return retrofit
+    }
+
+
+    fun changeAPIAccess(accessSlugType:APIAccessSlug){
+        retroClient=null
+        slug = when(accessSlugType){
+            APIAccessSlug.SPORTS_API -> {
+                "/sportsapi/"
+            }
+
+            APIAccessSlug.CHALLENGES_API -> {
+                "/challenges/"
+            }
+        }
     }
     val apiService:ApiService = retroClient!!.create(ApiService::class.java)
 }
