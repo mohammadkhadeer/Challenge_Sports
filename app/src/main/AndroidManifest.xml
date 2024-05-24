@@ -17,14 +17,28 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
+
+        <activity
+            android:name="com.example.view.register.RegisterActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan"
+            />
+
         <activity
             android:name="com.example.view.login.Login"
-            android:exported="false" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
             android:name="com.example.view.matchDetails.MatchDetails"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.example.view.splashScreen.SplashScreen"
             android:exported="true"
