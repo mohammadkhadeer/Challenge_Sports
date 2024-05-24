@@ -24,7 +24,6 @@ import com.example.view.matchDetails.Adapters.AdapterOdds
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 import com.google.android.material.tabs.TabLayout
-//import com.tomlecollegue.progressbars.HorizontalProgressView
 
 class H2HFragment : Fragment() {
     //ui
@@ -62,7 +61,6 @@ class H2HFragment : Fragment() {
         vm = SpewViewModel.giveMeViewModel(requireActivity())
         if (MySharableObject.matchObject != null)
         {
-            Log.i("TAG","TAG H2HFragment MySharableObject.matchObject?.id!! "+ MySharableObject.matchObject?.id!!)
             vm.getH2HListMatches(MySharableObject.matchObject?.id!!)
         }
 
@@ -117,6 +115,7 @@ class H2HFragment : Fragment() {
                 fillProgressViewInfo(it.data!!.history,selectedTab)
 
                 var h2hMatchList = GeneralTools.getH2HListMatches(selectedTab,it.data!!.history)
+
                 //h2hMatchesAdapter
                 h2hMatchesAdapter = AdapterH2HMatches(requireContext(),h2hMatchList)
                 recyclerView.adapter = h2hMatchesAdapter
