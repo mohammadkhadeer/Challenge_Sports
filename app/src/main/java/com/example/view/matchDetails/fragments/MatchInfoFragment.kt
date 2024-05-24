@@ -48,7 +48,7 @@ class MatchInfoFragment : Fragment() {
 
             about_match_txt.text = about_match
 
-            Glide.with(context!!).load(MySharableObject.matchObject?.leagueInfo?.logo).into(leage_image)
+            Glide.with(requireContext()).load(MySharableObject.matchObject?.leagueInfo?.logo).into(leage_image)
         }
     }
 

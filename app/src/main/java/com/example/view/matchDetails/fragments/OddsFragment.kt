@@ -93,18 +93,17 @@ class OddsFragment : Fragment()  {
 
         //when the select to see all a company available to see the bet list according the selected company
         //i active this observer to can pass a selected value from a bottom sheet to the odds fragment
-        sharedViewModel.selectedValue.observe(viewLifecycleOwner, Observer { value ->
+        sharedViewModel.selectedValue.observe(viewLifecycleOwner) { value ->
             //after get a value from bottomSheet i pass it to general value in this fragment
             //to can access in tabLayout
             company_selected = value
             updateImage()
-            if (selected_tab == "asia")
-            {
+            if (selected_tab == "asia") {
                 passADataToOddsAdapterHandicap(company_selected!!.id)
-            }else{
-                createOddList(selected_tab,company_selected!!.id)
+            } else {
+                createOddList(selected_tab, company_selected!!.id)
             }
-        })
+        }
     }
 
     private fun actionListenerToCompanyImage() {
