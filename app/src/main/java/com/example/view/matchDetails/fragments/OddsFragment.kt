@@ -53,7 +53,7 @@ class OddsFragment : Fragment()  {
     i use this to can pass a company id from tabLayout "to win,handicap ..etc"
       i get a value from observer i will put it on this vale to can access from
       tabLayout the default value for a company_id is "2"
-      the bet365
+      the company for this id is bet365
     */
     private var company_selected: OddsCompanyComp? = null
     private var selected_tab: String = "eu"

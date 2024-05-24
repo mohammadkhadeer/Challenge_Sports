@@ -13,7 +13,7 @@
     <color name="red">#ff0000</color>
     <color name="grey_text">#4e4b66</color>
 
-    <color name="colorPrimary">#F7F7F7</color>
+    <color name="colorPrimary">#F2F2F7</color>
 
     <color name="light_primary">#1A40BFFF</color>
     <color name="tablayout_color">#1F2937</color>
@@ -71,5 +71,6 @@
     <color name="background_grey_light">#f2f2f7</color>
     <color name="green_1">#34c45b</color>
     <color name="red_1">#fe3832</color>
+    <color name="separator">#BFBFC1</color>
     //34c45b
 </resources>
