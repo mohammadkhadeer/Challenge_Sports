@@ -477,7 +477,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="320dp"
                 android:id="@+id/to_give_scroll_view_space"
                 />
 
