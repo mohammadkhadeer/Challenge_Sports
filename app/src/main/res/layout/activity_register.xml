@@ -417,7 +417,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:id="@+id/login_rl"
+                    android:id="@+id/craete_account_rl"
                     android:background="@drawable/bg_5">
 
                     <TextView
@@ -464,7 +464,7 @@
                         android:text="@string/sign_in"
                         android:textSize="13dp"
                         android:gravity="left"
-                        android:id="@+id/sin_up_txt"
+                        android:id="@+id/sin_in_txt"
                         android:layout_marginStart="2dp"
                         android:background="@drawable/bg_6"
                         android:textColor="@color/brand_color"

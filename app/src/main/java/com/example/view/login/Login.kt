@@ -140,7 +140,7 @@ class Login : AppCompatActivity() {
     }
     override fun finish() {
         super.finish()
-        overridePendingTransition(R.anim.up_to_bottom_enter, R.anim.up_to_bottom_exit)
+        //overridePendingTransition(R.anim.up_to_bottom_enter, R.anim.up_to_bottom_exit)
     }
 
     private fun casting() {
