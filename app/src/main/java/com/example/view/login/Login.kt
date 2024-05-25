@@ -90,16 +90,21 @@ class Login : AppCompatActivity() {
 
             }else{
                 Log.i("TAG" ,"data.status "+it.status)
+                error_rl.isVisible = true
+                error_txt.text = getString(R.string.massage_login_4)
+                hideAErrorMessage()
             }
         }
     }
 
     private fun actionListenerToLogin() {
         login_rl.setOnClickListener {
-//            emailStr = ""
-//            passwordStr = "123456"
+            emailStr = "radha1@yopmail.com"
+            passwordStr = "12345"
             if (GeneralTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr))
             {
+                val map = GeneralTools.makeMapForLoginRequirements(emailStr,passwordStr)
+                view_model.login(map)
                 Log.i("TAG","TAG true GeneralTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr) "+GeneralTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr))
             }else{
                 var errorMassageStr = GeneralTools.emailOrPasswordIsEmptyErrorMassage(emailStr,passwordStr,this)
@@ -107,8 +112,7 @@ class Login : AppCompatActivity() {
                 error_txt.text = errorMassageStr
                 hideAErrorMessage()
             }
-//            val map = GeneralTools.makeMapForLoginRequirements(emailStr,passwordStr)
-//            view_model.login(map)
+
         }
     }
 
