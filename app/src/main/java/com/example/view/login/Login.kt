@@ -15,7 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.apisetup.R
 import com.example.apisetup.notmodel.Status
-import com.example.utils.GeneralTools
+import com.example.sharedPreferences.SharedPreferencesHelper
+import com.example.utils.RegisterTools
 import com.example.view.register.RegisterActivity
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
@@ -86,8 +87,8 @@ class Login : AppCompatActivity() {
     private fun observeLoginResponse() {
         view_model.login.observe(this){
             if (it.status== Status.SUCCESS){
-                Log.i("TAG" ,"data.status "+it.data)
-
+                SharedPreferencesHelper.saveUser(this, it.data!!.response.data)
+                finish()
             }else{
                 Log.i("TAG" ,"data.status "+it.status)
                 error_rl.isVisible = true
@@ -99,15 +100,13 @@ class Login : AppCompatActivity() {
 
     private fun actionListenerToLogin() {
         login_rl.setOnClickListener {
-            emailStr = "radha1@yopmail.com"
-            passwordStr = "12345"
-            if (GeneralTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr))
+
+            if (RegisterTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr))
             {
-                val map = GeneralTools.makeMapForLoginRequirements(emailStr,passwordStr)
+                val map = RegisterTools.makeMapForLoginRequirements(emailStr,passwordStr)
                 view_model.login(map)
-                Log.i("TAG","TAG true GeneralTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr) "+GeneralTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr))
             }else{
-                var errorMassageStr = GeneralTools.emailOrPasswordIsEmptyErrorMassage(emailStr,passwordStr,this)
+                var errorMassageStr = RegisterTools.emailOrPasswordIsEmptyErrorMassage(emailStr,passwordStr,this)
                 error_rl.isVisible = true
                 error_txt.text = errorMassageStr
                 hideAErrorMessage()

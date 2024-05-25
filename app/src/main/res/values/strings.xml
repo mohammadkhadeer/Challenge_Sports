@@ -12,6 +12,10 @@
     <string name="massage_register_4">Already Have an Account\? Tap here to</string>
     <string name="sign_in">Sign In</string>
 
+    <string name="register_error_massage_1">Please fill all requirements </string>
+    <string name="register_error_massage_2">Please fill name </string>
+    <string name="register_error_massage_3">Please Accept to the End User Licence Agreement </string>
+
     //Login
     <string name="massage_login_1">Welcome Back</string>
     <string name="massage_login_2">Description about the app about 1\.5 to 2 lines nothing more than 2 lines</string>

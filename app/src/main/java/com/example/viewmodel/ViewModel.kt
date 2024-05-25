@@ -135,5 +135,20 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
         }
     }
 
+    fun register(userData:HashMap<String, Any>){
+
+        viewModelScope.launch {
+            login.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.register(userData)
+                //println(myData)
+                Log.i("TAG","myData "+myData)
+                login.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+            }
+        }
+    }
 
 }

@@ -23,47 +23,6 @@ import java.util.*
 
 object GeneralTools {
 
-    fun checkIfEmailOrPasswordIsEmpty(emailStr: String,passwordStr:String): Boolean {
-        var emptyOrNot = false
-        if (emailStr != "" && passwordStr != "")
-        {
-            emptyOrNot = true
-        }else{
-            if (emailStr == "" || passwordStr == "")
-            {
-                emptyOrNot = false
-            }
-        }
-        return emptyOrNot
-    }
-
-    fun emailOrPasswordIsEmptyErrorMassage(emailStr: String,passwordStr:String,context: Context): String {
-        var error_massage = ""
-        if (emailStr == "" && passwordStr == "")
-        {
-            error_massage = context.getString(R.string.login_error_massage_1)
-        }else{
-            if (emailStr == "")
-            {
-                error_massage = context.getString(R.string.login_error_massage_2)
-            }
-
-            if (passwordStr == "")
-            {
-                error_massage = context.getString(R.string.login_error_massage_3)
-            }
-        }
-        return error_massage
-    }
-
-    fun makeMapForLoginRequirements(emailStr: String,passwordStr:String): HashMap<String, Any> {
-        val map = HashMap<String, Any>()
-        Log.i("TAG","TAG emailStr: "+emailStr+" passwordStr: "+passwordStr)
-        map["email"] = emailStr
-        map["password"] = passwordStr
-
-        return map
-    }
     fun getFirstDigOnly(number: String): Int {
         val myDouble: Double = number.toDouble()
         val myInt: Int = myDouble.toInt()

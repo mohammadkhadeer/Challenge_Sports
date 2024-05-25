@@ -38,4 +38,7 @@ interface ApiService {
 
     @POST(" challenges/api/auth/login")
     suspend fun login(@Body userData: HashMap<String, Any>): LogInRoot
+
+    @POST(" challenges/api/auth/signup")
+    suspend fun register(@Body userData: HashMap<String, Any>): LogInRoot
 }

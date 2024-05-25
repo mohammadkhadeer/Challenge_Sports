@@ -1,5 +1,6 @@
 package com.challenge.sports.view.HomeActivity.homeFragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -33,18 +34,23 @@ import java.util.*
 
 
 class MatchesFragment : Fragment() {
-
-    private lateinit var vm: MyViewModel
+    //ui
     private lateinit var recycler_view: RecyclerView
     private lateinit var recyclerViewMain: RecyclerView
     private lateinit var pro_bar: ProgressBar
     private lateinit var empty_view: RelativeLayout
 
+    //value
     var match_status_list: ArrayList<MatchStatusJ> = ArrayList()
-    var adpterMatchStatus: MatchStatusAdapter? = null
     private var mainAdapter: MatchesAdapter? = null
-    private var onDetailListener: OnDetailListener?=null
+    private lateinit var vm: MyViewModel
 
+    private var fragmentContext: Context? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        fragmentContext = context
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,25 +131,27 @@ class MatchesFragment : Fragment() {
         {
             empty_view.isVisible =true
         }else{
-            mainAdapter = MatchesAdapter(
-                requireContext(),
-                matches!!
-            , object : RecyclerViewOnclickMatch{
-                    override fun onClick(position: Int, match_obj: HotMatche) {
-                        val intent = Intent(this@MatchesFragment.requireContext(), MatchDetails::class.java)
-                        MySharableObject.matchObject=match_obj
-                        startActivity(intent)
-                    }
-            })
+            if (fragmentContext != null){
+                mainAdapter = MatchesAdapter(
+                    fragmentContext!!,
+                    matches!!
+                    , object : RecyclerViewOnclickMatch{
+                        override fun onClick(position: Int, match_obj: HotMatche) {
+                            val intent = Intent(this@MatchesFragment.requireContext(), MatchDetails::class.java)
+                            MySharableObject.matchObject=match_obj
+                            startActivity(intent)
+                        }
+                    })
 
-            recyclerViewMain.adapter = mainAdapter
-            recyclerViewMain.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                recyclerViewMain.adapter = mainAdapter
+                recyclerViewMain.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-            //handel what should be visible what should be gone
-            recyclerViewMain.isVisible = true
-            empty_view.isVisible = false
-            pro_bar.isVisible = false
+                //handel what should be visible what should be gone
+                recyclerViewMain.isVisible = true
+                empty_view.isVisible = false
+                pro_bar.isVisible = false
+            }
         }
 
     }
@@ -154,8 +162,6 @@ class MatchesFragment : Fragment() {
         recycler_view.adapter= MatchStatusAdapter(requireContext(), match_status_list,
             object : RecyclerViewOnclick {
                 override fun onClick(position: Int) {
-//                    val intent = Intent(this@MatchesFragment.requireContext(), MatchDetails::class.java)
-//                    startActivity(intent)
 
                     handleCaseReq(position)
                     upadateTheSelectedItemInRecyclerView(position)
@@ -201,7 +207,6 @@ class MatchesFragment : Fragment() {
             }else{
                 match_status_list.set(i,MatchStatusJ(match_status_list.get(i).name, false))
             }
-
         }
     }
 

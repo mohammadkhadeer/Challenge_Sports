@@ -16,5 +16,6 @@ interface ApiHelper {
 
     suspend fun getVideos(type:String) : RandomVidsBase
     suspend fun login(userData:HashMap<String, Any>) : LogInRoot
+    suspend fun register(userData:HashMap<String, Any>) : LogInRoot
 
 }

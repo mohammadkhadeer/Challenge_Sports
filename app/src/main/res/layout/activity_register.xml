@@ -100,7 +100,37 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_22sdp"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/error_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/error_txt"
+                        android:background="@drawable/bg_6"
+                        android:gravity="center"
+                        android:text="erorr massage erorr massage erorr massage erorr massage erorr massage "
+                        android:textColor="@color/red"
+                        android:textSize="15dp" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
                 >
 
                 <RelativeLayout
@@ -391,16 +421,15 @@
                     android:layout_marginEnd="@dimen/_12sdp"
                     >
 
-                    <TextView
+                    <CheckBox
+                        android:id="@+id/myCheckBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/massage_register_3"
                         android:textSize="11dp"
-                        android:gravity="right"
-                        android:layout_centerVertical="true"
+                        android:buttonTint="@color/brand_color"
                         android:textColor="@color/grey"
-                        android:background="@drawable/bg_6"
-                        />
+                        android:layout_centerInParent="true"/>
 
                 </RelativeLayout>
 
