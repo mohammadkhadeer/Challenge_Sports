@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Parcelable
-import android.provider.Settings.Global.getString
 import android.util.Log
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
@@ -18,13 +17,53 @@ import com.example.model.hotMatches.MatchStatusJ
 import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsCompanyComp
 import com.example.model.odds.OddsRoot
-import java.sql.DriverManager
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.Duration.Companion.hours
 
 
 object GeneralTools {
+
+    fun checkIfEmailOrPasswordIsEmpty(emailStr: String,passwordStr:String): Boolean {
+        var emptyOrNot = false
+        if (emailStr != "" && passwordStr != "")
+        {
+            emptyOrNot = true
+        }else{
+            if (emailStr == "" || passwordStr == "")
+            {
+                emptyOrNot = false
+            }
+        }
+        return emptyOrNot
+    }
+
+    fun emailOrPasswordIsEmptyErrorMassage(emailStr: String,passwordStr:String,context: Context): String {
+        var error_massage = ""
+        if (emailStr == "" && passwordStr == "")
+        {
+            error_massage = context.getString(R.string.login_error_massage_1)
+        }else{
+            if (emailStr == "")
+            {
+                error_massage = context.getString(R.string.login_error_massage_2)
+            }
+
+            if (passwordStr == "")
+            {
+                error_massage = context.getString(R.string.login_error_massage_3)
+            }
+        }
+        return error_massage
+    }
+
+    fun makeMapForLoginRequirements(emailStr: String,passwordStr:String): HashMap<String, Any> {
+        val map = HashMap<String, Any>()
+        Log.i("TAG","TAG emailStr: "+emailStr+" passwordStr: "+passwordStr)
+        map["email"] = emailStr
+        map["password"] = passwordStr
+
+        return map
+    }
     fun getFirstDigOnly(number: String): Int {
         val myDouble: Double = number.toDouble()
         val myInt: Int = myDouble.toInt()

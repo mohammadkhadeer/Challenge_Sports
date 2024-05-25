@@ -2,6 +2,7 @@ package com.example.view.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -13,12 +14,16 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.apisetup.R
+import com.example.apisetup.notmodel.Status
+import com.example.utils.GeneralTools
 import com.example.view.register.RegisterActivity
+import com.example.viewmodel.MyViewModel
+import com.example.viewmodel.SpewViewModel
+
 
 class Login : AppCompatActivity() {
     //ui
     private lateinit var back_image: ImageView
-
     private lateinit var cancel_email_rl: RelativeLayout
     private lateinit var cancel_password_rl: RelativeLayout
     private lateinit var forgot_pass_rl: RelativeLayout
@@ -26,16 +31,25 @@ class Login : AppCompatActivity() {
     private lateinit var sin_up_txt: TextView
     private lateinit var email_edt: EditText
     private lateinit var password_edt: EditText
+    private lateinit var error_rl: RelativeLayout
+    private lateinit var error_txt: TextView
 
     //value
     private var emailStr: String = ""
     private var passwordStr: String = ""
+
+    private lateinit var countDownTimer: CountDownTimer
+    private var timeLeftInMillis: Long = 3000 // 3 seconds
+
+    //server
+    private lateinit var view_model: MyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         statusBarColor()
+        //casting ui and handel buttons
         casting()
         actionListenerToBack()
         monitorEmailEdt()
@@ -49,7 +63,55 @@ class Login : AppCompatActivity() {
         actionListenerToForgotPassword()
         //SinUp button
         actionListenerToMoveToSinUpActivity()
+
+        //send server request
+        view_model = SpewViewModel.giveMeViewModel(this)
+
+        //after user press on login button observe the response
+        observeLoginResponse()
     }
+
+    private fun hideAErrorMessage() {
+        countDownTimer = object : CountDownTimer(timeLeftInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                //timeLeftInMillis = millisUntilFinished
+            }
+
+            override fun onFinish() {
+                error_rl.isVisible = false
+            }
+        }.start()
+    }
+
+    private fun observeLoginResponse() {
+        view_model.login.observe(this){
+            if (it.status== Status.SUCCESS){
+                Log.i("TAG" ,"data.status "+it.data)
+
+            }else{
+                Log.i("TAG" ,"data.status "+it.status)
+            }
+        }
+    }
+
+    private fun actionListenerToLogin() {
+        login_rl.setOnClickListener {
+//            emailStr = ""
+//            passwordStr = "123456"
+            if (GeneralTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr))
+            {
+                Log.i("TAG","TAG true GeneralTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr) "+GeneralTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr))
+            }else{
+                var errorMassageStr = GeneralTools.emailOrPasswordIsEmptyErrorMassage(emailStr,passwordStr,this)
+                error_rl.isVisible = true
+                error_txt.text = errorMassageStr
+                hideAErrorMessage()
+            }
+//            val map = GeneralTools.makeMapForLoginRequirements(emailStr,passwordStr)
+//            view_model.login(map)
+        }
+    }
+
 
     private fun actionListenerToMoveToSinUpActivity() {
         sin_up_txt.setOnClickListener {
@@ -65,13 +127,6 @@ class Login : AppCompatActivity() {
     private fun actionListenerToForgotPassword() {
         forgot_pass_rl.setOnClickListener {
             Log.i("TAG", "TAG forgot password: ")
-        }
-    }
-
-    private fun actionListenerToLogin() {
-        login_rl.setOnClickListener {
-            Log.i("TAG","TAG email: "+ emailStr)
-            Log.i("TAG","TAG password: "+ passwordStr)
         }
     }
 
@@ -150,6 +205,8 @@ class Login : AppCompatActivity() {
         cancel_password_rl = findViewById<RelativeLayout>(R.id.cancel_password_rl)
         forgot_pass_rl = findViewById<RelativeLayout>(R.id.forgot_pass_rl)
         login_rl = findViewById<RelativeLayout>(R.id.login_rl)
+        error_rl = findViewById<RelativeLayout>(R.id.error_rl)
+        error_txt = findViewById<TextView>(R.id.error_txt)
 
         sin_up_txt = findViewById<TextView>(R.id.sin_up_txt)
 

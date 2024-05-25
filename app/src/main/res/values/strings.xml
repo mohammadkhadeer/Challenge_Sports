@@ -23,6 +23,10 @@
     <string name="massage_login_3">You don\'t Have an Account\? Tap here to</string>
     <string name="sign_up">Sign Up</string>
 
+    <string name="login_error_massage_1">Please fill email and password</string>
+    <string name="login_error_massage_2">Please fill email</string>
+    <string name="login_error_massage_3">Please fill password</string>
+
 
     //matches adapter status
     <string name="weather_empty">Weather not available</string>

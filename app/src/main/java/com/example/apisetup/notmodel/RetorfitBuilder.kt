@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetorfitBuilder {
-    private var slug="/sportsapi/"
+    private var slug="/"
     var baseUrl = "https://sportsapi3.com$slug"
     private var retrofit: Retrofit? = null
 
