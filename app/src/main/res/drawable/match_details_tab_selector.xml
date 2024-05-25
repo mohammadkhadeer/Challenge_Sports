@@ -6,7 +6,7 @@
         android:drawable="@drawable/match_details_tab"
         />
 
-<!--    <item android:state_selected="false"-->
-<!--        android:drawable="@drawable/not_selected_time_tab" />-->
+        <item android:state_selected="false"
+            android:drawable="@drawable/not_selected_time_tab" />
 
 </selector>

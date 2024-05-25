@@ -129,7 +129,6 @@ class MatchDetails : AppCompatActivity() {
                 finish()
             }
         })
-
     }
 
     private fun statusBarColor() {

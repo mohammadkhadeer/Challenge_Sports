@@ -11,6 +11,7 @@ import com.example.model.hotMatches.HotMatchBaseClass
 
 import com.example.apisetup.notmodel.Resource.Companion.loading
 import com.example.model.headToHeadMatches.H2HRoot
+import com.example.model.login.LogInRoot
 import com.example.model.odds.OddsRoot
 import kotlinx.coroutines.launch
 import java.sql.DriverManager.println
@@ -24,6 +25,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     //match details
     var matches_odds = MutableLiveData<Resource< List<OddsRoot> >>()
     var h2hList = MutableLiveData<Resource< H2HRoot >>()
+
+    //login
+    var login = MutableLiveData<Resource< LogInRoot >>()
 
     init {
 
@@ -107,8 +111,24 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getH2HListMatches(match_id)
                 //println(myData)
-                Log.i("TAG","myData "+myData)
+//                Log.i("TAG","myData "+myData)
                 h2hList.postValue(Resource.success(myData))
+            }catch (e:Exception){
+                println(e.message)
+            }
+        }
+    }
+
+    fun login(userData:HashMap<String, Any>){
+
+        viewModelScope.launch {
+            login.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.login(userData)
+                //println(myData)
+                Log.i("TAG","myData "+myData)
+                login.postValue(Resource.success(myData))
+
             }catch (e:Exception){
                 println(e.message)
             }

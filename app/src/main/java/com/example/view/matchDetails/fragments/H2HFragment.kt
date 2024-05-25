@@ -24,16 +24,16 @@ import com.example.view.matchDetails.Adapters.AdapterOdds
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 import com.google.android.material.tabs.TabLayout
-//import com.tomlecollegue.progressbars.HorizontalProgressView
 
 class H2HFragment : Fragment() {
     //ui
     private lateinit var tabLayout: TabLayout
     private lateinit var recyclerView: RecyclerView
-//    private lateinit var horizontalProgressView: HorizontalProgressView
+    private lateinit var horizontalProgressView: ProgressBar
     private lateinit var number_of_win_txt: TextView
     private lateinit var total_matches_txt: TextView
     private lateinit var number_of_lose_txt: TextView
+    private lateinit var per_text: TextView
 
     //values
     private lateinit var vm: MyViewModel
@@ -61,7 +61,6 @@ class H2HFragment : Fragment() {
         vm = SpewViewModel.giveMeViewModel(requireActivity())
         if (MySharableObject.matchObject != null)
         {
-            Log.i("TAG","TAG H2HFragment MySharableObject.matchObject?.id!! "+ MySharableObject.matchObject?.id!!)
             vm.getH2HListMatches(MySharableObject.matchObject?.id!!)
         }
 
@@ -72,10 +71,11 @@ class H2HFragment : Fragment() {
         //odds_recycler_view_handicap
         tabLayout = view.findViewById<TabLayout>(R.id.tabLayoutH2HFragments)
         recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-//        horizontalProgressView = view.findViewById<HorizontalProgressView>(R.id.horizontalProgressView)
+        horizontalProgressView = view.findViewById<ProgressBar>(R.id.progressBar)
         number_of_win_txt = view.findViewById<TextView>(R.id.number_of_win_txt)
         total_matches_txt = view.findViewById<TextView>(R.id.total_matches_txt)
         number_of_lose_txt = view.findViewById<TextView>(R.id.number_of_lose_txt)
+        per_text = view.findViewById<TextView>(R.id.per_text)
     }
 
     private fun addATabsToTabLayout() {
@@ -115,6 +115,7 @@ class H2HFragment : Fragment() {
                 fillProgressViewInfo(it.data!!.history,selectedTab)
 
                 var h2hMatchList = GeneralTools.getH2HListMatches(selectedTab,it.data!!.history)
+
                 //h2hMatchesAdapter
                 h2hMatchesAdapter = AdapterH2HMatches(requireContext(),h2hMatchList)
                 recyclerView.adapter = h2hMatchesAdapter
@@ -135,23 +136,29 @@ class H2HFragment : Fragment() {
         if (home_or_away == "home")
         {
             var x = statisticsList[6].toDouble() * 100
+            var y = statisticsList[8].toDouble() * 100
             var xy = x.toInt()
-//            horizontalProgressView.progress = xy
+            var xyz = y.toInt()
+            horizontalProgressView.progress = xy
+            per_text.text = "(" +xy.toString() + "%" + " " + requireActivity().getString(R.string.won) + " / " + xyz.toString() + "%" + requireActivity().getString(R.string.lose) + ")"
 
             number_of_win_txt.text = "(${statisticsList[0]} / ${statisticsList[4]})"
             number_of_lose_txt.text = "(${statisticsList[1]} / ${statisticsList[4]})"
 
-            total_matches_txt.text = statisticsList[4].toString() + " " + requireActivity().getString(R.string.matches)  + " " + xy.toString() + "%" + " " + requireActivity().getString(R.string.won)
+            total_matches_txt.text = statisticsList[4].toString() + " " + requireActivity().getString(R.string.matches)
 
         }else{
             var x = statisticsList[7].toDouble() * 100
+            var y = statisticsList[9].toDouble() * 100
             var xy = x.toInt()
-//            horizontalProgressView.progress = xy
+            var xyz = y.toInt()
+            horizontalProgressView.progress = xy
+            per_text.text = "(" + xy.toString() + "%" + " " + requireActivity().getString(R.string.won) + " / " + xyz.toString() + "%" + requireActivity().getString(R.string.lose) + ")"
 
             number_of_win_txt.text = "(${statisticsList[2]} / ${statisticsList[5]})"
             number_of_lose_txt.text = "(${statisticsList[3]} / ${statisticsList[5]})"
 
-            total_matches_txt.text = statisticsList[5].toString() + " " + requireActivity().getString(R.string.matches)  + " " + xy.toString() + "%" + " " + requireActivity().getString(R.string.won)
+            total_matches_txt.text = statisticsList[5].toString() + " " + requireActivity().getString(R.string.matches)
 
         }
 

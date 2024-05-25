@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Parcelable
-import android.provider.Settings.Global.getString
 import android.util.Log
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
@@ -18,13 +17,53 @@ import com.example.model.hotMatches.MatchStatusJ
 import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsCompanyComp
 import com.example.model.odds.OddsRoot
-import java.sql.DriverManager
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.Duration.Companion.hours
 
 
 object GeneralTools {
+
+    fun checkIfEmailOrPasswordIsEmpty(emailStr: String,passwordStr:String): Boolean {
+        var emptyOrNot = false
+        if (emailStr != "" && passwordStr != "")
+        {
+            emptyOrNot = true
+        }else{
+            if (emailStr == "" || passwordStr == "")
+            {
+                emptyOrNot = false
+            }
+        }
+        return emptyOrNot
+    }
+
+    fun emailOrPasswordIsEmptyErrorMassage(emailStr: String,passwordStr:String,context: Context): String {
+        var error_massage = ""
+        if (emailStr == "" && passwordStr == "")
+        {
+            error_massage = context.getString(R.string.login_error_massage_1)
+        }else{
+            if (emailStr == "")
+            {
+                error_massage = context.getString(R.string.login_error_massage_2)
+            }
+
+            if (passwordStr == "")
+            {
+                error_massage = context.getString(R.string.login_error_massage_3)
+            }
+        }
+        return error_massage
+    }
+
+    fun makeMapForLoginRequirements(emailStr: String,passwordStr:String): HashMap<String, Any> {
+        val map = HashMap<String, Any>()
+        Log.i("TAG","TAG emailStr: "+emailStr+" passwordStr: "+passwordStr)
+        map["email"] = emailStr
+        map["password"] = passwordStr
+
+        return map
+    }
     fun getFirstDigOnly(number: String): Int {
         val myDouble: Double = number.toDouble()
         val myInt: Int = myDouble.toInt()
@@ -148,6 +187,8 @@ object GeneralTools {
              6.index[5] total away games
              7.index[6] percent of win game to home team
              8.index[7] percent of win game to away team
+             9.index[8] percent of lose game to away team
+             10.index[9] percent of lose game to away team
          */
         val list = listOf("number_of_win_matches_for_home_team"
             , "number_of_lose_matches_for_home_team"
@@ -157,9 +198,14 @@ object GeneralTools {
             ,"total away games"
             ,"percent of win game to home team"
             ,"percent of win game to away team"
+            ,"percent of lose game to away team"
+            ,"percent of lose game to away team"
         )
         var homeWinPercent:Double = number_of_win_matches_for_home_team.toDouble() / matchesHome.size
         var awayWinPercent:Double = number_of_win_matches_for_away_team.toDouble() / matchesAway.size
+
+        var homeLosePercent:Double = number_of_lose_matches_for_home_team.toDouble() / matchesHome.size
+        var awayLosePercent:Double = number_of_lose_matches_for_away_team.toDouble() / matchesAway.size
 
         val mutableList = list.toMutableList()
         mutableList[0] = number_of_win_matches_for_home_team.toString()
@@ -170,6 +216,8 @@ object GeneralTools {
         mutableList[5] = matchesAway.size.toString()
         mutableList[6] = homeWinPercent.toString()
         mutableList[7] = awayWinPercent.toString()
+        mutableList[8] = homeLosePercent.toString()
+        mutableList[9] = awayLosePercent.toString()
         val statisticsList = mutableList.toList()
 
         return statisticsList

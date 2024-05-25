@@ -1,5 +1,6 @@
 package com.example.view.mainActivity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +9,11 @@ import android.widget.Toast
 import com.challenge.sports.view.HomeActivity.homeFragments.MatchesFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
+import com.example.utils.MySharableObject
+import com.example.view.login.Login
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
 import com.example.view.mainActivity.homeFragments.NewsFragment
+import com.example.view.matchDetails.MatchDetails
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -53,9 +57,15 @@ class MainActivity : AppCompatActivity() {
 
         val addFab = findViewById<FloatingActionButton>(R.id.addFabBtn)
         addFab.setOnClickListener {
-            Toast.makeText(this,"Add Clicked", Toast.LENGTH_LONG).show()
+            moveToLoginScreen()
         }
 
+    }
+
+    private fun moveToLoginScreen() {
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.bottom_up_enter, R.anim.bottom_up_exit)
     }
 
     private fun statusBarColor() {

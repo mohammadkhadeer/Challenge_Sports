@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.example.view.mainActivity.MainActivity"
     >
 
@@ -16,8 +17,7 @@
         android:layout_marginBottom="@dimen/_43sdp"
         />
 
-<!--    app:fabCradleMargin="10dp"-->
-<!--    app:fabCradleRoundedCornerRadius="20dp"-->
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_24"
-        android:tint="@color/white"
+        android:tint="@color/colorPrimary"
         android:backgroundTint="@color/app_blue"
         app:layout_anchor="@id/bottomAppBar"/>
 
