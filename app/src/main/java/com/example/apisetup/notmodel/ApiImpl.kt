@@ -18,4 +18,5 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getH2HListMatches(match_id: String): H2HRoot  = apiService.getH2HListMatches(match_id)
     override suspend fun getVideos(type: String): RandomVidsBase = apiService.getVideos(type)
     override suspend fun login(userData: HashMap<String, Any>): LogInRoot = apiService.login(userData)
+    override suspend fun register(userData: HashMap<String, Any>): LogInRoot = apiService.register(userData)
 }

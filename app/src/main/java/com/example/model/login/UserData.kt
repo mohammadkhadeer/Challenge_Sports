@@ -1,6 +1,6 @@
 package com.example.model.login
 
-data class Data(
+data class UserData(
     val about: Any,
     val allow_notification: Int,
     val country: Any,
