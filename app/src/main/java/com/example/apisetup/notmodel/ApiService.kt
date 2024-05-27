@@ -33,7 +33,7 @@ interface ApiService {
     @GET(" sportsapi/api/football/match-analysis/statics/{matchid}")
     suspend fun getH2HListMatches(@Path("matchid") matchid:String) : H2HRoot
 
-    @GET(" sportsapi/api/challange-videos/get")
+    @GET(" challenges/api/challange-videos/get")
     suspend fun getVideos(@Query("type") type: String): RandomVidsBase
 
     @POST(" challenges/api/auth/login")

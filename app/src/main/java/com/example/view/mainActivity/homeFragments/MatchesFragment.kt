@@ -131,6 +131,7 @@ class MatchesFragment : Fragment() {
         {
             empty_view.isVisible =true
         }else{
+
             if (fragmentContext != null){
                 mainAdapter = MatchesAdapter(
                     fragmentContext!!,
