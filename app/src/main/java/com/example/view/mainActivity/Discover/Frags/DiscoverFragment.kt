@@ -90,4 +90,7 @@ class VideoViewPagerAdapter(activity: FragmentActivity,var list: List<Data>): Fr
 
     override fun createFragment(position: Int): Fragment = VideoFragment
         .newInstance("", list[position].videoUrl!!)
+        .apply {
+        data=list[position]
+    }
 }

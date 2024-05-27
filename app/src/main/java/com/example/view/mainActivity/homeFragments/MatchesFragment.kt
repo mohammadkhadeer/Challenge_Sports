@@ -126,7 +126,7 @@ class MatchesFragment : Fragment() {
             empty_view.isVisible =true
         }else{
             mainAdapter = MatchesAdapter(
-                requireContext(),
+                requireActivity(),
                 matches!!
             , object : RecyclerViewOnclickMatch{
                     override fun onClick(position: Int, match_obj: HotMatche) {
