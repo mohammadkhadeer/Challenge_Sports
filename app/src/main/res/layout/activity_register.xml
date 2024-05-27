@@ -103,6 +103,34 @@
                 >
 
                 <RelativeLayout
+                    android:id="@+id/loading_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    >
+
+                    <ProgressBar
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:theme="@style/progressBarBlue"
+                        android:id="@+id/progress_bar"
+                        />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <RelativeLayout
                     android:id="@+id/error_rl"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

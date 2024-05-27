@@ -69,16 +69,21 @@ class MatchesFragment : Fragment() {
         createRecyclerViewMatchStatus()
 
         vm = SpewViewModel.giveMeViewModel(requireActivity())
-        vm.getHotMatches()
+        vm.getUpcomingMatches()
         //here i will use Int number to detect witch type
-        //hot matches number "0" upcoming number "1" ... etc
         handelHotMatchesResponse(vm,0)
     }
 
     private fun handelHotMatchesResponse(vm: MyViewModel, match_type: Int) {
         when (match_type) {
             0 -> {
-                observeTheResponseForHotMatches(vm.matches_root)
+                vm.matches_upcoming.observe(requireActivity()){
+                    if (it.status== Status.SUCCESS){
+                        passADataToMainAdapter(it.data!!.matchList)
+                    }else{
+                        Log.i("TAG" ,"data.status "+it.status)
+                    }
+                }
             }
 
             1 -> {
@@ -92,10 +97,12 @@ class MatchesFragment : Fragment() {
             }
 
             2 -> {
-                vm.matches_upcoming.observe(requireActivity()){
+                vm.matches_root.observe(requireActivity()){
                     if (it.status== Status.SUCCESS){
-                        passADataToMainAdapter(it.data!!.matchList)
+                        passADataToMainAdapter(it.data!!.hotMatches)
+
                     }else{
+                        //handel error case
                         Log.i("TAG" ,"data.status "+it.status)
                     }
                 }
@@ -113,17 +120,7 @@ class MatchesFragment : Fragment() {
 
     }
 
-    private fun observeTheResponseForHotMatches(matchesRoot: MutableLiveData<Resource<HotMatchBaseClass>>) {
-        matchesRoot.observe(requireActivity()){
-            if (it.status== Status.SUCCESS){
-                passADataToMainAdapter(it.data!!.hotMatches)
 
-            }else{
-                //handel error case
-                Log.i("TAG" ,"data.status "+it.status)
-            }
-        }
-    }
 
     private fun passADataToMainAdapter(matches: List<HotMatche?>?) {
 
@@ -133,6 +130,7 @@ class MatchesFragment : Fragment() {
         }else{
 
             if (fragmentContext != null){
+
                 mainAdapter = MatchesAdapter(
                     fragmentContext!!,
                     matches!!
@@ -153,6 +151,7 @@ class MatchesFragment : Fragment() {
                 empty_view.isVisible = false
                 pro_bar.isVisible = false
             }
+
         }
 
     }
@@ -182,16 +181,16 @@ class MatchesFragment : Fragment() {
         vm = SpewViewModel.giveMeViewModel(requireActivity())
         when (position) {
             0 -> {
-                vm.getHotMatches()
-                handelHotMatchesResponse(vm,0)
+                vm.getUpcomingMatches()
+                handelHotMatchesResponse(vm,2)
             }
             1 -> {
                 vm.getLiveMatches()
                 handelHotMatchesResponse(vm,1)
             }
             2 -> {
-                vm.getUpcomingMatches()
-                handelHotMatchesResponse(vm,2)
+                vm.getHotMatches()
+                handelHotMatchesResponse(vm,0)
             }
             3 -> {
                 vm.getFinishedMatches()

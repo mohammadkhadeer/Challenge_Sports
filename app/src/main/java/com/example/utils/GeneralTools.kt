@@ -242,7 +242,7 @@ object GeneralTools {
         match_status_list.add(
             MatchStatusJ(
                 context.getString(
-                    R.string.hot
+                    R.string.up_coming
                 ), true
             )
         )
@@ -256,7 +256,7 @@ object GeneralTools {
         match_status_list.add(
             MatchStatusJ(
                 context.getString(
-                    R.string.up_coming
+                    R.string.hot
                 ), false
             )
         )

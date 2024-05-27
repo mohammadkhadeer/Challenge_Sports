@@ -26,7 +26,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     var matches_odds = MutableLiveData<Resource< List<OddsRoot> >>()
     var h2hList = MutableLiveData<Resource< H2HRoot >>()
 
-    //login
+    //login and register same value to handle both
     var login = MutableLiveData<Resource< LogInRoot >>()
 
     init {
@@ -126,10 +126,11 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData = apiHelper.login(userData)
                 //println(myData)
-                Log.i("TAG","myData "+myData)
+//                Log.i("TAG","myData "+myData)
                 login.postValue(Resource.success(myData))
 
             }catch (e:Exception){
+                login.postValue(Resource.error(e.message.toString(),null))
                 println(e.message)
             }
         }
@@ -142,10 +143,11 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData = apiHelper.register(userData)
                 //println(myData)
-                Log.i("TAG","myData "+myData)
+//                Log.i("TAG","myData "+myData)
                 login.postValue(Resource.success(myData))
 
             }catch (e:Exception){
+                login.postValue(Resource.error(e.message.toString(),null))
                 println(e.message)
             }
         }

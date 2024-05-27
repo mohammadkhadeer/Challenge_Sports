@@ -1,5 +1,6 @@
 package com.example.view.register
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +19,7 @@ import com.example.apisetup.R
 import com.example.apisetup.notmodel.Status
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.RegisterTools
+import com.example.view.mainActivity.MainActivity
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 
@@ -34,6 +37,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var error_rl: RelativeLayout
     private lateinit var error_txt: TextView
     private lateinit var myCheckBox: CheckBox
+    private lateinit var loading_rl: RelativeLayout
+    private lateinit var progress_bar: ProgressBar
 
     //value
     private var fullNameStr: String = ""
@@ -50,6 +55,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         statusBarColor()
+        //casting ui and handel buttons
         casting()
         actionListenerToBack()
         monitorEmailEdt()
@@ -75,22 +81,32 @@ class RegisterActivity : AppCompatActivity() {
         view_model.login.observe(this){
             if (it.status== Status.SUCCESS){
                 SharedPreferencesHelper.saveUser(this, it.data!!.response.data)
-                finish()
+                moveToMainScreen()
             }else{
-                Log.i("TAG" ,"data.status "+it.status)
-                error_rl.isVisible = true
-                error_txt.text = getString(R.string.massage_login_4)
-                hideAErrorMessage()
+                if (it.status == Status.ERROR){
+//                    Log.i("TAG" ,"it.message "+it.message)
+                    loading_rl.isVisible = false
+                    error_rl.isVisible = true
+                    error_txt.text = getString(R.string.massage_login_4)
+                    hideAErrorMessage()
+                }
             }
         }
     }
 
+    private fun moveToMainScreen() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+    }
+
     private fun actionListenerToCreateAccount() {
         create_account_rl.setOnClickListener {
-
             if (RegisterTools.checkIfEmailOrPasswordOrFullNameIsEmpty(emailStr,passwordStr,fullNameStr))
             {
                 if (acceptLicence){
+                    loading_rl.isVisible = true
                     val map = RegisterTools.makeMapForRegisterRequirements(emailStr,passwordStr,fullNameStr)
                     view_model.register(map)
                 }else{
@@ -139,6 +155,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                println("im here")
                 error_rl.isVisible = false
             }
         }.start()
@@ -256,5 +273,7 @@ class RegisterActivity : AppCompatActivity() {
         full_name_edt = findViewById<EditText>(R.id.full_name_edt)
         email_edt = findViewById<EditText>(R.id.email_edt)
         password_edt = findViewById<EditText>(R.id.password_edt)
+        loading_rl = findViewById<RelativeLayout>(R.id.loading_rl)
+        progress_bar = findViewById<ProgressBar>(R.id.progress_bar)
     }
 }

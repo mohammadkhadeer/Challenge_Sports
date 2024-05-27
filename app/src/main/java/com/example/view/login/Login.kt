@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +35,8 @@ class Login : AppCompatActivity() {
     private lateinit var password_edt: EditText
     private lateinit var error_rl: RelativeLayout
     private lateinit var error_txt: TextView
+    private lateinit var loading_rl: RelativeLayout
+    private lateinit var progress_bar: ProgressBar
 
     //value
     private var emailStr: String = ""
@@ -72,6 +75,43 @@ class Login : AppCompatActivity() {
         observeLoginResponse()
     }
 
+    private fun actionListenerToLogin() {
+        login_rl.setOnClickListener {
+
+            if (RegisterTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr))
+            {
+                loading_rl.isVisible = true
+                val map = RegisterTools.makeMapForLoginRequirements(emailStr,passwordStr)
+                view_model.login(map)
+            }else{
+                var errorMassageStr = RegisterTools.emailOrPasswordIsEmptyErrorMassage(emailStr,passwordStr,this)
+                println(errorMassageStr)
+                error_rl.isVisible = true
+                error_txt.text = errorMassageStr
+                hideAErrorMessage()
+            }
+
+        }
+    }
+
+    private fun observeLoginResponse() {
+        view_model.login.observe(this){
+            if (it.status== Status.SUCCESS){
+                SharedPreferencesHelper.saveUser(this, it.data!!.response.data)
+                finish()
+            }else{
+                if (it.status == Status.ERROR){
+//                    Log.i("TAG" ,"it.message "+it.message)
+                    loading_rl.isVisible = false
+                    error_rl.isVisible = true
+                    error_txt.text = getString(R.string.massage_login_4)
+                    hideAErrorMessage()
+                }
+
+            }
+        }
+    }
+
     private fun hideAErrorMessage() {
         countDownTimer = object : CountDownTimer(timeLeftInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -83,38 +123,6 @@ class Login : AppCompatActivity() {
             }
         }.start()
     }
-
-    private fun observeLoginResponse() {
-        view_model.login.observe(this){
-            if (it.status== Status.SUCCESS){
-                SharedPreferencesHelper.saveUser(this, it.data!!.response.data)
-                finish()
-            }else{
-                Log.i("TAG" ,"data.status "+it.status)
-                error_rl.isVisible = true
-                error_txt.text = getString(R.string.massage_login_4)
-                hideAErrorMessage()
-            }
-        }
-    }
-
-    private fun actionListenerToLogin() {
-        login_rl.setOnClickListener {
-
-            if (RegisterTools.checkIfEmailOrPasswordIsEmpty(emailStr,passwordStr))
-            {
-                val map = RegisterTools.makeMapForLoginRequirements(emailStr,passwordStr)
-                view_model.login(map)
-            }else{
-                var errorMassageStr = RegisterTools.emailOrPasswordIsEmptyErrorMassage(emailStr,passwordStr,this)
-                error_rl.isVisible = true
-                error_txt.text = errorMassageStr
-                hideAErrorMessage()
-            }
-
-        }
-    }
-
 
     private fun actionListenerToMoveToSinUpActivity() {
         sin_up_txt.setOnClickListener {
@@ -215,6 +223,9 @@ class Login : AppCompatActivity() {
 
         email_edt = findViewById<EditText>(R.id.email_edt)
         password_edt = findViewById<EditText>(R.id.password_edt)
+        loading_rl = findViewById<RelativeLayout>(R.id.loading_rl)
+        progress_bar = findViewById<ProgressBar>(R.id.progress_bar)
+
     }
 
     private fun actionListenerToBack() {

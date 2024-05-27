@@ -39,16 +39,20 @@ object RegisterTools {
                 error_massage = context.getString(R.string.login_error_massage_2)
             }
 
-            if (passwordStr == "")
+            if (passwordStr == "" || passwordStr.length < 6)
             {
-                error_massage = context.getString(R.string.login_error_massage_3)
+                error_massage = if (passwordStr == "") {
+                    context.getString(R.string.login_error_massage_3)
+                }else{
+                    context.getString(R.string.login_error_massage_4)
+                }
             }
         }
         return error_massage
     }
     fun checkIfEmailOrPasswordOrFullNameIsEmpty(emailStr: String , passwordStr:String , fullNameStr:String): Boolean {
         var emptyOrNot = false
-        if (emailStr != "" && passwordStr != ""  && fullNameStr != "")
+        if (emailStr != "" && passwordStr != ""  && fullNameStr != "" && passwordStr.length >= 6)
         {
             emptyOrNot = true
         }else{
@@ -69,12 +73,14 @@ object RegisterTools {
         map["birthdate"] = ""
         map["gender"] = ""
 
+        println(map)
+
         return map
     }
 
     fun checkIfEmailOrPasswordIsEmpty(emailStr: String,passwordStr:String): Boolean {
         var emptyOrNot = false
-        if (emailStr != "" && passwordStr != "")
+        if (emailStr != "" && passwordStr != ""  && passwordStr.length >= 6)
         {
             emptyOrNot = true
         }else{
@@ -97,9 +103,13 @@ object RegisterTools {
                 error_massage = context.getString(R.string.login_error_massage_2)
             }
 
-            if (passwordStr == "")
+            if (passwordStr == "" || passwordStr.length < 6)
             {
-                error_massage = context.getString(R.string.login_error_massage_3)
+                error_massage = if (passwordStr == "") {
+                    context.getString(R.string.login_error_massage_3)
+                }else{
+                    context.getString(R.string.login_error_massage_4)
+                }
             }
         }
         return error_massage

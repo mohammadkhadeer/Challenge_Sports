@@ -36,7 +36,7 @@ interface ApiService {
     @GET(" challenges/api/challange-videos/get")
     suspend fun getVideos(@Query("type") type: String): RandomVidsBase
 
-    @POST(" challenges/api/auth/login")
+    @POST(" https://sportsapi3.com/challenges/api/auth/login")
     suspend fun login(@Body userData: HashMap<String, Any>): LogInRoot
 
     @POST(" challenges/api/auth/signup")

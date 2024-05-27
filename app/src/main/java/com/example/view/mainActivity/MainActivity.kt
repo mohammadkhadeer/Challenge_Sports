@@ -64,12 +64,13 @@ class MainActivity : AppCompatActivity() {
             moveToLoginScreen()
 //            if (userData?.token != null)
 //            {
-//                Log.i("TAG","TAG userData not null")
+//                Log.i("TAG","TAG userData?.token: "+userData?.token)
+//                Log.i("TAG","TAG userData?.name: "+userData?.name)
+//                Log.i("TAG","TAG userData?.email: "+userData?.email)
 //            }else{
 //                moveToLoginScreen()
 //            }
         }
-
     }
 
     private fun moveToLoginScreen() {

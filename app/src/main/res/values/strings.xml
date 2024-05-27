@@ -31,6 +31,7 @@
     <string name="login_error_massage_1">Please fill email and password</string>
     <string name="login_error_massage_2">Please fill email</string>
     <string name="login_error_massage_3">Please fill password</string>
+    <string name="login_error_massage_4">Password can\'t be less than 6 characters</string>
 
 
     //matches adapter status
