@@ -2,6 +2,14 @@
     <string name="app_name">Challenge Sports</string>
 
 
+    //forgot password
+    <string name="forgot_password_text_1">Please enter the registered email address and the reset password link will be sent</string>
+    <string name="email_address">Email address</string>
+    <string name="submit">Submit</string>
+    <string name="forgot_password_text_2">Please fill the email</string>
+    <string name="forgot_password_text_3">Enter valid email please</string>
+    <string name="forgot_password_text_4">Back to login</string>
+
     //register
     <string name="register">Register</string>
     <string name="massage_register_1">Welcome to Challenge Sports</string>

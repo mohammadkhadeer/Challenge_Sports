@@ -18,6 +18,8 @@ import com.example.apisetup.R
 import com.example.apisetup.notmodel.Status
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.RegisterTools
+import com.example.view.bottomSheet.ForgotBottomSheetFragment
+import com.example.view.bottomSheet.ModalBottomSheetFragment
 import com.example.view.register.RegisterActivity
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
@@ -138,6 +140,8 @@ class Login : AppCompatActivity() {
     private fun actionListenerToForgotPassword() {
         forgot_pass_rl.setOnClickListener {
             Log.i("TAG", "TAG forgot password: ")
+            val modalBottomSheet = ForgotBottomSheetFragment()
+            modalBottomSheet.show(supportFragmentManager, ForgotBottomSheetFragment::class.java.simpleName)
         }
     }
 

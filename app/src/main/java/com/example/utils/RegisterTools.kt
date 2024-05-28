@@ -22,6 +22,12 @@ import java.util.*
 
 
 object RegisterTools {
+    fun makeMapForForGotPasswordRequirements(emailStr: String): HashMap<String, Any> {
+        val map = HashMap<String, Any>()
+        map["email"] = emailStr
+
+        return map
+    }
 
     fun emailOrPasswordOrFullNameIsEmptyErrorMassage(emailStr: String,passwordStr:String,fullNameStr:String,context: Context): String {
         var error_massage = ""

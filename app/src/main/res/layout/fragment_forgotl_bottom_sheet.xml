@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_10sdp"
+        android:id="@+id/header_rl"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_1"
+            android:layout_marginHorizontal="@dimen/_100sdp"/>
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/main_view"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@drawable/bg_7"
+        android:layout_marginBottom="@dimen/_minus14sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_rl">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:gravity="center"
+            android:text="@string/forgot_password_text_1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_24sdp"
+            android:visibility="gone"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:gravity="center"
+            android:text="@string/forgot_password_text_1"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_14sdp" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@+id/textView4"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:background="@drawable/bg_2">
+
+            <EditText
+                android:id="@+id/email_edt"
+                style="@style/EditTextNoUnderline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:hint="@string/email_address"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:textSize="16dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/submit_rl"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@+id/relativeLayout2"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/bg_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/loading_rl"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_rl"
+        >
+
+        <ProgressBar
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_80sdp"
+            android:layout_centerHorizontal="true"
+            android:theme="@style/progressBarBlue"
+            android:id="@+id/progress_bar"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/main_scc_view"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@drawable/bg_7"
+        android:layout_marginBottom="@dimen/_minus14sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_rl">
+
+
+        <ImageView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:id="@+id/success_image"
+            android:background="@drawable/successfully" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_password_text_1"
+            android:id="@+id/success_massage_txt"
+            android:textSize="@dimen/_13sdp"
+            android:gravity="center"
+            android:layout_below="@+id/success_image"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:textColor="@color/black"/>
+
+        <RelativeLayout
+            android:id="@+id/back_to_login_rl"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@+id/success_massage_txt"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/bg_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:text="@string/forgot_password_text_4"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

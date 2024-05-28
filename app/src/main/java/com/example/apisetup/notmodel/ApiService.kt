@@ -1,5 +1,6 @@
 package com.example.apisetup.notmodel
 
+import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.login.LogInRoot
@@ -41,4 +42,7 @@ interface ApiService {
 
     @POST(" challenges/api/auth/signup")
     suspend fun register(@Body userData: HashMap<String, Any>): LogInRoot
+
+    @POST(" challenges/api/forgot-password")
+    suspend fun forgotPasswordRequest(@Body emailStr: HashMap<String, Any>): ForgotPasswordRootResponse
 }

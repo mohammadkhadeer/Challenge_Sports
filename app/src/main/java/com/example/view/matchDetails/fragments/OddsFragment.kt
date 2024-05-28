@@ -75,6 +75,7 @@ class OddsFragment : Fragment()  {
         //Create a default object and fill a company image
         fillBasicInfo()
 
+        //to change a company should to press on company image
         actionListenerToCompanyImage()
 
         addATabsToTabLayout()
@@ -88,7 +89,7 @@ class OddsFragment : Fragment()  {
             vm.getMatchOdds(MySharableObject.matchObject?.id!!)
         }
 
-        //odds type To win in response is asia
+        //odds type To win in response is asia and here i observe a response from server req
         createOddList(selected_tab!!,company_selected!!.id)
 
         //when the select to see all a company available to see the bet list according the selected company

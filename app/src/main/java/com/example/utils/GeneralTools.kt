@@ -9,6 +9,7 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Parcelable
 import android.util.Log
+import android.util.Patterns
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
 import com.example.model.headToHeadMatches.History
@@ -22,6 +23,10 @@ import java.util.*
 
 
 object GeneralTools {
+
+    fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
 
     fun getFirstDigOnly(number: String): Int {
         val myDouble: Double = number.toDouble()

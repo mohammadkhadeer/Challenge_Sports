@@ -10,6 +10,7 @@ import com.example.apisetup.notmodel.Resource
 import com.example.model.hotMatches.HotMatchBaseClass
 
 import com.example.apisetup.notmodel.Resource.Companion.loading
+import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.login.LogInRoot
 import com.example.model.odds.OddsRoot
@@ -29,6 +30,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     //login and register same value to handle both
     var login = MutableLiveData<Resource< LogInRoot >>()
 
+    //forgot password
+    var forgot_password = MutableLiveData<Resource< ForgotPasswordRootResponse >>()
+
     init {
 
  }
@@ -38,7 +42,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getHotMatches(true)
                 //println(myData)
-//                Log.i("TAG","myData "+myData)
                 matches_root.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -52,7 +55,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getUpcomingMatches()
                 //println(myData)
-//                Log.i("TAG","myData "+myData)
                 matches_upcoming.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -67,7 +69,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getFinishedMatches()
                 //println(myData)
-//                Log.i("TAG","myData "+myData)
                 matches_finished.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -81,7 +82,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getLiveMatches()
                 //println(myData)
-//                Log.i("TAG","myData "+myData)
                 matches_live.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -89,15 +89,12 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
         }
     }
 
-
-
     fun getMatchOdds(match_id:String){
         viewModelScope.launch {
             matches_odds.postValue(Resource.loading(null))
             try {
                 val myData=apiHelper.getMatchOdds(match_id)
                 //println(myData)
-//                Log.i("TAG","myData "+myData)
                 matches_odds.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -111,7 +108,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData=apiHelper.getH2HListMatches(match_id)
                 //println(myData)
-//                Log.i("TAG","myData "+myData)
                 h2hList.postValue(Resource.success(myData))
             }catch (e:Exception){
                 println(e.message)
@@ -126,7 +122,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData = apiHelper.login(userData)
                 //println(myData)
-//                Log.i("TAG","myData "+myData)
                 login.postValue(Resource.success(myData))
 
             }catch (e:Exception){
@@ -143,12 +138,28 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData = apiHelper.register(userData)
                 //println(myData)
-//                Log.i("TAG","myData "+myData)
                 login.postValue(Resource.success(myData))
 
             }catch (e:Exception){
                 login.postValue(Resource.error(e.message.toString(),null))
                 println(e.message)
+            }
+        }
+    }
+
+    fun forgotPasswordRequest(emailStr:HashMap<String, Any>){
+
+        viewModelScope.launch {
+            forgot_password.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.forgotPasswordRequest(emailStr)
+                //println(myData)
+                Log.i("TAG","myData "+myData)
+                forgot_password.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                forgot_password.postValue(Resource.error(e.message.toString(),null))
             }
         }
     }
