@@ -10,6 +10,7 @@ import com.example.apisetup.notmodel.Resource
 import com.example.model.hotMatches.HotMatchBaseClass
 
 import com.example.apisetup.notmodel.Resource.Companion.loading
+import com.example.model.banner.BannerRoot
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.login.LogInRoot
@@ -33,9 +34,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     //forgot password
     var forgot_password = MutableLiveData<Resource< ForgotPasswordRootResponse >>()
 
-    init {
+    //banner Ads
+    var bannerRoot = MutableLiveData<Resource< BannerRoot >>()
 
- }
      fun getHotMatches(){
         viewModelScope.launch {
             matches_root.postValue(Resource.loading(null))
@@ -116,7 +117,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     }
 
     fun login(userData:HashMap<String, Any>){
-
         viewModelScope.launch {
             login.postValue(Resource.loading(null))
             try {
@@ -132,7 +132,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     }
 
     fun register(userData:HashMap<String, Any>){
-
         viewModelScope.launch {
             login.postValue(Resource.loading(null))
             try {
@@ -148,7 +147,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     }
 
     fun forgotPasswordRequest(emailStr:HashMap<String, Any>){
-
         viewModelScope.launch {
             forgot_password.postValue(Resource.loading(null))
             try {
@@ -160,6 +158,22 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             }catch (e:Exception){
                 println(e.message)
                 forgot_password.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
+
+    fun getABannerAds(){
+        viewModelScope.launch {
+            bannerRoot.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.getBannerAds()
+                //println(myData)
+                Log.i("TAG","myData "+myData)
+                bannerRoot.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                bannerRoot.postValue(Resource.error(e.message.toString(),null))
             }
         }
     }

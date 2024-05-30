@@ -1,5 +1,6 @@
 package com.example.apisetup.notmodel
 
+import com.example.model.banner.BannerRoot
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
@@ -45,4 +46,7 @@ interface ApiService {
 
     @POST(" challenges/api/forgot-password")
     suspend fun forgotPasswordRequest(@Body emailStr: HashMap<String, Any>): ForgotPasswordRootResponse
+
+    @GET(" https://api996.com/api/v1/banner/com.challange.sports")
+    suspend fun getABannerAds() : BannerRoot
 }

@@ -62,15 +62,12 @@ class ForgotBottomSheetFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_forgotl_bottom_sheet, container, false)
+        casting(view)
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        casting(view)
-        //re handle sent email to reset password
-        main_scc_view.isVisible = false
-        main_view.isVisible = true
 
         actionListenerToSubmitButton()
         monitorEmailEdt()
@@ -123,7 +120,7 @@ class ForgotBottomSheetFragment : BottomSheetDialogFragment() {
                 {
                     if (GeneralTools.isValidEmail(emailStr))
                     {
-                        Log.i("TAG","TAG send a email: "+emailStr)
+//                        Log.i("TAG","TAG send a email: "+emailStr)
                         //disable submit button
                         press_on_submit = false
                         submit_rl.setBackgroundResource(R.drawable.bg_8)

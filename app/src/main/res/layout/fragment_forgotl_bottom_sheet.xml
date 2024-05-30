@@ -134,7 +134,7 @@
         android:id="@+id/main_scc_view"
         android:layout_width="match_parent"
         android:layout_height="600dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_2sdp"
         android:background="@drawable/bg_7"
         android:layout_marginBottom="@dimen/_minus14sdp"

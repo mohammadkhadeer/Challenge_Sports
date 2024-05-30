@@ -1,5 +1,6 @@
 package com.example.apisetup.notmodel
 
+import com.example.model.banner.BannerRoot
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
@@ -19,5 +20,6 @@ interface ApiHelper {
     suspend fun login(userData:HashMap<String, Any>) : LogInRoot
     suspend fun register(userData:HashMap<String, Any>) : LogInRoot
     suspend fun forgotPasswordRequest(emailStr_with_a_key:HashMap<String, Any>) : ForgotPasswordRootResponse
+    suspend fun getBannerAds() : BannerRoot
 
 }

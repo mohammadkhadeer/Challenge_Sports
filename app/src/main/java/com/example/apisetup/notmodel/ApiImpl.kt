@@ -1,5 +1,6 @@
 package com.example.apisetup.notmodel
 
+import com.example.model.banner.BannerRoot
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
@@ -21,5 +22,6 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun login(userData: HashMap<String, Any>): LogInRoot = apiService.login(userData)
     override suspend fun register(userData: HashMap<String, Any>): LogInRoot = apiService.register(userData)
     override suspend fun forgotPasswordRequest(emailStr_with_a_key: HashMap<String, Any>): ForgotPasswordRootResponse = apiService.forgotPasswordRequest(emailStr_with_a_key)
+    override suspend fun getBannerAds(): BannerRoot = apiService.getABannerAds()
 
 }

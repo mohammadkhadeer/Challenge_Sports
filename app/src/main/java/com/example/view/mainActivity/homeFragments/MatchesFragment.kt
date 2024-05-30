@@ -1,4 +1,4 @@
-package com.challenge.sports.view.HomeActivity.homeFragments
+package com.example.view.mainActivity.homeFragments
 
 import android.content.Context
 import android.content.Intent
@@ -11,16 +11,12 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
-import com.example.apisetup.notmodel.Resource
 import com.example.apisetup.notmodel.Status
-import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.hotMatches.HotMatche
 import com.example.model.hotMatches.MatchStatusJ
-import com.example.presnter.OnDetailListener
 import com.example.presnter.RecyclerViewOnclick
 import com.example.presnter.RecyclerViewOnclickMatch
 import com.example.utils.GeneralTools.fillMatchesStatus

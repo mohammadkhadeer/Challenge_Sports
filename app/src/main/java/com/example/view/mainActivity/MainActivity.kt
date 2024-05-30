@@ -3,29 +3,24 @@ package com.example.view.mainActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
-import androidx.fragment.app.FragmentTransaction
-import com.challenge.sports.view.HomeActivity.homeFragments.MatchesFragment
+import com.example.view.mainActivity.homeFragments.MatchesFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
 import com.example.sharedPreferences.SharedPreferencesHelper
-import com.example.utils.MySharableObject
 import com.example.view.login.Login
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
-import com.example.view.mainActivity.homeFragments.NewsFragment
-import com.example.view.matchDetails.MatchDetails
+import com.example.view.mainActivity.homeFragments.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    val newsFrag= NewsFragment.newInstance(false,":")
-    val homeFragment= ProfileFragment.newInstance()
-    val matchFrag= MatchesFragment.newInstance()
-    val profileFrag= DiscoverFragment.newInstance("","")
+    val home_fragment = HomeFragment()
+    val homeFragment  = ProfileFragment.newInstance()
+    val matchFrag     = MatchesFragment.newInstance()
+    val profileFrag   = DiscoverFragment.newInstance("","")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home_tab -> {
-                    replaceFragment(newsFrag)
+                    replaceFragment(home_fragment)
                 }
                 R.id.matches_tab -> {
                     replaceFragment(matchFrag)
@@ -55,8 +50,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        replaceFragment(newsFrag)
-        bottomNavigationView.selectedItemId = R.id.matches_tab
+        replaceFragment(home_fragment)
+        bottomNavigationView.selectedItemId = R.id.home_tab
 
         val addFab = findViewById<FloatingActionButton>(R.id.addFabBtn)
         val userData = SharedPreferencesHelper.getUser(this)
