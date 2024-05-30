@@ -2,6 +2,12 @@
     <string name="app_name">Challenge Sports</string>
 
 
+    //news details
+    <string name="news_details">News Details</string>
+
+    //news
+    <string name="last_info">Last Info</string>
+
     //forgot password
     <string name="forgot_password_text_1">Please enter the registered email address and the reset password link will be sent</string>
     <string name="email_address">Email address</string>

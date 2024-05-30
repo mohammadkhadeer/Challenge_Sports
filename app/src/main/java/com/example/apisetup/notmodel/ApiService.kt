@@ -5,6 +5,8 @@ import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.login.LogInRoot
+import com.example.model.news.NewsBase
+import com.example.model.news.details.NewsPostBase
 import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsRoot
 import com.example.model.videos.random.RandomVidsBase
@@ -49,4 +51,10 @@ interface ApiService {
 
     @GET(" https://api996.com/api/v1/banner/com.challange.sports")
     suspend fun getABannerAds() : BannerRoot
+
+    @GET(" https://app.app99877.com/api/post-list/{locale}/{page}")
+    suspend fun getNews(@Path("locale") locale:String,@Path("page") page:String): NewsBase
+
+    @GET(" https://app.app99877.com/api/post/{locale}/{postId}")
+    suspend fun getNewsDetails(@Path("locale") locale:String,@Path("postId") postId:String): NewsPostBase
 }

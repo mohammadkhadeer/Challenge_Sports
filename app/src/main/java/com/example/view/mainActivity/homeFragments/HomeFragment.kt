@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apisetup.R
@@ -19,6 +21,7 @@ import com.example.model.banner.Top
 import com.example.presnter.RecyclerViewOnclickAds
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.view.mainActivity.homeAdapter.bannerAdapter.ImageSliderAdapter
+import com.example.view.mainActivity.homeFragments.homeFragment.HorzNewsFragment
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 
@@ -65,6 +68,9 @@ class HomeFragment : Fragment() , ImageSliderAdapter.OnItemClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         casting(view)
 
+        // Add fragments to the container
+        addFragmentToContainer(HorzNewsFragment())
+
         //handle server object
         view_model = SpewViewModel.giveMeViewModel(requireActivity())
         //sent a requisite to get a banner ads
@@ -98,10 +104,18 @@ class HomeFragment : Fragment() , ImageSliderAdapter.OnItemClickListener{
         view_pager_ads.isUserInputEnabled = false
     }
 
+    private fun addFragmentToContainer(fragment: Fragment) {
+        // Get the FragmentManager and start a transaction
+        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+
+        // Add the fragment to the container
+        fragmentTransaction.add(R.id.fragmentContainer, fragment)
+        fragmentTransaction.commit()
+    }
+
     override fun onItemClick(adObj: Top) {
         Log.i("TAG" ,"adObj "+ adObj.message)
-        Toast.makeText(requireContext(), "${adObj.message}", Toast.LENGTH_SHORT).show()
-
     }
 
     override fun onDestroy() {

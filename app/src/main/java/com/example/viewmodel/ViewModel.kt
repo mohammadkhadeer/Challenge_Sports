@@ -14,6 +14,8 @@ import com.example.model.banner.BannerRoot
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.login.LogInRoot
+import com.example.model.news.NewsBase
+import com.example.model.news.details.NewsPostBase
 import com.example.model.odds.OddsRoot
 import kotlinx.coroutines.launch
 import java.sql.DriverManager.println
@@ -36,6 +38,10 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
 
     //banner Ads
     var bannerRoot = MutableLiveData<Resource< BannerRoot >>()
+
+    //news
+    var newsLiveData = MutableLiveData<Resource<NewsBase>>()
+    var newsDetailsData = MutableLiveData<Resource<NewsPostBase>>()
 
      fun getHotMatches(){
         viewModelScope.launch {
@@ -174,6 +180,30 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             }catch (e:Exception){
                 println(e.message)
                 bannerRoot.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
+
+    fun getNews(pageNumber: String,lang:String) {
+        viewModelScope.launch {
+            newsLiveData.postValue(Resource.loading(null))
+            try {
+                val news = apiHelper.getNews(lang, pageNumber)
+                newsLiveData.postValue(Resource.success(news))
+            } catch (e: Exception) {
+                newsLiveData.postValue(Resource.error(e.toString(), null))
+            }
+        }
+    }
+
+    fun getANewsDetails(postID: String,lang: String) {
+        viewModelScope.launch {
+            newsDetailsData.postValue(Resource.loading(null))
+            try {
+                val news = apiHelper.getNewsDetails(lang, postID)
+                newsDetailsData.postValue(Resource.success(news))
+            } catch (e: Exception) {
+                newsDetailsData.postValue(Resource.error(e.toString(), null))
             }
         }
     }

@@ -5,6 +5,8 @@ import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.login.LogInRoot
+import com.example.model.news.NewsBase
+import com.example.model.news.details.NewsPostBase
 import com.example.model.odds.OddsRoot
 import com.example.model.videos.random.RandomVidsBase
 
@@ -21,5 +23,6 @@ interface ApiHelper {
     suspend fun register(userData:HashMap<String, Any>) : LogInRoot
     suspend fun forgotPasswordRequest(emailStr_with_a_key:HashMap<String, Any>) : ForgotPasswordRootResponse
     suspend fun getBannerAds() : BannerRoot
-
+    suspend fun getNews(locale: String, page: String) : NewsBase
+    suspend fun getNewsDetails(locale: String, id: String) : NewsPostBase
 }
