@@ -7,6 +7,7 @@
 
     //news
     <string name="last_info">Last Info</string>
+    <string name="all_news">More Info</string>
 
     //forgot password
     <string name="forgot_password_text_1">Please enter the registered email address and the reset password link will be sent</string>

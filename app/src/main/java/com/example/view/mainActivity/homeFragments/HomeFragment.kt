@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -28,6 +29,7 @@ import com.example.viewmodel.SpewViewModel
 class HomeFragment : Fragment() , ImageSliderAdapter.OnItemClickListener{
     //ui
     private lateinit var view_pager_ads: ViewPager2
+    private lateinit var pro_bar: ProgressBar
 
     //value
     private var fragmentContext: Context? = null
@@ -84,6 +86,8 @@ class HomeFragment : Fragment() , ImageSliderAdapter.OnItemClickListener{
         view_model.bannerRoot.observe(this){
             if (it.status== Status.SUCCESS){
                 if (fragmentContext != null){
+                    pro_bar.isVisible = false
+
                     view_pager_ads.adapter = ImageSliderAdapter(fragmentContext!!,it.data!!.data.top,this)
 
                     addsListSize = it.data!!.data.top.size
@@ -100,6 +104,7 @@ class HomeFragment : Fragment() , ImageSliderAdapter.OnItemClickListener{
 
     private fun casting(view: View) {
         view_pager_ads = view.findViewById<ViewPager2>(R.id.viewpager)
+        pro_bar = view.findViewById<ProgressBar>(R.id.pro_bar)
         //to freeze view pager slid option
         view_pager_ads.isUserInputEnabled = false
     }

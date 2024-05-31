@@ -28,6 +28,20 @@
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/see_all_txt"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:text="@string/see_all"
+            android:textColor="@color/brand_color"
+            android:textSize="@dimen/_12sdp"
+            android:background="@drawable/bg_6"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -40,6 +54,14 @@
         app:layout_constraintTop_toBottomOf="@+id/header_rl"
         >
 
+        <ProgressBar
+            android:id="@+id/pro_bar"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:gravity="center"
+            android:theme="@style/progressBarBlue"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/horizontal_rv"
