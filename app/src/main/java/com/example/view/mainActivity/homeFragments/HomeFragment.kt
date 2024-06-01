@@ -23,6 +23,7 @@ import com.example.presnter.RecyclerViewOnclickAds
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.view.mainActivity.homeAdapter.bannerAdapter.ImageSliderAdapter
 import com.example.view.mainActivity.homeFragments.homeFragment.HorzNewsFragment
+import com.example.view.mainActivity.homeFragments.homeFragment.HorzUpcomingMatchesFragment
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 
@@ -72,6 +73,7 @@ class HomeFragment : Fragment() , ImageSliderAdapter.OnItemClickListener{
 
         // Add fragments to the container
         addFragmentToContainer(HorzNewsFragment())
+        addFragmentToContainerUpcoming(HorzUpcomingMatchesFragment())
 
         //handle server object
         view_model = SpewViewModel.giveMeViewModel(requireActivity())
@@ -116,6 +118,16 @@ class HomeFragment : Fragment() , ImageSliderAdapter.OnItemClickListener{
 
         // Add the fragment to the container
         fragmentTransaction.add(R.id.fragmentContainer, fragment)
+        fragmentTransaction.commit()
+    }
+
+    private fun addFragmentToContainerUpcoming(fragment: Fragment) {
+        // Get the FragmentManager and start a transaction
+        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+
+        // Add the fragment to the container
+        fragmentTransaction.add(R.id.fragmentContainerUpComing, fragment)
         fragmentTransaction.commit()
     }
 

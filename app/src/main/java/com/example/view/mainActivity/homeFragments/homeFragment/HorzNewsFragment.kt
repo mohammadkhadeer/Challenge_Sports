@@ -81,7 +81,7 @@ class HorzNewsFragment : Fragment() {
             if (it.status== Status.SUCCESS){
                 if (fragmentContext != null){
                     pro_bar.isVisible = false
-                   println(it.data!!.list)
+
                     populateRecyclerViewsHorizontal(it.data!!)
                 }
 
@@ -102,9 +102,6 @@ class HorzNewsFragment : Fragment() {
             object : RecyclerViewOnclick {
                 override fun onClick(position: Int) {
                     moveToNewsDetailsScreen(newsList[position].id)
-//                    val list=ArrayList<String>()
-//                    list.add(newsList.get(position)?.id.toString())
-//                    onDetailListener?.onDetail(list)
                 }
             })
 
@@ -122,7 +119,6 @@ class HorzNewsFragment : Fragment() {
     }
 
     private fun casting(view: View) {
-        //view_pager_ads = view.findViewById<ViewPager2>(R.id.viewpager)
         horizontal_rv= view.findViewById<RecyclerView>(R.id.horizontal_rv)
         pro_bar= view.findViewById<ProgressBar>(R.id.pro_bar)
         see_all_txt= view.findViewById<TextView>(R.id.see_all_txt)

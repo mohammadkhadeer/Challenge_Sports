@@ -36,8 +36,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_85sdp"
-            android:layout_marginTop="@dimen/_75sdp"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_95sdp"
             android:background="@color/black"
             android:alpha="0.5"
             >

@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.view.mainActivity.homeFragments.MatchesFragment
 import com.challenge.sports.view.HomeActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
+import com.example.presnter.OnSeeAllMatchesListener
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.view.login.Login
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
@@ -15,7 +18,9 @@ import com.example.view.mainActivity.homeFragments.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener{
+    //ui
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     val home_fragment = HomeFragment()
     val homeFragment  = ProfileFragment.newInstance()
@@ -31,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun tabLayout() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home_tab -> {
@@ -83,6 +88,11 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.bottomFragment,fragment)
             .commit()
+    }
+
+    override fun onPress() {
+        replaceFragment(matchFrag)
+        bottomNavigationView.selectedItemId = R.id.matches_tab
     }
 
 }

@@ -44,15 +44,14 @@
                 android:id="@+id/group_indicator"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_23sdp"
                 android:gravity="center_vertical"
                 android:text="Group-A"
                 android:textColor="@color/secondry_text_color"
-                android:layout_marginStart="@dimen/_23sdp"
                 android:textSize="15sp"
-                app:layout_constraintEnd_toStartOf="@+id/match_time"
+                app:layout_constraintEnd_toStartOf="@+id/time_icon"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
@@ -61,8 +60,7 @@
                 android:layout_height="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:background="@drawable/clock_ic"
-                android:layout_marginEnd="@dimen/_3sdp"
-                app:layout_constraintEnd_toEndOf="@+id/group_indicator"
+                app:layout_constraintEnd_toStartOf="@+id/match_time"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
