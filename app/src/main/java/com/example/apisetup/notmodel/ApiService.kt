@@ -7,6 +7,7 @@ import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.login.LogInRoot
 import com.example.model.news.NewsBase
 import com.example.model.news.details.NewsPostBase
+import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsRoot
 import com.example.model.videos.random.RandomVidsBase
@@ -57,4 +58,7 @@ interface ApiService {
 
     @GET(" https://app.app99877.com/api/post/{locale}/{postId}")
     suspend fun getNewsDetails(@Path("locale") locale:String,@Path("postId") postId:String): NewsPostBase
+
+    @GET(" https://www.77577.live/api/video-list/{locale}/{page}")
+    suspend fun getANewVideo(@Path("locale") locale:String,@Path("page") pageNumber:String): VideoRoot
 }

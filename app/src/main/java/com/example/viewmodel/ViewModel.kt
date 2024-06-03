@@ -16,6 +16,7 @@ import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.login.LogInRoot
 import com.example.model.news.NewsBase
 import com.example.model.news.details.NewsPostBase
+import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
 import kotlinx.coroutines.launch
 import java.sql.DriverManager.println
@@ -43,7 +44,10 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     var newsLiveData = MutableLiveData<Resource<NewsBase>>()
     var newsDetailsData = MutableLiveData<Resource<NewsPostBase>>()
 
-     fun getHotMatches(){
+    //video
+    var newsVideoData = MutableLiveData<Resource<VideoRoot>>()
+
+    fun getHotMatches(){
         viewModelScope.launch {
             matches_root.postValue(Resource.loading(null))
             try {
@@ -204,6 +208,19 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
                 newsDetailsData.postValue(Resource.success(news))
             } catch (e: Exception) {
                 newsDetailsData.postValue(Resource.error(e.toString(), null))
+            }
+        }
+    }
+
+    fun getANewVideo(lang: String,pageNumber: String) {
+        viewModelScope.launch {
+            newsVideoData.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.getANewVideo(lang, pageNumber)
+                //println(myData)
+                newsVideoData.postValue(Resource.success(myData))
+            } catch (e: Exception) {
+                newsVideoData.postValue(Resource.error(e.toString(), null))
             }
         }
     }

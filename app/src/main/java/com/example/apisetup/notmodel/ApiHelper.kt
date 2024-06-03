@@ -7,6 +7,7 @@ import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.login.LogInRoot
 import com.example.model.news.NewsBase
 import com.example.model.news.details.NewsPostBase
+import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
 import com.example.model.videos.random.RandomVidsBase
 
@@ -25,4 +26,5 @@ interface ApiHelper {
     suspend fun getBannerAds() : BannerRoot
     suspend fun getNews(locale: String, page: String) : NewsBase
     suspend fun getNewsDetails(locale: String, id: String) : NewsPostBase
+    suspend fun getANewVideo(locale: String, pageNumber: String) : VideoRoot
 }

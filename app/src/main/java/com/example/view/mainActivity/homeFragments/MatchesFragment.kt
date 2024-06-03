@@ -178,7 +178,7 @@ class MatchesFragment : Fragment() {
         when (position) {
             0 -> {
                 vm.getUpcomingMatches()
-                handelHotMatchesResponse(vm,2)
+                handelHotMatchesResponse(vm,0)
             }
             1 -> {
                 vm.getLiveMatches()
@@ -186,7 +186,7 @@ class MatchesFragment : Fragment() {
             }
             2 -> {
                 vm.getHotMatches()
-                handelHotMatchesResponse(vm,0)
+                handelHotMatchesResponse(vm,2)
             }
             3 -> {
                 vm.getFinishedMatches()

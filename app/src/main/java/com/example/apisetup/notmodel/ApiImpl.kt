@@ -7,6 +7,7 @@ import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.model.login.LogInRoot
 import com.example.model.news.NewsBase
 import com.example.model.news.details.NewsPostBase
+import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
 import com.example.model.videos.random.RandomVidsBase
 
@@ -27,5 +28,6 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getBannerAds(): BannerRoot = apiService.getABannerAds()
     override suspend fun getNews(locale: String, page: String): NewsBase = apiService.getNews(locale,page)
     override suspend fun getNewsDetails(locale: String, id: String): NewsPostBase = apiService.getNewsDetails(locale,id)
+    override suspend fun getANewVideo(locale: String, pageNumber: String): VideoRoot = apiService.getANewVideo(locale,pageNumber)
 
 }
