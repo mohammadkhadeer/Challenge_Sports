@@ -13,6 +13,12 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
+    <!-- Custom theme to remove the status bar -->
+    <style name="NoStatusBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
     <!-- Custom BottomSheetDialog style -->
     <style name="TransparentBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/TransparentBottomSheet</item>

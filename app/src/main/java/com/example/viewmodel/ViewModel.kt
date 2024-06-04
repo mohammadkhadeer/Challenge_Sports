@@ -217,9 +217,10 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             newsVideoData.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.getANewVideo(lang, pageNumber)
-                //println(myData)
+                println(myData)
                 newsVideoData.postValue(Resource.success(myData))
             } catch (e: Exception) {
+                println(e.toString())
                 newsVideoData.postValue(Resource.error(e.toString(), null))
             }
         }

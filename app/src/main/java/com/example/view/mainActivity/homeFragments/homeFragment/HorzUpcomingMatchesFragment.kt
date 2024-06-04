@@ -89,7 +89,7 @@ class HorzUpcomingMatchesFragment : Fragment() {
 
     private fun actionListenerToSeeAll() {
         see_all_img.setOnClickListener {
-            listener?.onPress()
+            listener?.onPress("matches")
         }
     }
 

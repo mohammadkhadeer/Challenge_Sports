@@ -18,11 +18,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
-            android:name="com.example.view.allNews.AllNewsActivity"
+            android:name="com.example.view.allNewsVideo.AllNewsVideoActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.view.videoDetails.VideoDetailsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoStatusBarTheme" />
+        <activity
+            android:name="com.example.view.allNews.AllNewsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.example.view.newsDetails.NewsDetailsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.example.view.register.RegisterActivity"
             android:exported="true"

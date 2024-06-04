@@ -30,7 +30,6 @@ class AllNewsActivity : AppCompatActivity() {
     private lateinit var back_image: ImageView
     private lateinit var recycler_view: RecyclerView
     private lateinit var pro_bar_load_more: ProgressBar
-    //pro_bar_load_more
 
     //value
     var pageNumber: Int = 1

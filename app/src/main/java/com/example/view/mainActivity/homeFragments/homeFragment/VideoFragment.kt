@@ -36,6 +36,7 @@ import com.example.view.mainActivity.homeAdapter.matches.MatchesAdapter
 import com.example.view.mainActivity.homeAdapter.newsAdapter.NewsAdapter_Horizontal
 import com.example.view.matchDetails.MatchDetails
 import com.example.view.newsDetails.NewsDetailsActivity
+import com.example.view.videoDetails.VideoDetailsActivity
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 
@@ -50,6 +51,7 @@ class VideoFragment : Fragment() {
     private var fragmentContext: Context? = null
     private var mainAdapter: MatchesAdapter? = null
     private var listener: OnSeeAllMatchesListener? = null
+    private var videoList:  List<VideoList>? = null
 
     //server
     private lateinit var view_model: MyViewModel
@@ -108,25 +110,34 @@ class VideoFragment : Fragment() {
     }
 
     private fun populateRecyclerViews(data: VideoRoot) {
-        val videoList= data?.list
+        videoList = data?.list
 
         recyclerViewMain.isNestedScrollingEnabled = false;
 
         recyclerViewMain.adapter= VideoNewsAdapterHorizontal(requireContext(), videoList!! as ArrayList<VideoList>,
             object : NewsVideoRecyclerViewOnclick {
                 override fun onClick(obj: VideoList) {
-
+                    moveToVideoDetailsScreen(obj)
                 }
-
             })
 
         recyclerViewMain.layoutManager=
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
     }
 
+    private fun moveToVideoDetailsScreen(obj: VideoList) {
+        videoList!!.filter {  it.id != obj.id }
+
+        MySharableObject.videoListObject = videoList
+        MySharableObject.videoNewsObject = obj
+        val intent = Intent(requireActivity(), VideoDetailsActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun actionListenerToSeeAll() {
         see_all_img.setOnClickListener {
-            listener?.onPress()
+            MySharableObject.videoListObject = videoList
+            listener?.onPress("videos")
         }
     }
 

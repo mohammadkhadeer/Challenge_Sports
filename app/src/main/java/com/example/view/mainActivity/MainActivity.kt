@@ -12,6 +12,7 @@ import com.challenge.sports.view.HomeActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
 import com.example.presnter.OnSeeAllMatchesListener
 import com.example.sharedPreferences.SharedPreferencesHelper
+import com.example.view.allNewsVideo.AllNewsVideoActivity
 import com.example.view.login.Login
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
 import com.example.view.mainActivity.homeFragments.HomeFragment
@@ -90,9 +91,15 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener{
             .commit()
     }
 
-    override fun onPress() {
-        replaceFragment(matchFrag)
-        bottomNavigationView.selectedItemId = R.id.matches_tab
+    override fun onPress(from_matches_or_video: String) {
+        if (from_matches_or_video == "matches"){
+            replaceFragment(matchFrag)
+            bottomNavigationView.selectedItemId = R.id.matches_tab
+        }else{
+            val intent = Intent(this, AllNewsVideoActivity::class.java)
+            startActivity(intent)
+        }
     }
+
 
 }
