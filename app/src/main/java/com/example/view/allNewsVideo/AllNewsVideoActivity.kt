@@ -64,7 +64,6 @@ class AllNewsVideoActivity : AppCompatActivity() {
     private fun observeResponse() {
         view_model.newsVideoData.observe(this){
             if (it.status== Status.SUCCESS){
-                Log.i("TAG" ,"it.message "+it.data!!)
                 updateAList(it.data!!)
             }else{
                 if (it.status == Status.ERROR){

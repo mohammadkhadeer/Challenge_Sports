@@ -84,5 +84,8 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="progressBarBlue2" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/white</item>
+    </style>
 
 </resources>
