@@ -3,12 +3,14 @@ package com.example.view.mainActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.PopupWindow
 import com.example.view.mainActivity.homeFragments.MatchesFragment
-import com.challenge.sports.view.HomeActivity.homeFragments.ProfileFragment
+import com.example.view.mainActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
 import com.example.presnter.OnSeeAllMatchesListener
 import com.example.sharedPreferences.SharedPreferencesHelper
@@ -23,8 +25,9 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener{
     //ui
     private lateinit var bottomNavigationView: BottomNavigationView
 
+    //fragments
     val home_fragment = HomeFragment()
-    val homeFragment  = ProfileFragment.newInstance()
+    val profile_fragment  = ProfileFragment()
     val matchFrag     = MatchesFragment.newInstance()
     val profileFrag   = DiscoverFragment.newInstance("","")
 
@@ -50,7 +53,14 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener{
                     replaceFragment(profileFrag)
                 }
                 R.id.profile_tab -> {
-                    replaceFragment(homeFragment)
+                    val userData = SharedPreferencesHelper.getUser(this)
+                    if (userData?.token != null)
+                    {
+                        replaceFragment(profile_fragment)
+                    }else{
+                        moveToLoginScreen()
+                    }
+
                 }
             }
             true
@@ -60,8 +70,8 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener{
         bottomNavigationView.selectedItemId = R.id.home_tab
 
         val addFab = findViewById<FloatingActionButton>(R.id.addFabBtn)
-        val userData = SharedPreferencesHelper.getUser(this)
         addFab.setOnClickListener {
+            val userData = SharedPreferencesHelper.getUser(this)
             moveToLoginScreen()
 //            if (userData?.token != null)
 //            {
@@ -101,5 +111,22 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener{
         }
     }
 
+    private fun showPopupWindow(anchorView: View) {
+        // Inflate the popup_layout.xml
+        val inflater: LayoutInflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView: View = inflater.inflate(R.layout.popup_layout, null)
+
+        // Create the PopupWindow
+        val popupWindow = PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
+
+        // Set up the close button
+        val closeButton: Button = popupView.findViewById(R.id.closeButton)
+        closeButton.setOnClickListener {
+            popupWindow.dismiss()
+        }
+
+        // Show the popup window
+        popupWindow.showAsDropDown(anchorView, 0, 0)
+    }
 
 }

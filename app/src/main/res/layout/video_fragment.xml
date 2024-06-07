@@ -9,8 +9,6 @@
     android:background="@color/colorPrimary"
     >
 
-<!--    app:layout_constraintBottom_toBottomOf="parent"-->
-
     <RelativeLayout
         android:id="@+id/header_rl"
         android:layout_width="match_parent"

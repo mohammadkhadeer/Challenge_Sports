@@ -48,7 +48,7 @@ class DiscoverFragment : Fragment() {
         viewModel.videoRandom.observe(viewLifecycleOwner){ resource->
             when(resource.status){
                 Status.SUCCESS -> {
-                    mainViewPager?.adapter=VideoViewPagerAdapter(requireActivity(),resource.data!!)
+                    mainViewPager?.adapter = VideoViewPagerAdapter(requireActivity(),resource.data!!)
                 }
                 Status.ERROR -> {
 

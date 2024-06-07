@@ -2,6 +2,11 @@
     <string name="app_name">Challenge Sports</string>
 
 
+    //profile
+    <string name="edit_profile">Edit Profile</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+
     //news details
     <string name="news_details">News Details</string>
 
