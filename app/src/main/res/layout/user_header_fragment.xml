@@ -30,7 +30,9 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp">
+
 
                     <com.example.utils.CircleImageView
                         android:layout_width="80dp"
@@ -38,7 +40,7 @@
                         android:id="@+id/user_image"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/_4sdp"
-                        android:src="@color/red"
+                        android:src="@drawable/upload_profile_image"
                         android:scaleType="centerCrop"
                         />
 
@@ -46,7 +48,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp">
 
                     <TextView
                         android:id="@+id/user_name_txt"
