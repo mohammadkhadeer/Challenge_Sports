@@ -22,15 +22,26 @@
             android:background="@color/black"
             />
 
-
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:src="@drawable/video_player"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_width="@dimen/_12sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:src="@drawable/play_button_ic"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_4sdp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        android:text="4K"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_3sdp"
         />
 
 </RelativeLayout>

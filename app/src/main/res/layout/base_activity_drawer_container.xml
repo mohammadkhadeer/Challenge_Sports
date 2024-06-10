@@ -9,7 +9,6 @@
     tools:context="com.example.view.mainActivity.MainActivity"
     >
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,6 +16,10 @@
         android:layout_marginBottom="@dimen/_43sdp"
         />
 
+    <!--    this line responsable to make a fab look like fly"-->
+    <!--    app:fabCradleMargin="3dp"-->
+    <!--    this line responsable to make a fab reduce"-->
+    <!--    app:fabCradleRoundedCornerRadius="9dp"-->
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -50,9 +53,9 @@
         android:id="@+id/addFabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_24"
-        android:tint="@color/colorPrimary"
         android:backgroundTint="@color/app_blue"
+        app:srcCompat="@drawable/ic_add_24"
+        app:tint="@color/white"
         app:layout_anchor="@id/bottomAppBar"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

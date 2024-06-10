@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent"
+    android:background="@color/colorPrimary"
     >
 
     <RelativeLayout
@@ -14,43 +14,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
-        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
 
         <ProgressBar
             android:id="@+id/pro_bar"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/_70sdp"
             android:gravity="center"
             android:theme="@style/progressBarBlue" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="1px"
-            android:nestedScrollingEnabled="false" />
-
     </RelativeLayout>
 
+
     <RelativeLayout
+        android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_70sdp"
-        android:visibility="gone"
         android:background="@color/colorPrimary"
-        android:id="@+id/empty_view"
-        >
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_200sdp"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/nodata"/>
+            android:layout_marginTop="@dimen/_1sdp"
+            android:src="@drawable/nodata" />
 
 
     </RelativeLayout>

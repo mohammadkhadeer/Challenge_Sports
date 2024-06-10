@@ -3,12 +3,8 @@ package com.example.view.mainActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.PopupWindow
 import com.example.view.mainActivity.homeFragments.MatchesFragment
 import com.example.view.mainActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
@@ -18,10 +14,11 @@ import com.example.view.allNewsVideo.AllNewsVideoActivity
 import com.example.view.login.Login
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
 import com.example.view.mainActivity.homeFragments.HomeFragment
+import com.example.view.mainActivity.homeFragments.profileFragments.VideosFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener{
+class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener  {
     //ui
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -30,6 +27,9 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener{
     val profile_fragment  = ProfileFragment()
     val matchFrag     = MatchesFragment.newInstance()
     val profileFrag   = DiscoverFragment.newInstance("","")
+
+    //fragment insaid inner fragment
+    private var videosFragment = VideosFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,24 +109,6 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener{
             val intent = Intent(this, AllNewsVideoActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    private fun showPopupWindow(anchorView: View) {
-        // Inflate the popup_layout.xml
-        val inflater: LayoutInflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView: View = inflater.inflate(R.layout.popup_layout, null)
-
-        // Create the PopupWindow
-        val popupWindow = PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
-
-        // Set up the close button
-        val closeButton: Button = popupView.findViewById(R.id.closeButton)
-        closeButton.setOnClickListener {
-            popupWindow.dismiss()
-        }
-
-        // Show the popup window
-        popupWindow.showAsDropDown(anchorView, 0, 0)
     }
 
 }
