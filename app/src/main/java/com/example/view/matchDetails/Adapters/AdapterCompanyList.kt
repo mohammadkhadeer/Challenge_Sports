@@ -20,7 +20,6 @@ class AdapterCompanyList (var context: Context,  var companyList:  List<OddsComp
     }
 
     override fun onBindViewHolder(holder: AdapterCompanyList.AdapterCompanyViewHolder, position: Int) {
-
         holder.company_name_txt.text = companyList.get(position).name
         Glide.with(context).load(companyList.get(position).image_path).into(holder.company_image_view)
     }

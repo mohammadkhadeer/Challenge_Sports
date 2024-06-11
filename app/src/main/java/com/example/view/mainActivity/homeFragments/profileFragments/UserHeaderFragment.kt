@@ -23,9 +23,11 @@ import com.example.apisetup.notmodel.Status
 import com.example.model.news.NewsBase
 import com.example.presnter.RecyclerViewOnclick
 import com.example.view.allNews.AllNewsActivity
+import com.example.view.login.Login
 import com.example.view.mainActivity.homeAdapter.bannerAdapter.ImageSliderAdapter
 import com.example.view.mainActivity.homeAdapter.newsAdapter.NewsAdapter_Horizontal
 import com.example.view.newsDetails.NewsDetailsActivity
+import com.example.view.userProfileActivity.UserProfileActivity
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 
@@ -77,8 +79,13 @@ class UserHeaderFragment : Fragment() {
 
     private fun actionListenerToEditProfile() {
         edit_profile_rl.setOnClickListener {
-            Toast.makeText(fragmentContext, "Button Clicked!", Toast.LENGTH_SHORT).show()
+            moveToUserProfileScreen()
         }
+    }
+
+    private fun moveToUserProfileScreen() {
+        val intent = Intent(requireActivity(), UserProfileActivity::class.java)
+        startActivity(intent)
     }
 
     private fun observeBannerResponse() {

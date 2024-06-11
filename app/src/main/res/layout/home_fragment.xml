@@ -88,14 +88,14 @@
                     android:id="@+id/fragmentContainerUpComing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:orientation="horizontal" />
 
                 <LinearLayout
                     android:id="@+id/fragmentContainerVideo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_180sdp"
-                    />
+                    android:orientation="horizontal" />
 
             </LinearLayout>
 

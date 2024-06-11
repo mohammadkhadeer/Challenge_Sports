@@ -13,6 +13,12 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
+    <!-- Custom RadioButton style -->
+    <style name="CustomRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/custom_radio_button</item>
+        <item name="android:textColor">@color/black</item> <!-- Custom text color -->
+    </style>
+
     <!-- Custom theme to remove the status bar -->
     <style name="NoStatusBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>

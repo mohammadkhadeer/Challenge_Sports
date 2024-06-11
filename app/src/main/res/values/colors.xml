@@ -78,5 +78,5 @@
     <color name="green_1">#34c45b</color>
     <color name="red_1">#fe3832</color>
     <color name="separator">#BFBFC1</color>
-    //34c45b
+    <color name="sign_out_color">#d83d4f</color>
 </resources>

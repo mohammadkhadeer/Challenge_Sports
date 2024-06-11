@@ -87,7 +87,6 @@ class Login : AppCompatActivity() {
                 view_model.login(map)
             }else{
                 var errorMassageStr = RegisterTools.emailOrPasswordIsEmptyErrorMassage(emailStr,passwordStr,this)
-                println(errorMassageStr)
                 error_rl.isVisible = true
                 error_txt.text = errorMassageStr
                 hideAErrorMessage()
