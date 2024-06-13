@@ -109,6 +109,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="bio content"
                                 android:maxLines="3"
+                                android:id="@+id/bio_content_txt"
                                 android:layout_marginBottom="@dimen/_8sdp"
                                 android:layout_marginStart="@dimen/_6sdp"
                                 android:layout_marginTop="@dimen/_4sdp"

@@ -6,6 +6,9 @@
     <string name="update_profile_error_m">Please fill </string>
     <string name="update_successfully_message1">Update</string>
     <string name="update_successfully_message2">Successfully</string>
+    <string name="gender_message">Select Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
     //language
     <string name="language_message">Select Language</string>
@@ -25,6 +28,7 @@
     <string name="terms_and_conditions">Terms and Conditions</string>
     <string name="sign_out">Sign Out</string>
     <string name="profile_activity_message">Not allowed to change email</string>
+    <string name="profile_activity_message2">Your bio content is empty</string>
 
     <string name="gender">Gender</string>
     <string name="location">Location</string>

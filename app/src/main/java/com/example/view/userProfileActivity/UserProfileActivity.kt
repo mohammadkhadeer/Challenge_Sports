@@ -3,41 +3,30 @@ package com.example.view.userProfileActivity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
 import com.example.apisetup.notmodel.RetorfitBuilder
-import com.example.apisetup.notmodel.RetorfitBuilderWithToken
 import com.example.model.editProfile.EditProfileInfo
-import com.example.model.news.List
-import com.example.model.odds.OddsCompanyComp
+import com.example.presnter.GenderSheetListener
 import com.example.presnter.LanguageBottomSheetListener
-import com.example.presnter.RecyclerViewOnclick
-import com.example.presnter.RecyclerViewOnclickCompany
 import com.example.presnter.RecyclerViewOnclickProfile
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.EditProfileTools
-import com.example.utils.GeneralTools
-import com.example.view.bottomSheet.ForgotBottomSheetFragment
-import com.example.view.bottomSheet.SelectLanguageBottomSheetFragment
+import com.example.view.bottomSheet.updateProfileBottomSheet.SelectGenderBottomSheetFragment
+import com.example.view.bottomSheet.updateProfileBottomSheet.SelectLanguageBottomSheetFragment
 import com.example.view.mainActivity.MainActivity
-import com.example.view.mainActivity.homeAdapter.newsAdapter.AllNewsAdapter
 import com.example.view.updateUserInfo.UpdateUserInfoActivity
 import com.example.view.userProfileActivity.adapters.AdapterUserProfile
 import java.util.ArrayList
 
-class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
+class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,GenderSheetListener {
     //ui
     private lateinit var back_image: ImageView
     private lateinit var bio_info_ll: LinearLayout
@@ -47,6 +36,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
     private lateinit var terms_and_conditions_ll: LinearLayout
     private lateinit var sign_out_ll: LinearLayout
     private lateinit var selected_language_txt: TextView
+    private lateinit var bio_content_txt: TextView
 
     //values
     private lateinit var adapter: AdapterUserProfile
@@ -56,6 +46,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
     //call back
     //use it to can make a update when a come back from update activity
     private val REQUEST_CODE = 1
+    private val REQUEST_CODE_BIO = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,10 +55,11 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
         statusBarColor()
         casting()
         actionListenerToBack()
+        fillBioText()
         actionListenerToBio()
 
 
-        //all user comp listener in-said a recyclerView listener at line 117-120
+        //all user comp listener in-said a recyclerView listener at line 125-130
         handleARecyclerView()
         actionListenerToLanguage()
         actionListenerToPrivacyPolicy()
@@ -75,9 +67,18 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
         actionListenerToSignOut()
     }
 
+    private fun fillBioText() {
+        if (SharedPreferencesHelper.getABio(this) != null)
+            bio_content_txt.text = SharedPreferencesHelper.getABio(this)
+        else
+            bio_content_txt.text = getString(R.string.profile_activity_message2)
+    }
+
     private fun actionListenerToSignOut() {
         sign_out_ll.setOnClickListener{
             SharedPreferencesHelper.clearData(this)
+            SharedPreferencesHelper.clearProfileInfo(this)
+
             moveToNextActivity()
         }
     }
@@ -117,29 +118,39 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
     private fun handleARecyclerView() {
         recyclerView.isNestedScrollingEnabled = false
 
-        //fill profile list
+        profile_list = ArrayList()
         profile_list = EditProfileTools.fillProfileList(this)
 
         adapter = AdapterUserProfile(this,
             profile_list!!
             , object : RecyclerViewOnclickProfile {
                 override fun onClick(position: Int, profile_obj: EditProfileInfo) {
-
-                    if (profile_obj.title != getString(R.string.email))
-                    {
-                        moveToUpdateUserInfo(profile_obj)
-                    }else{
-                        notAllowedToChangeEmailMessage()
-                    }
+                    handleActionListener(profile_obj)
                 }
-
             })
-
-        recyclerView.adapter= adapter
+        recyclerView.adapter = adapter
 
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         recyclerView.layoutManager= linearLayoutManager
     }
+
+    private fun handleActionListener(profileObj: EditProfileInfo) {
+        when (profileObj.title) {
+            getString(R.string.full_name) ->
+                moveToUpdateUserInfo(profileObj)
+            getString(R.string.email) ->
+                notAllowedToChangeEmailMessage()
+            getString(R.string.birthday) ->
+                moveToUpdateUserInfo(profileObj)
+            getString(R.string.gender) ->
+                moveToUpdateGender(profileObj)
+            getString(R.string.location) ->
+                moveToUpdateUserInfo(profileObj)
+            getString(R.string.password) ->
+                notAllowedToChangeEmailMessage()
+        }
+    }
+
 
     private fun notAllowedToChangeEmailMessage() {
         Toast.makeText(this, getString(R.string.profile_activity_message), Toast.LENGTH_SHORT).show()
@@ -152,12 +163,31 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
             putExtra("server_key", profileObj.value_in_server)
         }
         startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    private fun moveToUpdateGender(profileObj: EditProfileInfo) {
+        val modalBottomSheet = SelectGenderBottomSheetFragment()
+        modalBottomSheet.listener = this
+        modalBottomSheet.show(supportFragmentManager, SelectGenderBottomSheetFragment::class.java.simpleName)
+    }
+
+    private fun moveToUpdateBio(profileObj: EditProfileInfo) {
+        val intent = Intent(this, UpdateUserInfoActivity::class.java).apply {
+            putExtra("title", profileObj.title)
+            putExtra("contentTxt", profileObj.contentTxt)
+            putExtra("server_key", profileObj.value_in_server)
+        }
+        startActivityForResult(intent, REQUEST_CODE_BIO)
 //        startActivity(intent)
     }
 
     private fun actionListenerToBio() {
         bio_info_ll.setOnClickListener{
-            Toast.makeText(this, "LinearLayout clicked!", Toast.LENGTH_SHORT).show()
+            var bio = getString(R.string.profile_activity_message2)
+            if (SharedPreferencesHelper.getABio(this) != null)
+                bio = SharedPreferencesHelper.getABio(this)!!
+
+            moveToUpdateBio(EditProfileInfo(getString(R.string.bio),bio,"about"))
         }
     }
 
@@ -180,6 +210,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
         terms_and_conditions_ll  = findViewById<LinearLayout>(R.id.terms_and_conditions_ll)
         sign_out_ll              = findViewById<LinearLayout>(R.id.sign_out_ll)
         selected_language_txt    = findViewById<TextView>(R.id.selected_language_txt)
+        bio_content_txt          = findViewById<TextView>(R.id.bio_content_txt)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -187,11 +218,19 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             val result = data?.getStringExtra("result")
 
-            Log.i("TAG","TAG result: "+result)
+            handleARecyclerView()
+        }
+
+        if (requestCode == REQUEST_CODE_BIO && resultCode == RESULT_OK) {
+            fillBioText()
         }
     }
 
     override fun onDataPassed(data: String) {
         selected_language_txt.text = data
+    }
+
+    override fun onGenderPassed() {
+        handleARecyclerView()
     }
 }

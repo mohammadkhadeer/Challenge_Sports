@@ -73,6 +73,7 @@ class UpdateUserInfoActivity : AppCompatActivity() {
             if (it.status== Status.SUCCESS){
                 //handle SUCCESS case
                 Toast.makeText(this, getString(R.string.update_successfully_message1) +" "+ title + " "+getString(R.string.update_successfully_message2), Toast.LENGTH_SHORT).show()
+                Log.i("TAG","myData "+ it.data!!)
                 SharedPreferencesHelper.saveProfileInfo(this, it.data!!.response.data)
 
                 toldAPastActivityThisActivityFinish()
@@ -112,7 +113,6 @@ class UpdateUserInfoActivity : AppCompatActivity() {
                     progressBarBlue.isVisible = true
 
                     val map = EditProfileTools.makeMapForUpdateNameRequirements(contentTxt,server_key)
-
                     view_model.updateBasicInfoRequest(map)
 
                 }else{

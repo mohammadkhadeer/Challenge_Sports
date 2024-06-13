@@ -23,10 +23,17 @@ object SharedPreferencesHelper {
     }
 
     fun getProfileInfo(context: Context): com.example.model.editProfile.serverModel.UserData? {
-        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val prefs = context.getSharedPreferences(PROFILE_INFO, Context.MODE_PRIVATE)
         val gson = Gson()
-        val json = prefs.getString(USER_KEY, null)
+        val json = prefs.getString(USER_INFO, null)
         return gson.fromJson(json, com.example.model.editProfile.serverModel.UserData::class.java)
+    }
+
+    fun clearProfileInfo(context: Context) {
+        getSharedPreferencesProfileInfo(context)
+        val editor = sharedPreferences!!.edit()
+        editor.clear()
+        editor.apply()
     }
 
     // Save user object to SharedPreferences
@@ -47,6 +54,10 @@ object SharedPreferencesHelper {
 
     private fun getSharedPreferencesObject(context: Context) {
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    }
+
+    private fun getSharedPreferencesProfileInfo(context: Context) {
+        sharedPreferences = context.getSharedPreferences(PROFILE_INFO, Context.MODE_PRIVATE)
     }
 
     fun clearData(context: Context) {
@@ -73,4 +84,25 @@ object SharedPreferencesHelper {
         val userData = getUser(context)
         return userData!!.token
     }
-}
+
+    fun getABio(context: Context): String? {
+        getSharedPreferencesProfileInfo(context)
+        val userData = getProfileInfo(context)
+
+        var xx:String? = if (userData!!.about != null)
+            return userData!!.about.toString()
+        else
+            return null
+
+    }
+
+    fun getGender(context: Context): String? {
+        getSharedPreferencesProfileInfo(context)
+        val userData = getProfileInfo(context)
+
+        var xx:String? = if (userData!!.gender != null)
+            return userData!!.about.toString()
+        else
+            return null
+
+    }}

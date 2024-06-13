@@ -235,7 +235,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData = apiHelper.updateBasicInfo(basicInfo)
                 //println(myData)
-                Log.i("TAG","myData "+myData)
                 updateBasicInfo.postValue(Resource.success(myData))
 
             }catch (e:Exception){
