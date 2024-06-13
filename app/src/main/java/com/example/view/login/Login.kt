@@ -138,7 +138,6 @@ class Login : AppCompatActivity() {
 
     private fun actionListenerToForgotPassword() {
         forgot_pass_rl.setOnClickListener {
-            Log.i("TAG", "TAG forgot password: ")
             val modalBottomSheet = ForgotBottomSheetFragment()
             modalBottomSheet.show(supportFragmentManager, ForgotBottomSheetFragment::class.java.simpleName)
         }

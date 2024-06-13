@@ -11,6 +11,7 @@ import com.example.model.hotMatches.HotMatchBaseClass
 
 import com.example.apisetup.notmodel.Resource.Companion.loading
 import com.example.model.banner.BannerRoot
+import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.login.LogInRoot
@@ -46,6 +47,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
 
     //video
     var newsVideoData = MutableLiveData<Resource<VideoRoot>>()
+
+    //userUpdateInfo
+    var updateBasicInfo = MutableLiveData<Resource<UserUpdateInfo>>()
 
     fun getHotMatches(){
         viewModelScope.launch {
@@ -178,7 +182,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             try {
                 val myData = apiHelper.getBannerAds()
                 //println(myData)
-                Log.i("TAG","myData "+myData)
                 bannerRoot.postValue(Resource.success(myData))
 
             }catch (e:Exception){
@@ -222,6 +225,22 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             } catch (e: Exception) {
                 println(e.toString())
                 newsVideoData.postValue(Resource.error(e.toString(), null))
+            }
+        }
+    }
+
+    fun updateBasicInfoRequest(basicInfo:HashMap<String, Any>){
+        viewModelScope.launch {
+            updateBasicInfo.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.updateBasicInfo(basicInfo)
+                //println(myData)
+                Log.i("TAG","myData "+myData)
+                updateBasicInfo.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                updateBasicInfo.postValue(Resource.error(e.message.toString(),null))
             }
         }
     }

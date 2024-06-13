@@ -1,6 +1,7 @@
 package com.example.apisetup.notmodel
 
 import com.example.model.banner.BannerRoot
+import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
@@ -61,4 +62,7 @@ interface ApiService {
 
     @GET(" https://www.77577.live/api/video-list/{locale}/{page}")
     suspend fun getANewVideo(@Path("locale") locale:String,@Path("page") pageNumber:String): VideoRoot
+
+    @POST(" challenges/api/user/profile")
+    suspend fun updateBasicInfoRequest(@Body baseInfo: HashMap<String, Any>): UserUpdateInfo
 }

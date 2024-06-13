@@ -24,17 +24,26 @@ import java.util.*
 
 
 object EditProfileTools {
+
+    fun makeMapForUpdateNameRequirements(value: String,key:String): HashMap<String, Any> {
+        val map = HashMap<String, Any>()
+        map[key] = value
+
+        return map
+    }
+
     fun fillProfileList(context: Context): ArrayList<EditProfileInfo>{
         val userData = SharedPreferencesHelper.getUser(context)
 
+
         var profileList: ArrayList<EditProfileInfo> = ArrayList()
 
-        profileList.add(EditProfileInfo(context.getString(R.string.full_name), userData!!.name))
-        profileList.add(EditProfileInfo(context.getString(R.string.email), userData!!.email))
-        profileList.add(EditProfileInfo(context.getString(R.string.birthday), "birthday"))
-        profileList.add(EditProfileInfo(context.getString(R.string.gender), userData!!.gender))
-        profileList.add(EditProfileInfo(context.getString(R.string.location), "location"))
-        profileList.add(EditProfileInfo(context.getString(R.string.password), context.getString(R.string.re_password)))
+        profileList.add(EditProfileInfo(context.getString(R.string.full_name), userData!!.name,"name"))
+        profileList.add(EditProfileInfo(context.getString(R.string.email), userData!!.email,"email_cant_be_updated"))
+        profileList.add(EditProfileInfo(context.getString(R.string.birthday), "birthday","dob"))
+        profileList.add(EditProfileInfo(context.getString(R.string.gender), userData!!.gender,"gender"))
+        profileList.add(EditProfileInfo(context.getString(R.string.location), "location","country"))
+        profileList.add(EditProfileInfo(context.getString(R.string.password), context.getString(R.string.re_password),"password"))
 
 
         return profileList

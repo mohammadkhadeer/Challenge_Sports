@@ -49,8 +49,10 @@ class ForgotBottomSheetFragment : BottomSheetDialogFragment() {
 
     //value
     private var emailStr: String = ""
-    private lateinit var view_model: MyViewModel
     private var press_on_submit: Boolean = true
+
+    //server
+    private lateinit var view_model: MyViewModel
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Apply the custom style here

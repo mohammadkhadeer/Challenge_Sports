@@ -1,6 +1,7 @@
 package com.example.apisetup.notmodel
 
 import com.example.model.banner.BannerRoot
+import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
@@ -29,5 +30,6 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getNews(locale: String, page: String): NewsBase = apiService.getNews(locale,page)
     override suspend fun getNewsDetails(locale: String, id: String): NewsPostBase = apiService.getNewsDetails(locale,id)
     override suspend fun getANewVideo(locale: String, pageNumber: String): VideoRoot = apiService.getANewVideo(locale,pageNumber)
+    override suspend fun updateBasicInfo(basic_info: HashMap<String, Any>): UserUpdateInfo = apiService.updateBasicInfoRequest(basic_info)
 
 }

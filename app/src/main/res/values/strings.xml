@@ -1,10 +1,17 @@
 <resources>
     <string name="app_name">Challenge Sports</string>
 
+    //update profile
+    <string name="update">Update</string>
+    <string name="update_profile_error_m">Please fill </string>
+    <string name="update_successfully_message1">Update</string>
+    <string name="update_successfully_message2">Successfully</string>
+
     //language
     <string name="language_message">Select Language</string>
     <string name="english_choose">English</string>
     <string name="chines_choose">中文</string>
+
 
     //profile activity
     <string name="profile_header">Update Profile</string>
@@ -17,6 +24,7 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
     <string name="sign_out">Sign Out</string>
+    <string name="profile_activity_message">Not allowed to change email</string>
 
     <string name="gender">Gender</string>
     <string name="location">Location</string>

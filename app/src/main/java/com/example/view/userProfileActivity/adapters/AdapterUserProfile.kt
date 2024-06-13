@@ -22,9 +22,16 @@ class AdapterUserProfile (var context: Context, var profileList:  List<EditProfi
     override fun onBindViewHolder(holder: AdapterUserProfile.AdapterOddsViewHolder, position: Int) {
         holder.title_txt.text = profileList[position].title
         holder.title_content_txt.text = profileList[position].contentTxt
+
         if (profileList[position].title == context.getString(R.string.password))
         {
             holder.sp_rl.isVisible = false
+        }
+
+        if (profileList[position].title == context.getString(R.string.email))
+        {
+            holder.title_txt.alpha = 0.4F
+            holder.title_content_txt.alpha = 0.7F
         }
     }
 

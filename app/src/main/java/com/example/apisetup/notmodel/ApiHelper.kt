@@ -1,6 +1,7 @@
 package com.example.apisetup.notmodel
 
 import com.example.model.banner.BannerRoot
+import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
 import com.example.model.hotMatches.HotMatchBaseClass
@@ -27,4 +28,5 @@ interface ApiHelper {
     suspend fun getNews(locale: String, page: String) : NewsBase
     suspend fun getNewsDetails(locale: String, id: String) : NewsPostBase
     suspend fun getANewVideo(locale: String, pageNumber: String) : VideoRoot
+    suspend fun updateBasicInfo(basic_info:HashMap<String, Any>) : UserUpdateInfo
 }

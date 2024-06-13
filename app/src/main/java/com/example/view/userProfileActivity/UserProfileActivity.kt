@@ -1,7 +1,9 @@
 package com.example.view.userProfileActivity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -15,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
+import com.example.apisetup.notmodel.RetorfitBuilder
+import com.example.apisetup.notmodel.RetorfitBuilderWithToken
 import com.example.model.editProfile.EditProfileInfo
 import com.example.model.news.List
 import com.example.model.odds.OddsCompanyComp
@@ -29,6 +33,7 @@ import com.example.view.bottomSheet.ForgotBottomSheetFragment
 import com.example.view.bottomSheet.SelectLanguageBottomSheetFragment
 import com.example.view.mainActivity.MainActivity
 import com.example.view.mainActivity.homeAdapter.newsAdapter.AllNewsAdapter
+import com.example.view.updateUserInfo.UpdateUserInfoActivity
 import com.example.view.userProfileActivity.adapters.AdapterUserProfile
 import java.util.ArrayList
 
@@ -48,6 +53,10 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var profile_list: ArrayList<EditProfileInfo> = ArrayList()
 
+    //call back
+    //use it to can make a update when a come back from update activity
+    private val REQUEST_CODE = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
@@ -56,7 +65,9 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
         casting()
         actionListenerToBack()
         actionListenerToBio()
-        //all user comp listener in-said a recyclerView listener
+
+
+        //all user comp listener in-said a recyclerView listener at line 117-120
         handleARecyclerView()
         actionListenerToLanguage()
         actionListenerToPrivacyPolicy()
@@ -79,15 +90,22 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
     }
     private fun actionListenerToTermsAndConditions() {
         terms_and_conditions_ll.setOnClickListener{
-            Toast.makeText(this, "terms_and_conditions_ll clicked!", Toast.LENGTH_SHORT).show()
+            moveToBrowser(RetorfitBuilder.termsAndConditions)
         }
     }
 
     private fun actionListenerToPrivacyPolicy() {
         privacy_policy_ll.setOnClickListener{
-            Toast.makeText(this, "privacy_policy_ll clicked!", Toast.LENGTH_SHORT).show()
+            moveToBrowser(RetorfitBuilder.privacyPolicy)
         }
     }
+
+    private fun moveToBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
+    }
+
     private fun actionListenerToLanguage() {
         language_ll.setOnClickListener{
             val modalBottomSheet = SelectLanguageBottomSheetFragment()
@@ -106,7 +124,13 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
             profile_list!!
             , object : RecyclerViewOnclickProfile {
                 override fun onClick(position: Int, profile_obj: EditProfileInfo) {
-                    println( profile_obj.contentTxt)
+
+                    if (profile_obj.title != getString(R.string.email))
+                    {
+                        moveToUpdateUserInfo(profile_obj)
+                    }else{
+                        notAllowedToChangeEmailMessage()
+                    }
                 }
 
             })
@@ -115,6 +139,20 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
 
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         recyclerView.layoutManager= linearLayoutManager
+    }
+
+    private fun notAllowedToChangeEmailMessage() {
+        Toast.makeText(this, getString(R.string.profile_activity_message), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun moveToUpdateUserInfo(profileObj: EditProfileInfo) {
+        val intent = Intent(this, UpdateUserInfoActivity::class.java).apply {
+            putExtra("title", profileObj.title)
+            putExtra("contentTxt", profileObj.contentTxt)
+            putExtra("server_key", profileObj.value_in_server)
+        }
+        startActivityForResult(intent, REQUEST_CODE)
+//        startActivity(intent)
     }
 
     private fun actionListenerToBio() {
@@ -142,6 +180,15 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener {
         terms_and_conditions_ll  = findViewById<LinearLayout>(R.id.terms_and_conditions_ll)
         sign_out_ll              = findViewById<LinearLayout>(R.id.sign_out_ll)
         selected_language_txt    = findViewById<TextView>(R.id.selected_language_txt)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            val result = data?.getStringExtra("result")
+
+            Log.i("TAG","TAG result: "+result)
+        }
     }
 
     override fun onDataPassed(data: String) {
