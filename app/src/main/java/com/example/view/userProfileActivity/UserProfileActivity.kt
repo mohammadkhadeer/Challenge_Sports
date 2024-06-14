@@ -3,12 +3,14 @@ package com.example.view.userProfileActivity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
@@ -169,6 +171,15 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         val modalBottomSheet = SelectGenderBottomSheetFragment()
         modalBottomSheet.listener = this
         modalBottomSheet.show(supportFragmentManager, SelectGenderBottomSheetFragment::class.java.simpleName)
+//        var bottomSheet:Fragment? = null
+//        val fragmentManager = supportFragmentManager
+//        if (bottomSheet != null) {
+//            fragmentManager.beginTransaction().remove(bottomSheet).commit()
+//        }
+//
+//        bottomSheet = SelectGenderBottomSheetFragment()
+//        bottomSheet.listener = this
+//        bottomSheet.show(fragmentManager, SelectGenderBottomSheetFragment.TAG)
     }
 
     private fun moveToUpdateBio(profileObj: EditProfileInfo) {

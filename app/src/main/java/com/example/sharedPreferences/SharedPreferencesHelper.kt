@@ -101,7 +101,7 @@ object SharedPreferencesHelper {
         val userData = getProfileInfo(context)
 
         var xx:String? = if (userData!!.gender != null)
-            return userData!!.about.toString()
+            return userData!!.gender.toString()
         else
             return null
 

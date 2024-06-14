@@ -9,13 +9,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.lifecycle.MutableLiveData
 import com.example.apisetup.R
 import com.example.apisetup.databinding.FragmentModalBottomSheetBinding
+import com.example.apisetup.notmodel.Resource
 import com.example.apisetup.notmodel.Status
+import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.presnter.GenderSheetListener
 import com.example.presnter.LanguageBottomSheetListener
 import com.example.sharedPreferences.SharedPreferencesHelper
@@ -29,10 +34,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SelectGenderBottomSheetFragment : BottomSheetDialogFragment() {
 
+    companion object {
+        const val TAG = "MyBottomSheetFragment"
+    }
+
     private var _binding: FragmentModalBottomSheetBinding? = null
     //ui
     private lateinit var radioGroup: RadioGroup
     private lateinit var view_global: View
+    private lateinit var progress_bar: ProgressBar
+    private lateinit var relativeLayout: RelativeLayout
 
     //value
     private var selectedgender: String = ""
@@ -62,7 +73,9 @@ class SelectGenderBottomSheetFragment : BottomSheetDialogFragment() {
         casting(view)
         view_global = view
 
-        //fillARadioButton()
+        fillARadioButton()
+
+
         //server
         val activity = activity as? UserProfileActivity
         view_model = SpewViewModel.giveMeViewModelWithHeader(activity!!)
@@ -75,22 +88,18 @@ class SelectGenderBottomSheetFragment : BottomSheetDialogFragment() {
         view_model.updateBasicInfo.observe(this){
             if (it.status== Status.SUCCESS){
                 //handle SUCCESS case
-                Log.i("TAG","myData "+ it.data!!)
                 SharedPreferencesHelper.saveProfileInfo(requireContext(), it.data!!.response.data)
                 listener!!.onGenderPassed()
 
+                progress_bar.isVisible = false
+                relativeLayout.isVisible = false
                 dismiss()
+//                handler.postDelayed({ dismiss() }, 1000)
+
 
             }else{
                 if (it.status == Status.ERROR){
-                    //allow to user to try again
-//                    error_txt.isVisible = true
-//                    error_txt.text = getString(R.string.massage_login_4)
-//
-//                    press_on_update = true
-//                    update_rl.setBackgroundResource(R.drawable.bg_5)
-//                    progressBarBlue.isVisible = false
-
+                    this.dismiss()
                 }
 
             }
@@ -99,12 +108,12 @@ class SelectGenderBottomSheetFragment : BottomSheetDialogFragment() {
 
 
     private fun fillARadioButton() {
-        if (selectedgender != null && selectedgender == "male")
+        if (selectedgender != null && selectedgender == "Male")
         {
             radioGroup.check(R.id.radioButton1)
         }
 
-        if (selectedgender != null && selectedgender == "female")
+        if (selectedgender != null && selectedgender == "Female")
         {
             radioGroup.check(R.id.radioButton2)
         }
@@ -116,6 +125,9 @@ class SelectGenderBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun actionListenerToRadioButton() {
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            progress_bar.isVisible = true
+            relativeLayout.isVisible = true
+
             val radioButton: RadioButton = view_global.findViewById(checkedId)
             if (radioButton.text == getString(R.string.male))
             {
@@ -130,12 +142,14 @@ class SelectGenderBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun casting(view: View) {
-        radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
+        radioGroup     = view.findViewById<RadioGroup>(R.id.radioGroup)
+        progress_bar   = view.findViewById<ProgressBar>(R.id.progressBar)
+        relativeLayout = view.findViewById<RelativeLayout>(R.id.relativeLayout)
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
+        dismiss()
         _binding = null
     }
 }
