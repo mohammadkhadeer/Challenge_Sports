@@ -1,32 +1,28 @@
 package com.example.view.userProfileActivity
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
 import com.example.apisetup.notmodel.RetorfitBuilder
+import com.example.apisetup.notmodel.Status
 import com.example.model.editProfile.EditProfileInfo
 import com.example.presnter.GenderSheetListener
 import com.example.presnter.LanguageBottomSheetListener
-import com.example.presnter.RecyclerViewOnclickCountry
 import com.example.presnter.RecyclerViewOnclickProfile
+import com.example.presnter.SelectedCountryListener
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.EditProfileTools
 import com.example.utils.HandelPopup
@@ -35,11 +31,11 @@ import com.example.view.bottomSheet.updateProfileBottomSheet.SelectLanguageBotto
 import com.example.view.mainActivity.MainActivity
 import com.example.view.updateBirthday.UpdateBirthdayActivity
 import com.example.view.updateUserInfo.UpdateUserInfoActivity
-import com.example.view.userProfileActivity.adapters.AdapterCountries
 import com.example.view.userProfileActivity.adapters.AdapterUserProfile
-import java.util.ArrayList
+import com.example.viewmodel.MyViewModel
+import com.example.viewmodel.SpewViewModel
 
-class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,GenderSheetListener {
+class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,GenderSheetListener ,SelectedCountryListener{
     //ui
     private lateinit var back_image: ImageView
     private lateinit var bio_info_ll: LinearLayout
@@ -51,16 +47,23 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
     private lateinit var selected_language_txt: TextView
     private lateinit var bio_content_txt: TextView
 
+    //popupWindow: PopupWindow
     //values
     private lateinit var adapter: AdapterUserProfile
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var profile_list: ArrayList<EditProfileInfo> = ArrayList()
+    private lateinit var popupWindowInActivity: PopupWindow
 
     //call back
     //use it to can make a update when a come back from update activity
     private val REQUEST_CODE = 1
     private val REQUEST_CODE_BIO = 2
 
+    //server
+    private lateinit var view_model: MyViewModel
+
+    //interface
+    private var selectedCountryListener:SelectedCountryListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
@@ -71,13 +74,37 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         fillBioText()
         actionListenerToBio()
 
-
         //all user comp listener in-said a recyclerView listener at line 125-130
         handleARecyclerView()
         actionListenerToLanguage()
         actionListenerToPrivacyPolicy()
         actionListenerToTermsAndConditions()
         actionListenerToSignOut()
+
+        view_model = SpewViewModel.giveMeViewModelWithHeader(this)
+        observeAResponse()
+    }
+
+    private fun observeAResponse() {
+        view_model.updateBasicInfo.observe(this){
+            if (it.status== Status.SUCCESS){
+                //handle SUCCESS case
+                title = getString(R.string.country)
+                Toast.makeText(this, getString(R.string.update_successfully_message1) +" "+ title + " "+getString(R.string.update_successfully_message2), Toast.LENGTH_SHORT).show()
+                Log.i("TAG","myData "+ it.data!!)
+                SharedPreferencesHelper.saveProfileInfo(this, it.data!!.response.data)
+
+                handleARecyclerView()
+                popupWindowInActivity.dismiss()
+            }else{
+                if (it.status == Status.ERROR){
+                    //allow to user to try again
+                    Toast.makeText(this, getString(R.string.error_message_1), Toast.LENGTH_SHORT).show()
+                    popupWindowInActivity.dismiss()
+                }
+
+            }
+        }
     }
 
     private fun fillBioText() {
@@ -243,7 +270,12 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         val popupView: View = inflater.inflate(R.layout.popup_layout, null)
 
         val view_per: View = findViewById(R.id.popup_view)
-        HandelPopup.handelPopup(popupView,this,view_per)
+
+        //create instance from a pass country interface
+        this.selectedCountryListener = this@UserProfileActivity as SelectedCountryListener
+
+        HandelPopup.handelPopup(popupView,this,view_per,selectedCountryListener)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -265,5 +297,11 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
 
     override fun onGenderPassed() {
         handleARecyclerView()
+    }
+
+    override fun onCountryPassed(countryName: String,popupWindow: PopupWindow) {
+        popupWindowInActivity = popupWindow
+        val map = EditProfileTools.makeMapForUpdateNameRequirements(countryName,"country")
+        view_model.updateBasicInfoRequest(map)
     }
 }

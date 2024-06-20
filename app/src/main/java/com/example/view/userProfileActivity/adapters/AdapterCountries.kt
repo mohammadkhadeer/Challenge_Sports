@@ -14,7 +14,10 @@ import com.example.presnter.RecyclerViewOnclickCountry
 class AdapterCountries (var context: Context, var profileList:  ArrayList<String>, var onclick: RecyclerViewOnclickCountry)
     : RecyclerView.Adapter<AdapterCountries.AdapterOddsViewHolder>() {
 
+    private var filteredItems: ArrayList<String> = ArrayList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterCountries.AdapterOddsViewHolder {
+        filteredItems = profileList
         return AdapterOddsViewHolder(LayoutInflater.from(context).inflate(R.layout.adapter_countries,parent,false))
     }
 
@@ -27,22 +30,26 @@ class AdapterCountries (var context: Context, var profileList:  ArrayList<String
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
-
     fun filter(query: String) {
+        var filteredList = ArrayList<String>()
         profileList = if (query.isEmpty()) {
             ArrayList()
         } else {
-            val resultList = ArrayList<String>()
-            for (item in resultList) {
-                if (item.toLowerCase().contains(query.toLowerCase())) {
-                    resultList.add(item)
+            filteredList = ArrayList<String>()
+            for (item in filteredItems) {
+                if (item.contains(query, ignoreCase = true)) {
+                    filteredList.add(item)
                 }
             }
-            resultList
+            filteredList
         }
+        profileList = filteredList
+        notifyDataSetChanged()
+    }
+
+    fun refill(orginList: ArrayList<String>)
+    {
+        profileList = orginList
         notifyDataSetChanged()
     }
 

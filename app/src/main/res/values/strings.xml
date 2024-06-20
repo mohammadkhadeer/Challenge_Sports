@@ -202,6 +202,9 @@
 
     //Location
     <string name="search">Search here...</string>
+    <string name="country">Country</string>
+    <string name="error_message_1">Please try again later</string>
+
     <string-array name="countries_array">
         <item>Afghanistan</item>
         <item>Albania</item>
@@ -306,7 +309,7 @@
         <item>Iran</item>
         <item>Iraq</item>
         <item>Ireland</item>
-        <item>Israel</item>
+        <item>Palestine</item>
         <item>Italy</item>
         <item>Jamaica</item>
         <item>Japan</item>

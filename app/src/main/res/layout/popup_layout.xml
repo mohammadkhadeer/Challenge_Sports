@@ -59,13 +59,31 @@
 
         </RelativeLayout>
 
-
         <Button
             android:id="@+id/closeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="Close" />
 
     </LinearLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:alpha="0.6"
+        android:visibility="gone"
+        android:id="@+id/loading_rl"/>
+
+    <ProgressBar
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:theme="@style/progressBarBlue"
+        android:id="@+id/progress_bar"
+        />
 
 </RelativeLayout>
