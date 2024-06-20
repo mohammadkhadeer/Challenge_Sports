@@ -1,12 +1,19 @@
 package com.example.view.userProfileActivity
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,13 +25,17 @@ import com.example.apisetup.notmodel.RetorfitBuilder
 import com.example.model.editProfile.EditProfileInfo
 import com.example.presnter.GenderSheetListener
 import com.example.presnter.LanguageBottomSheetListener
+import com.example.presnter.RecyclerViewOnclickCountry
 import com.example.presnter.RecyclerViewOnclickProfile
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.EditProfileTools
+import com.example.utils.HandelPopup
 import com.example.view.bottomSheet.updateProfileBottomSheet.SelectGenderBottomSheetFragment
 import com.example.view.bottomSheet.updateProfileBottomSheet.SelectLanguageBottomSheetFragment
 import com.example.view.mainActivity.MainActivity
+import com.example.view.updateBirthday.UpdateBirthdayActivity
 import com.example.view.updateUserInfo.UpdateUserInfoActivity
+import com.example.view.userProfileActivity.adapters.AdapterCountries
 import com.example.view.userProfileActivity.adapters.AdapterUserProfile
 import java.util.ArrayList
 
@@ -143,11 +154,11 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
             getString(R.string.email) ->
                 notAllowedToChangeEmailMessage()
             getString(R.string.birthday) ->
-                moveToUpdateUserInfo(profileObj)
+                moveToUpdateBirthday(profileObj)
             getString(R.string.gender) ->
                 moveToUpdateGender(profileObj)
             getString(R.string.location) ->
-                moveToUpdateUserInfo(profileObj)
+                showPopup()
             getString(R.string.password) ->
                 notAllowedToChangeEmailMessage()
         }
@@ -167,19 +178,19 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         startActivityForResult(intent, REQUEST_CODE)
     }
 
+    private fun moveToUpdateBirthday(profileObj: EditProfileInfo) {
+        val intent = Intent(this, UpdateBirthdayActivity::class.java).apply {
+            putExtra("title", profileObj.title)
+            putExtra("contentTxt", profileObj.contentTxt)
+            putExtra("server_key", profileObj.value_in_server)
+        }
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
     private fun moveToUpdateGender(profileObj: EditProfileInfo) {
         val modalBottomSheet = SelectGenderBottomSheetFragment()
         modalBottomSheet.listener = this
         modalBottomSheet.show(supportFragmentManager, SelectGenderBottomSheetFragment::class.java.simpleName)
-//        var bottomSheet:Fragment? = null
-//        val fragmentManager = supportFragmentManager
-//        if (bottomSheet != null) {
-//            fragmentManager.beginTransaction().remove(bottomSheet).commit()
-//        }
-//
-//        bottomSheet = SelectGenderBottomSheetFragment()
-//        bottomSheet.listener = this
-//        bottomSheet.show(fragmentManager, SelectGenderBottomSheetFragment.TAG)
     }
 
     private fun moveToUpdateBio(profileObj: EditProfileInfo) {
@@ -222,6 +233,17 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         sign_out_ll              = findViewById<LinearLayout>(R.id.sign_out_ll)
         selected_language_txt    = findViewById<TextView>(R.id.selected_language_txt)
         bio_content_txt          = findViewById<TextView>(R.id.bio_content_txt)
+    }
+
+
+    @SuppressLint("ResourceType")
+    private fun showPopup() {
+        // Inflate the popup_layout.xml
+        val inflater: LayoutInflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView: View = inflater.inflate(R.layout.popup_layout, null)
+
+        val view_per: View = findViewById(R.id.popup_view)
+        HandelPopup.handelPopup(popupView,this,view_per)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -1,5 +1,6 @@
-package com.example.view.updateUserInfo
+package com.example.view.updateBirthday
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -21,51 +23,86 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
-import com.example.apisetup.notmodel.RetorfitBuilder
-import com.example.apisetup.notmodel.RetorfitBuilderWithToken
 import com.example.apisetup.notmodel.Status
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.EditProfileTools
-import com.example.utils.RegisterTools
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
-class UpdateUserInfoActivity : AppCompatActivity() {
+class UpdateBirthdayActivity : AppCompatActivity() {
     //ui
     private lateinit var back_image: ImageView
     private lateinit var title_txt: TextView
-    private lateinit var editText: EditText
     private lateinit var update_rl: RelativeLayout
     private lateinit var error_txt: TextView
     private lateinit var progressBarBlue: ProgressBar
+    private lateinit var datePicker: DatePicker
 
     //value
     var title: String = ""
     var contentTxt: String = ""
     var server_key: String = ""
     private var press_on_update: Boolean = true
+    private val calendar = Calendar.getInstance()
 
     //server
     private lateinit var view_model: MyViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_update_user_info)
+        setContentView(R.layout.activity_update_birthday)
 
         statusBarColor()
         casting()
         receiveValuesFromPastActivity()
         actionListenerToBack()
-        openKeyboard()
-        fillAHint()
 
-        monitorEdt()
+        setAInitDate()
         actionListenerToUpdate()
 
         //server
-        view_model = SpewViewModel.giveMeViewModelWithHeader(this@UpdateUserInfoActivity)
+        view_model = SpewViewModel.giveMeViewModelWithHeader(this@UpdateBirthdayActivity)
         observeAResponse()
+    }
+
+    private fun setAInitDate() {
+        // Set initial date
+        Log.i("TAG","contentTxt "+ contentTxt)
+        var initialYear = 1992
+        var initialMonth = 10 // June (months are 0-based in Calendar)
+        var initialDay = 26
+        if (contentTxt == getString(R.string.birthday_massage1))
+        {
+            datePicker.updateDate(initialYear, initialMonth, initialDay)
+        }else{
+            val date = contentTxt.split("-")
+            initialDay = date[0].toInt()
+            initialMonth = date[1].toInt()
+            initialYear = date[2].toInt()
+            initialMonth -= 1
+            datePicker.updateDate(initialYear, initialMonth, initialDay)
+        }
+
+
+        datePicker.updateDate(initialYear, initialMonth, initialDay)
+    }
+
+    private fun getDateFromDatePicker(): String {
+        val day = datePicker.dayOfMonth
+        val month = datePicker.month
+        val year = datePicker.year
+
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day)
+
+        val myFormat = "dd-MM-yyyy" // Specify your date format
+        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+
+        return sdf.format(calendar.time)
     }
 
     private fun observeAResponse() {
@@ -104,57 +141,15 @@ class UpdateUserInfoActivity : AppCompatActivity() {
     private fun actionListenerToUpdate() {
         update_rl.setOnClickListener{
             if (press_on_update){
-                if (contentTxt.isNotEmpty())
-                {
-                    Log.i("TAG","TAG contentTxt: "+contentTxt)
 
-                    press_on_update = false
-                    update_rl.setBackgroundResource(R.drawable.bg_8)
-                    progressBarBlue.isVisible = true
+                press_on_update = false
+                update_rl.setBackgroundResource(R.drawable.bg_8)
+                progressBarBlue.isVisible = true
 
-                    val map = EditProfileTools.makeMapForUpdateNameRequirements(contentTxt,server_key)
-                    view_model.updateBasicInfoRequest(map)
-
-                }else{
-                    error_txt.text = getString(R.string.update_profile_error_m) + " " + title
-                    error_txt.isVisible = true
-                }
+                val map = EditProfileTools.makeMapForUpdateNameRequirements(getDateFromDatePicker(),server_key)
+                view_model.updateBasicInfoRequest(map)
             }
         }
-    }
-
-    private fun monitorEdt() {
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                // This method is called to notify you that the text has been changed
-                contentTxt = text.toString()
-                error_txt.isVisible = false
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-    }
-
-    private fun fillAHint() {
-        editText.hint = title
-        editText.setText(contentTxt)
-    }
-
-    private fun openKeyboard() {
-        // Request focus and show keyboard
-        editText.isFocusableInTouchMode = true
-        editText.requestFocus()
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
-
-            val inputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-        }, 100)
     }
 
     private fun receiveValuesFromPastActivity() {
@@ -179,10 +174,9 @@ class UpdateUserInfoActivity : AppCompatActivity() {
     private fun casting() {
         back_image = findViewById<ImageView>(R.id.back_image)
         title_txt  = findViewById<TextView>(R.id.title_txt)
-        editText   = findViewById<EditText>(R.id.editText)
         update_rl  = findViewById<RelativeLayout>(R.id.update_rl)
         error_txt  = findViewById<TextView>(R.id.error_txt)
         progressBarBlue = findViewById<ProgressBar>(R.id.progress_bar)
+        datePicker = findViewById<DatePicker>(R.id.datePicker)
     }
-
 }

@@ -39,18 +39,32 @@ object EditProfileTools {
 
         if(userData != null)
         {
+            var birthday = ""
+            //message if dob is null
+            if (userData.dob != null)
+                birthday = userData.dob.toString()
+            else
+                birthday = context.getString(R.string.birthday_massage1)
+
             profileList.add(EditProfileInfo(context.getString(R.string.full_name), userData!!.name,"name"))
             profileList.add(EditProfileInfo(context.getString(R.string.email), userData!!.email,"email_cant_be_updated"))
-            profileList.add(EditProfileInfo(context.getString(R.string.birthday), "birthday","dob"))
+            profileList.add(EditProfileInfo(context.getString(R.string.birthday), birthday,"dob"))
             profileList.add(EditProfileInfo(context.getString(R.string.gender), userData!!.gender,"gender"))
             profileList.add(EditProfileInfo(context.getString(R.string.location), "location","country"))
             profileList.add(EditProfileInfo(context.getString(R.string.password), context.getString(R.string.re_password),"password"))
         }else{
             val userData = SharedPreferencesHelper.getUser(context)
 
+            var birthday = ""
+            //message if dob is null
+            if (userData?.dob != null)
+                birthday = userData?.dob.toString()
+            else
+                birthday = context.getString(R.string.birthday_massage1)
+
             profileList.add(EditProfileInfo(context.getString(R.string.full_name), userData!!.name,"name"))
             profileList.add(EditProfileInfo(context.getString(R.string.email), userData!!.email,"email_cant_be_updated"))
-            profileList.add(EditProfileInfo(context.getString(R.string.birthday), "birthday","dob"))
+            profileList.add(EditProfileInfo(context.getString(R.string.birthday), birthday,"dob"))
             profileList.add(EditProfileInfo(context.getString(R.string.gender), userData!!.gender,"gender"))
             profileList.add(EditProfileInfo(context.getString(R.string.location), "location","country"))
             profileList.add(EditProfileInfo(context.getString(R.string.password), context.getString(R.string.re_password),"password"))
