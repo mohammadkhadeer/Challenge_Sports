@@ -4,6 +4,16 @@
 
     //update password
     <string name="update_password">Update password</string>
+    <string name="update_password_message_1">Set a password for your account </string>
+    <string name="update_password_error_massage_2">Please fill current password </string>
+    <string name="update_password_error_massage_3">Please fill a new password </string>
+    <string name="update_password_error_massage_4">Please fill a confirm new password </string>
+
+    <string name="update_password_message_2">Current password</string>
+    <string name="update_password_message_3">New password</string>
+    <string name="update_password_message_4">Confirm new password</string>
+    <string name="update_password_message_5">New password not match</string>
+    <string name="update_password_message_6">Password updated Successfully</string>
 
     //Birth day
     <string name="birth_day">Birth day</string>

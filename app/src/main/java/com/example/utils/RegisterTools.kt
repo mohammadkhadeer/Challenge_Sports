@@ -56,6 +56,7 @@ object RegisterTools {
         }
         return error_massage
     }
+
     fun checkIfEmailOrPasswordOrFullNameIsEmpty(emailStr: String , passwordStr:String , fullNameStr:String): Boolean {
         var emptyOrNot = false
         if (emailStr != "" && passwordStr != ""  && fullNameStr != "" && passwordStr.length >= 6)

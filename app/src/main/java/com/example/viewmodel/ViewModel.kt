@@ -19,6 +19,7 @@ import com.example.model.news.NewsBase
 import com.example.model.news.details.NewsPostBase
 import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
+import com.example.model.updatePassword.UpdatePasswordRoot
 import kotlinx.coroutines.launch
 import java.sql.DriverManager.println
 
@@ -50,6 +51,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
 
     //userUpdateInfo
     var updateBasicInfo = MutableLiveData<Resource<UserUpdateInfo>>()
+
+    //updatePassword
+    var updatePass = MutableLiveData<Resource<UpdatePasswordRoot>>()
 
     fun getHotMatches(){
         viewModelScope.launch {
@@ -240,6 +244,22 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             }catch (e:Exception){
                 println(e.message)
                 updateBasicInfo.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
+
+
+    fun updatePassRequest(passInfo:HashMap<String, Any>){
+        viewModelScope.launch {
+            updatePass.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.updatePassword(passInfo)
+                println(myData)
+                updatePass.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                updatePass.postValue(Resource.error(e.message.toString(),null))
             }
         }
     }

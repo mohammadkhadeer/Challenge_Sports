@@ -10,6 +10,7 @@ import com.example.model.news.NewsBase
 import com.example.model.news.details.NewsPostBase
 import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
+import com.example.model.updatePassword.UpdatePasswordRoot
 import com.example.model.videos.random.RandomVidsBase
 
 interface ApiHelper {
@@ -29,4 +30,5 @@ interface ApiHelper {
     suspend fun getNewsDetails(locale: String, id: String) : NewsPostBase
     suspend fun getANewVideo(locale: String, pageNumber: String) : VideoRoot
     suspend fun updateBasicInfo(basic_info:HashMap<String, Any>) : UserUpdateInfo
+    suspend fun updatePassword(passInfo:HashMap<String, Any>) : UpdatePasswordRoot
 }

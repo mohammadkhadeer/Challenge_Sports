@@ -49,6 +49,7 @@ class UpdateUserInfoActivity : AppCompatActivity() {
 
     //server
     private lateinit var view_model: MyViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_user_info)

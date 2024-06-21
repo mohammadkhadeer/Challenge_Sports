@@ -65,7 +65,7 @@ class RegisterActivity : AppCompatActivity() {
         monitorFullNameEdt()
         actionListenerToCancelFullNameText()
 
-        //Login button
+        //Create Account button
         actionListenerToCreateAccount()
         //SinIn button
         actionListenerToMoveToSinIpActivity()

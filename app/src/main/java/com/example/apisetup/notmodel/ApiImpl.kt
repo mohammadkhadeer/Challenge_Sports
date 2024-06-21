@@ -10,6 +10,7 @@ import com.example.model.news.NewsBase
 import com.example.model.news.details.NewsPostBase
 import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
+import com.example.model.updatePassword.UpdatePasswordRoot
 import com.example.model.videos.random.RandomVidsBase
 
 class ApiImpl(private val apiService: ApiService) : ApiHelper {
@@ -31,5 +32,6 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getNewsDetails(locale: String, id: String): NewsPostBase = apiService.getNewsDetails(locale,id)
     override suspend fun getANewVideo(locale: String, pageNumber: String): VideoRoot = apiService.getANewVideo(locale,pageNumber)
     override suspend fun updateBasicInfo(basic_info: HashMap<String, Any>): UserUpdateInfo = apiService.updateBasicInfoRequest(basic_info)
+    override suspend fun updatePassword(passInfo: HashMap<String, Any>): UpdatePasswordRoot = apiService.updatePassRequest(passInfo)
 
 }
