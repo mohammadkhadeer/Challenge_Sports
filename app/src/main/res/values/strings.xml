@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Challenge Sports</string>
 
+
+    //update password
+    <string name="update_password">Update password</string>
+
     //Birth day
     <string name="birth_day">Birth day</string>
 

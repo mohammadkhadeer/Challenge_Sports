@@ -30,6 +30,7 @@ import com.example.view.bottomSheet.updateProfileBottomSheet.SelectGenderBottomS
 import com.example.view.bottomSheet.updateProfileBottomSheet.SelectLanguageBottomSheetFragment
 import com.example.view.mainActivity.MainActivity
 import com.example.view.updateBirthday.UpdateBirthdayActivity
+import com.example.view.updatePassword.UpdatePasswordActivity
 import com.example.view.updateUserInfo.UpdateUserInfoActivity
 import com.example.view.userProfileActivity.adapters.AdapterUserProfile
 import com.example.viewmodel.MyViewModel
@@ -187,7 +188,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
             getString(R.string.location) ->
                 showPopup()
             getString(R.string.password) ->
-                notAllowedToChangeEmailMessage()
+                moveToUpdatePassword(profileObj)
         }
     }
 
@@ -218,6 +219,15 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         val modalBottomSheet = SelectGenderBottomSheetFragment()
         modalBottomSheet.listener = this
         modalBottomSheet.show(supportFragmentManager, SelectGenderBottomSheetFragment::class.java.simpleName)
+    }
+
+    private fun moveToUpdatePassword(profileObj: EditProfileInfo) {
+        val intent = Intent(this, UpdatePasswordActivity::class.java).apply {
+            putExtra("title", profileObj.title)
+            putExtra("contentTxt", profileObj.contentTxt)
+            putExtra("server_key", profileObj.value_in_server)
+        }
+        startActivity(intent)
     }
 
     private fun moveToUpdateBio(profileObj: EditProfileInfo) {
