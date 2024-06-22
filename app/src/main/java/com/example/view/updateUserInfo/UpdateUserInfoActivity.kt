@@ -107,8 +107,6 @@ class UpdateUserInfoActivity : AppCompatActivity() {
             if (press_on_update){
                 if (contentTxt.isNotEmpty())
                 {
-                    Log.i("TAG","TAG contentTxt: "+contentTxt)
-
                     press_on_update = false
                     update_rl.setBackgroundResource(R.drawable.bg_8)
                     progressBarBlue.isVisible = true

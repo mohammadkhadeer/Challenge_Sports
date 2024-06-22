@@ -2,6 +2,7 @@ package com.example.sharedPreferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.apisetup.R
 import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.login.UserData
 import com.google.gson.Gson
@@ -89,10 +90,10 @@ object SharedPreferencesHelper {
         getSharedPreferencesProfileInfo(context)
         val userData = getProfileInfo(context)
 
-        var xx:String? = if (userData!!.about != null)
+        if (userData?.about != null)
             return userData!!.about.toString()
         else
-            return null
+            return context.getString(R.string.profile_activity_message2)
 
     }
 
@@ -100,9 +101,9 @@ object SharedPreferencesHelper {
         getSharedPreferencesProfileInfo(context)
         val userData = getProfileInfo(context)
 
-        var xx:String? = if (userData!!.gender != null)
+       if (userData?.gender != null)
             return userData!!.gender.toString()
         else
-            return null
+            return context.getString(R.string.gender)
 
     }}
