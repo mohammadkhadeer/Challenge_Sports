@@ -52,6 +52,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     //userUpdateInfo
     var updateBasicInfo = MutableLiveData<Resource<UserUpdateInfo>>()
 
+    //userUpdateInfo //photo
+    var updatePhoto = MutableLiveData<Resource<UserUpdateInfo>>()
+
     //updatePassword
     var updatePass = MutableLiveData<Resource<UpdatePasswordRoot>>()
 
@@ -260,6 +263,22 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             }catch (e:Exception){
                 println(e.message)
                 updatePass.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
+
+
+    fun updatePhoto(basicInfo:HashMap<String, Any>){
+        viewModelScope.launch {
+            updatePhoto.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.updateBasicInfo(basicInfo)
+                println(myData)
+                updatePhoto.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                updatePhoto.postValue(Resource.error(e.message.toString(),null))
             }
         }
     }

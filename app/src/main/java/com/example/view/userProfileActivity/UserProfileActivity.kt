@@ -1,9 +1,13 @@
 package com.example.view.userProfileActivity
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +16,13 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.apisetup.R
 import com.example.apisetup.notmodel.RetorfitBuilder
 import com.example.apisetup.notmodel.Status
@@ -35,10 +43,12 @@ import com.example.view.updateUserInfo.UpdateUserInfoActivity
 import com.example.view.userProfileActivity.adapters.AdapterUserProfile
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
+import java.io.File
 
 class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,GenderSheetListener ,SelectedCountryListener{
     //ui
     private lateinit var back_image: ImageView
+    private lateinit var user_image: ImageView
     private lateinit var bio_info_ll: LinearLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var language_ll: LinearLayout
@@ -59,18 +69,21 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
     //use it to can make a update when a come back from update activity
     private val REQUEST_CODE = 1
     private val REQUEST_CODE_BIO = 2
+    private val PICK_IMAGE = 3
 
     //server
     private lateinit var view_model: MyViewModel
 
     //interface
     private var selectedCountryListener:SelectedCountryListener? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
         statusBarColor()
         casting()
+        fillAProfileImage()
         actionListenerToBack()
         fillBioText()
         actionListenerToBio()
@@ -82,8 +95,56 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         actionListenerToTermsAndConditions()
         actionListenerToSignOut()
 
+
+        actionListenerToSelectImage()
+
         view_model = SpewViewModel.giveMeViewModelWithHeader(this)
         observeAResponse()
+        observeUpdatePhotoAResponse()
+    }
+
+    private fun fillAProfileImage() {
+        Glide.with(this).load(EditProfileTools.getAProfilePic(this@UserProfileActivity)).into(user_image)
+    }
+
+    private fun actionListenerToSelectImage() {
+        user_image.setOnClickListener{
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PICK_IMAGE)
+            } else {
+                openGallery()
+            }
+        }
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivityForResult(intent, PICK_IMAGE)
+        }
+    }
+
+    private fun observeUpdatePhotoAResponse() {
+        view_model.updatePhoto.observe(this){
+            if (it.status== Status.SUCCESS){
+                //handle SUCCESS case
+                title = getString(R.string.photo)
+                Toast.makeText(this, getString(R.string.update_successfully_message1) +" "+ title + " "+getString(R.string.update_successfully_message2), Toast.LENGTH_SHORT).show()
+                Log.i("TAG","myData "+ it.data!!)
+                SharedPreferencesHelper.saveProfileInfo(this, it.data!!.response.data)
+                fillAProfileImage()
+
+            }else{
+                if (it.status == Status.ERROR){
+                    //allow to user to try again
+                    Toast.makeText(this, getString(R.string.error_message_1), Toast.LENGTH_SHORT).show()
+
+                }
+
+            }
+        }
     }
 
     private fun observeAResponse() {
@@ -270,6 +331,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         sign_out_ll              = findViewById<LinearLayout>(R.id.sign_out_ll)
         selected_language_txt    = findViewById<TextView>(R.id.selected_language_txt)
         bio_content_txt          = findViewById<TextView>(R.id.bio_content_txt)
+        user_image               = findViewById<ImageView>(R.id.user_image)
     }
 
 
@@ -288,6 +350,17 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
 
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PICK_IMAGE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openGallery()
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
@@ -298,6 +371,20 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
 
         if (requestCode == REQUEST_CODE_BIO && resultCode == RESULT_OK) {
             fillBioText()
+        }
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
+            val imageUri: Uri? = data.data
+//            var imageFile = EditProfileTools.getFileFromUri(this@UserProfileActivity, imageUri!!)
+            val bitmap = EditProfileTools.getBitmapFromUri(this@UserProfileActivity, imageUri!!)
+//            var compressedImageByteArray = EditProfileTools.compressImageToJpeg(bitmap!!, 50)
+
+
+            user_image.setImageURI(imageUri)
+            //upload photo to server
+
+            val map = EditProfileTools.makeMapForPhotoRequirements(bitmap!!)
+            view_model.updatePhoto(map)
         }
     }
 

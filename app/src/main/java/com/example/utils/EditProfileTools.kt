@@ -6,12 +6,17 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ResolveInfo
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Parcelable
+import android.provider.MediaStore
 import android.util.Log
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
 import com.example.model.editProfile.EditProfileInfo
+import com.example.model.editProfile.profilePhoto.ProfilePhoto
 import com.example.model.headToHeadMatches.History
 import com.example.model.headToHeadMatches.MatchInfo
 import com.example.model.hotMatches.MatchStatusJ
@@ -19,11 +24,57 @@ import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsCompanyComp
 import com.example.model.odds.OddsRoot
 import com.example.sharedPreferences.SharedPreferencesHelper
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 object EditProfileTools {
+
+    fun getBitmapFromUri(context: Context, uri: Uri): Bitmap? {
+        return context.contentResolver.openInputStream(uri)?.use {
+            BitmapFactory.decodeStream(it)
+        }
+    }
+
+    fun compressImageToJpeg(image: Bitmap, compressionQuality: Int): ByteArray {
+        val outputStream = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.JPEG, compressionQuality, outputStream)
+        return outputStream.toByteArray()
+    }
+
+    fun getFileFromUri(context: Context, uri: Uri): File? {
+        var filePath: String? = null
+        val uriScheme = uri.scheme
+
+        if (uriScheme == "content") {
+            val projection = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor: Cursor? = context.contentResolver.query(uri, projection, null, null, null)
+            cursor?.use {
+                if (it.moveToFirst()) {
+                    val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                    filePath = it.getString(columnIndex)
+                }
+            }
+        } else if (uriScheme == "file") {
+            filePath = uri.path
+        }
+
+        return filePath?.let { File(it) }
+    }
+
+    fun makeMapForPhotoRequirements(imageFile: Bitmap): HashMap<String, Any> {
+
+        val imageFileWithNames = ProfilePhoto(imageFile, "profile_img","image/jpeg","profilePic@mohammad_test.jpeg")
+        val imageArray = arrayOf(imageFileWithNames)
+
+        val map = HashMap<String, Any>()
+        map["profile_img"] = imageArray
+
+        return map
+    }
+
 
     fun makeMapForUpdateNameRequirements(value: String,key:String): HashMap<String, Any> {
         val map = HashMap<String, Any>()
@@ -56,9 +107,6 @@ object EditProfileTools {
 
     fun checkIfEnteredPasswordMatchWithOldPassword(newPassStr: String,confirmNewPassStr: String): Boolean {
         var matchOrNot = false
-
-        println("newPassStr: "+newPassStr)
-        println("confirmNewPassStr: "+confirmNewPassStr)
 
         if (newPassStr == confirmNewPassStr)
             matchOrNot = true
@@ -147,6 +195,29 @@ object EditProfileTools {
         }
 
         return profileList
+    }
+
+    fun getAProfilePic(context: Context):String{
+        var profilePic: String = ""
+        val userData = SharedPreferencesHelper.getProfileInfo(context)
+
+        if(userData != null)
+        {
+            if (userData.profile_img != null)
+                profilePic = userData.profile_img.toString()
+            else
+                profilePic = "https://cdn.finds.sbs//storage/placeholder.png"
+
+        }else{
+            val userData = SharedPreferencesHelper.getUser(context)
+
+            if (userData?.profile_img != null)
+                profilePic = userData?.profile_img.toString()
+            else
+                profilePic = "https://cdn.finds.sbs//storage/placeholder.png"
+        }
+
+        return profilePic
     }
 
 

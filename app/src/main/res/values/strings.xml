@@ -28,6 +28,7 @@
     <string name="gender_message">Select Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="photo">Photo</string>
 
     //language
     <string name="language_message">Select Language</string>
