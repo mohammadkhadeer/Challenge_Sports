@@ -11,6 +11,7 @@ import com.example.model.news.details.NewsPostBase
 import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
 import com.example.model.updatePassword.UpdatePasswordRoot
+import com.example.model.userVideos.UserVideosRoot
 import com.example.model.videos.random.RandomVidsBase
 
 interface ApiHelper {
@@ -32,5 +33,6 @@ interface ApiHelper {
     suspend fun updateBasicInfo(basic_info:HashMap<String, Any>) : UserUpdateInfo
     suspend fun updatePassword(passInfo:HashMap<String, Any>) : UpdatePasswordRoot
     suspend fun getBasicProfileInfo() : UserUpdateInfo
+    suspend fun getAUserBookMarkVideos() : UserVideosRoot
 
 }

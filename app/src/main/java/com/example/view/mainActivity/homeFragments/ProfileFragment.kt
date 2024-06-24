@@ -14,8 +14,10 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apisetup.R
 import com.example.apisetup.notmodel.Status
+import com.example.model.editProfile.serverModel.UserData
 import com.example.presnter.ViewPagerAdapter
 import com.example.sharedPreferences.SharedPreferencesHelper
+import com.example.utils.MySharableObjectViewModel
 import com.example.view.mainActivity.homeFragments.profileFragments.BadgesFragment
 import com.example.view.mainActivity.homeFragments.profileFragments.LikedFragment
 import com.example.view.mainActivity.homeFragments.profileFragments.SavedFragment
@@ -64,6 +66,7 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         addFragmentToContainer(UserHeaderFragment())
         casting(view)
 
@@ -72,27 +75,6 @@ class ProfileFragment : Fragment() {
         tabLayoutController()
 
         checkIfNestedScrollViewTouchBottom()
-
-        //server
-//        view_model = SpewViewModel.giveMeViewModelWithHeaderFromFragment(requireActivity())
-//
-//        view_model.getBasicInfoRequest()
-//        observeAResponse()
-    }
-
-    private fun observeAResponse() {
-        view_model.basicProfile.observe(requireActivity()){
-            if (it.status== Status.SUCCESS){
-                //handle SUCCESS case
-                SharedPreferencesHelper.saveProfileInfo(requireActivity(), it.data!!.response.data)
-
-            }else{
-                if (it.status == Status.ERROR){
-
-                }
-
-            }
-        }
     }
 
     private fun checkIfNestedScrollViewTouchBottom() {

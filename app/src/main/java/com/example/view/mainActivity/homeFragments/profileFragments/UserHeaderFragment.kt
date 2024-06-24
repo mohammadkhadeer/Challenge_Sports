@@ -17,11 +17,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.apisetup.R
 import com.example.apisetup.notmodel.Resource
 import com.example.apisetup.notmodel.Status
+import com.example.model.editProfile.serverModel.UserData
 import com.example.model.news.NewsBase
 import com.example.presnter.RecyclerViewOnclick
+import com.example.sharedPreferences.SharedPreferencesHelper
+import com.example.utils.EditProfileTools
+import com.example.utils.MySharableObjectViewModel
 import com.example.view.allNews.AllNewsActivity
 import com.example.view.login.Login
 import com.example.view.mainActivity.homeAdapter.bannerAdapter.ImageSliderAdapter
@@ -67,14 +72,38 @@ class UserHeaderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         casting(view)
 
-        view_model = SpewViewModel.giveMeViewModel(requireActivity())
-        //sent a requisite to get a banner ads
-//        view_model.getNews("1","en")
-
-        //observe banner response
-        observeBannerResponse()
-
         actionListenerToEditProfile()
+
+        //server
+        if(MySharableObjectViewModel.viewModel != null)
+        {
+            view_model = MySharableObjectViewModel.viewModel!!
+            view_model.getBasicInfoRequest()
+            observeAResponse()
+        }
+    }
+
+    private fun observeAResponse() {
+        view_model.basicProfile.observe(requireActivity()){
+            if (it.status== Status.SUCCESS){
+                //handle SUCCESS case
+                SharedPreferencesHelper.saveProfileInfo(requireActivity(), it.data!!.response.data)
+                fillABasicInfoInTheFragment(it.data!!.response.data)
+            }else{
+                if (it.status == Status.ERROR){
+
+                }
+
+            }
+        }
+    }
+
+    private fun fillABasicInfoInTheFragment(data: UserData) {
+        Glide.with(this).load(data.profile_img).into(user_image)
+        user_name_txt.text = data.name
+        profile_info_txt.text      = SharedPreferencesHelper.getABio(requireContext())
+        following_number_text.text = data.totalFolllowingCount.toString()
+        follower_number_text.text  = data.totalFollowerCount.toString()
     }
 
     private fun actionListenerToEditProfile() {
@@ -86,10 +115,6 @@ class UserHeaderFragment : Fragment() {
     private fun moveToUserProfileScreen() {
         val intent = Intent(requireActivity(), UserProfileActivity::class.java)
         startActivity(intent)
-    }
-
-    private fun observeBannerResponse() {
-
     }
 
 

@@ -20,6 +20,7 @@ import com.example.model.news.details.NewsPostBase
 import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
 import com.example.model.updatePassword.UpdatePasswordRoot
+import com.example.model.userVideos.UserVideosRoot
 import kotlinx.coroutines.launch
 import java.sql.DriverManager.println
 
@@ -60,6 +61,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
 
     //userUpdateInfo
     var basicProfile = MutableLiveData<Resource<UserUpdateInfo>>()
+
+    //user videos
+    var userVideo = MutableLiveData<Resource<UserVideosRoot>>()
 
     fun getHotMatches(){
         viewModelScope.launch {
@@ -295,6 +299,21 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             }catch (e:Exception){
                 println(e.message)
                 updatePhoto.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
+
+    fun getABookMarkVideos(){
+        viewModelScope.launch {
+            userVideo.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.getAUserBookMarkVideos()
+                println(myData)
+                userVideo.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                userVideo.postValue(Resource.error(e.message.toString(),null))
             }
         }
     }

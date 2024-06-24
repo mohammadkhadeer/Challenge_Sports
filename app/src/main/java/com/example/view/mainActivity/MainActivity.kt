@@ -11,6 +11,7 @@ import com.example.apisetup.R
 import com.example.apisetup.notmodel.Status
 import com.example.presnter.OnSeeAllMatchesListener
 import com.example.sharedPreferences.SharedPreferencesHelper
+import com.example.utils.MySharableObjectViewModel
 import com.example.view.allNewsVideo.AllNewsVideoActivity
 import com.example.view.login.Login
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener  {
         setContentView(R.layout.base_activity_drawer_container)
 
         statusBarColor()
+        // create a view_model instance here where if we send a requisite from profile fragment we
+        //will get a 401 error i don't know why
+        MySharableObjectViewModel.viewModel = SpewViewModel.giveMeViewModelWithHeader(this@MainActivity)
         tabLayout()
     }
 

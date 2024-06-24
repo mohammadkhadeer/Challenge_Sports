@@ -83,7 +83,11 @@ object SharedPreferencesHelper {
     fun getAToken(context: Context): String? {
         getSharedPreferencesObject(context)
         val userData = getUser(context)
-        return userData!!.token
+
+        if (userData?.token != null)
+            return userData!!.token
+        else
+            return ""
     }
 
     fun getABio(context: Context): String? {

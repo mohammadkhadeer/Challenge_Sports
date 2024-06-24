@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.apisetup.R
 import com.example.model.newsVideo.VideoList
+import com.example.model.userVideos.Data
 import com.example.presnter.NewsVideoRecyclerViewOnclick
 
-class ProfileVideoAdapter (var context: Context ):RecyclerView.Adapter<ProfileVideoAdapter.viewHolder>(){
+class ProfileVideoAdapter (var context: Context,var videoList:List<Data> ):RecyclerView.Adapter<ProfileVideoAdapter.viewHolder>(){
     inner class viewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        var imageContainer: ImageView = itemView.findViewById<ImageView>(R.id.image_view_news)
+        var imageContainer: ImageView = itemView.findViewById<ImageView>(R.id.image_view)
+        var number_of_viewa: TextView = itemView.findViewById<TextView>(R.id.text_view)
         init {
             itemView.setOnClickListener{
 
@@ -27,17 +29,17 @@ class ProfileVideoAdapter (var context: Context ):RecyclerView.Adapter<ProfileVi
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-//        holder.news_text.text = videoList[position].title
-//        Glide.with(context).load(videoList?.get(position)?.thumbnailPath).into(holder.imageContainer)
+        holder.number_of_viewa.text = videoList[position].views_count.toString()
+        Glide.with(context).load(videoList?.get(position)?.thumbnail_url).into(holder.imageContainer)
 
-//        if (position == (videoList?.size?.minus(1) ?: false)){
-//            //loadMoreCommunicator.loadMore()
-//        }
+        if (position == (videoList?.size?.minus(1) ?: false)){
+            //loadMoreCommunicator.loadMore()
+        }
     }
 
 
     override fun getItemCount(): Int {
-        return 40
+        return videoList.size
     }
 
 }

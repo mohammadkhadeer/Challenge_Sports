@@ -11,6 +11,7 @@ import com.example.model.news.details.NewsPostBase
 import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
 import com.example.model.updatePassword.UpdatePasswordRoot
+import com.example.model.userVideos.UserVideosRoot
 import com.example.model.videos.random.RandomVidsBase
 
 class ApiImpl(private val apiService: ApiService) : ApiHelper {
@@ -34,4 +35,5 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun updateBasicInfo(basic_info: HashMap<String, Any>): UserUpdateInfo = apiService.updateBasicInfoRequest(basic_info)
     override suspend fun updatePassword(passInfo: HashMap<String, Any>): UpdatePasswordRoot = apiService.updatePassRequest(passInfo)
     override suspend fun getBasicProfileInfo(): UserUpdateInfo = apiService.getProfileDetails()
+    override suspend fun getAUserBookMarkVideos(): UserVideosRoot = apiService.getAUserBookMarkVideos()
 }

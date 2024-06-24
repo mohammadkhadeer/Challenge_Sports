@@ -65,12 +65,12 @@ class VideosFragment : Fragment() {
 
         if (fragmentContext != null)
         {
-            adapterVideos = ProfileVideoAdapter(fragmentContext!!)
-
-            recyclerView.adapter = adapterVideos
-
-            recyclerView.layoutManager =
-                GridLayoutManager(fragmentContext!!, 3)
+//            adapterVideos = ProfileVideoAdapter(fragmentContext!!)
+//
+//            recyclerView.adapter = adapterVideos
+//
+//            recyclerView.layoutManager =
+//                GridLayoutManager(fragmentContext!!, 3)
         }
 
     }

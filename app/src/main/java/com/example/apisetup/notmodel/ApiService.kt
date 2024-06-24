@@ -12,6 +12,7 @@ import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsRoot
 import com.example.model.updatePassword.UpdatePasswordRoot
+import com.example.model.userVideos.UserVideosRoot
 import com.example.model.videos.random.RandomVidsBase
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -69,6 +70,10 @@ interface ApiService {
 
     @POST(" challenges/api/change-password")
     suspend fun updatePassRequest(@Body baseInfo: HashMap<String, Any>): UpdatePasswordRoot
+
     @GET(" challenges/api/auth/user")
     suspend fun getProfileDetails(): UserUpdateInfo
+
+    @GET(" challenges/api/video/bookmarked")
+    suspend fun getAUserBookMarkVideos(): UserVideosRoot
 }

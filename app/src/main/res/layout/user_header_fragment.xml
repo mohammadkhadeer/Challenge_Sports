@@ -12,7 +12,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_4sdp"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView

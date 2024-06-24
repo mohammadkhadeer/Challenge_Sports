@@ -24,7 +24,7 @@
             android:nestedScrollingEnabled="false" />
 
         <ProgressBar
-            android:id="@+id/pro_bar"
+            android:id="@+id/pro_bar_saved_frag"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_centerHorizontal="true"

@@ -1,0 +1,32 @@
+package com.example.model.userVideos
+
+data class Data(
+    val batch_id: Any,
+    val bookmarkCount: Int,
+    val challenged_video_id: Any,
+    val commentCount: Int,
+    val created_at: String,
+    val description: String,
+    val downvoteCount: Int,
+    val hasUpvoted: Boolean,
+    val hasdownvoted: Boolean,
+    val hd_url: Any,
+    val id: Int,
+    val is_approved: Int,
+    val is_bookmarked: Boolean,
+    val is_featured: Boolean,
+    val local_thumbnail: String,
+    val local_video_url: String,
+    val priority: Int,
+    val thumbnail_url: String,
+    val title: String,
+    val tried_by_user: TriedByUser,
+    val type: Int,
+    val unique_folder: Any,
+    val updated_at: String,
+    val upload_status: String,
+    val uploaded_at: String,
+    val upvoteCount: Int,
+    val video_url: String,
+    val views_count: Int
+)
