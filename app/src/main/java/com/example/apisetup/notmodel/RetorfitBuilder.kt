@@ -17,9 +17,10 @@ object RetorfitBuilder {
 
     var token:String = ""
 
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(AuthInterceptor(token!!))
-        .build()
+//    private val client = OkHttpClient.Builder()
+//        .addInterceptor(AuthInterceptor(token!!))
+//        .build()
+    //                .client(client)
 
     var retroClient:Retrofit? = null
         get() {
@@ -28,7 +29,6 @@ object RetorfitBuilder {
             retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory( GsonConverterFactory.create())
-                .client(client)
                 .build()
         }
         return retrofit

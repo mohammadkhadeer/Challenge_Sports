@@ -1,6 +1,8 @@
 package com.example.model.editProfile.serverModel
 
 data class UserData(
+
+
     val about: Any,
     val activeChallenge: List<Any>,
     val allow_notification: Int,

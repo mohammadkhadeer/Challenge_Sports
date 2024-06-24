@@ -8,6 +8,7 @@ import android.view.View
 import com.example.view.mainActivity.homeFragments.MatchesFragment
 import com.example.view.mainActivity.homeFragments.ProfileFragment
 import com.example.apisetup.R
+import com.example.apisetup.notmodel.Status
 import com.example.presnter.OnSeeAllMatchesListener
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.view.allNewsVideo.AllNewsVideoActivity
@@ -15,6 +16,8 @@ import com.example.view.login.Login
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
 import com.example.view.mainActivity.homeFragments.HomeFragment
 import com.example.view.mainActivity.homeFragments.profileFragments.VideosFragment
+import com.example.viewmodel.MyViewModel
+import com.example.viewmodel.SpewViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 

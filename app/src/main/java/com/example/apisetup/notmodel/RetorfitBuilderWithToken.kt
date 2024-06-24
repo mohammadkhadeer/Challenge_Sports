@@ -16,8 +16,10 @@ object RetorfitBuilderWithToken {
 
     fun getInstance(context: Context): ApiService {
 
+        val token = SharedPreferencesHelper.getAToken(context)!!
+        println("TAG token "+token)
         val client = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(SharedPreferencesHelper.getAToken(context)!!))
+            .addInterceptor(AuthInterceptor(token))
             .build()
 
         if (retrofit == null){

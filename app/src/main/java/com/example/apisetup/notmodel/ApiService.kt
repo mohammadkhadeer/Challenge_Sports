@@ -69,4 +69,6 @@ interface ApiService {
 
     @POST(" challenges/api/change-password")
     suspend fun updatePassRequest(@Body baseInfo: HashMap<String, Any>): UpdatePasswordRoot
+    @GET(" challenges/api/auth/user")
+    suspend fun getProfileDetails(): UserUpdateInfo
 }

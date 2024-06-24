@@ -13,12 +13,16 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apisetup.R
+import com.example.apisetup.notmodel.Status
 import com.example.presnter.ViewPagerAdapter
+import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.view.mainActivity.homeFragments.profileFragments.BadgesFragment
 import com.example.view.mainActivity.homeFragments.profileFragments.LikedFragment
 import com.example.view.mainActivity.homeFragments.profileFragments.SavedFragment
 import com.example.view.mainActivity.homeFragments.profileFragments.UserHeaderFragment
 import com.example.view.mainActivity.homeFragments.profileFragments.VideosFragment
+import com.example.viewmodel.MyViewModel
+import com.example.viewmodel.SpewViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.ArrayList
@@ -39,6 +43,9 @@ class ProfileFragment : Fragment() {
     private var badgesFragment = BadgesFragment()
     private var savedFragment  = SavedFragment()
     private var likedFragment  = LikedFragment()
+
+    //server
+    private lateinit var view_model: MyViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -66,6 +73,26 @@ class ProfileFragment : Fragment() {
 
         checkIfNestedScrollViewTouchBottom()
 
+        //server
+//        view_model = SpewViewModel.giveMeViewModelWithHeaderFromFragment(requireActivity())
+//
+//        view_model.getBasicInfoRequest()
+//        observeAResponse()
+    }
+
+    private fun observeAResponse() {
+        view_model.basicProfile.observe(requireActivity()){
+            if (it.status== Status.SUCCESS){
+                //handle SUCCESS case
+                SharedPreferencesHelper.saveProfileInfo(requireActivity(), it.data!!.response.data)
+
+            }else{
+                if (it.status == Status.ERROR){
+
+                }
+
+            }
+        }
     }
 
     private fun checkIfNestedScrollViewTouchBottom() {

@@ -33,5 +33,5 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getANewVideo(locale: String, pageNumber: String): VideoRoot = apiService.getANewVideo(locale,pageNumber)
     override suspend fun updateBasicInfo(basic_info: HashMap<String, Any>): UserUpdateInfo = apiService.updateBasicInfoRequest(basic_info)
     override suspend fun updatePassword(passInfo: HashMap<String, Any>): UpdatePasswordRoot = apiService.updatePassRequest(passInfo)
-
+    override suspend fun getBasicProfileInfo(): UserUpdateInfo = apiService.getProfileDetails()
 }

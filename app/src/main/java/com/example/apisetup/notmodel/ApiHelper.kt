@@ -31,4 +31,6 @@ interface ApiHelper {
     suspend fun getANewVideo(locale: String, pageNumber: String) : VideoRoot
     suspend fun updateBasicInfo(basic_info:HashMap<String, Any>) : UserUpdateInfo
     suspend fun updatePassword(passInfo:HashMap<String, Any>) : UpdatePasswordRoot
+    suspend fun getBasicProfileInfo() : UserUpdateInfo
+
 }

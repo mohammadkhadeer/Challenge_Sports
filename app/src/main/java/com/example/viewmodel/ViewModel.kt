@@ -58,6 +58,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     //updatePassword
     var updatePass = MutableLiveData<Resource<UpdatePasswordRoot>>()
 
+    //userUpdateInfo
+    var basicProfile = MutableLiveData<Resource<UserUpdateInfo>>()
+
     fun getHotMatches(){
         viewModelScope.launch {
             matches_root.postValue(Resource.loading(null))
@@ -251,7 +254,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
         }
     }
 
-
     fun updatePassRequest(passInfo:HashMap<String, Any>){
         viewModelScope.launch {
             updatePass.postValue(Resource.loading(null))
@@ -267,6 +269,20 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
         }
     }
 
+    fun getBasicInfoRequest(){
+        viewModelScope.launch {
+            basicProfile.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.getBasicProfileInfo()
+                println(myData)
+                basicProfile.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                basicProfile.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
 
     fun updatePhoto(basicInfo:HashMap<String, Any>){
         viewModelScope.launch {
@@ -282,5 +298,6 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             }
         }
     }
+
 
 }
