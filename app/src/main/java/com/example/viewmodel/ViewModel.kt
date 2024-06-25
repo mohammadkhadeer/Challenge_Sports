@@ -65,6 +65,12 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     //user videos
     var userVideo = MutableLiveData<Resource<UserVideosRoot>>()
 
+    //user videos
+    var userVideo2 = MutableLiveData<Resource<UserVideosRoot>>()
+
+    //user videos
+    var userVideo3 = MutableLiveData<Resource<UserVideosRoot>>()
+
     fun getHotMatches(){
         viewModelScope.launch {
             matches_root.postValue(Resource.loading(null))
@@ -318,5 +324,34 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
         }
     }
 
+    fun getAVideos(){
+        viewModelScope.launch {
+            userVideo2.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.getAUserVideos()
+                println(myData)
+                userVideo2.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                userVideo2.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
+
+    fun getALikedVideos(){
+        viewModelScope.launch {
+            userVideo3.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.getALikeVideos()
+                println(myData)
+                userVideo3.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                userVideo3.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
 
 }

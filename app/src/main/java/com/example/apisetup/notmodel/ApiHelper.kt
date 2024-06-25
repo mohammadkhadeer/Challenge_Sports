@@ -34,5 +34,7 @@ interface ApiHelper {
     suspend fun updatePassword(passInfo:HashMap<String, Any>) : UpdatePasswordRoot
     suspend fun getBasicProfileInfo() : UserUpdateInfo
     suspend fun getAUserBookMarkVideos() : UserVideosRoot
+    suspend fun getAUserVideos() : UserVideosRoot
+    suspend fun getALikeVideos() : UserVideosRoot
 
 }

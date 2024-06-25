@@ -76,4 +76,10 @@ interface ApiService {
 
     @GET(" challenges/api/video/bookmarked")
     suspend fun getAUserBookMarkVideos(): UserVideosRoot
+
+    @GET(" challenges/api/user/my-videos")
+    suspend fun getAUserVideos(): UserVideosRoot
+
+    @GET(" challenges/api/user/my-liked-videos")
+    suspend fun getALikedVideos(): UserVideosRoot
 }

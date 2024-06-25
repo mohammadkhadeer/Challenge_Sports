@@ -53,8 +53,6 @@ class SavedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         casting(view)
 
-        view_model = SpewViewModel.giveMeViewModel(requireActivity())
-
         //server
         if(MySharableObjectViewModel.viewModel != null)
         {
@@ -62,7 +60,6 @@ class SavedFragment : Fragment() {
             view_model.getABookMarkVideos()
             observeAResponse()
         }
-
     }
 
     private fun observeAResponse() {
@@ -83,8 +80,8 @@ class SavedFragment : Fragment() {
 
         if (fragmentContext != null)
         {
-            progressBar.isVisible = false
-            println("TAG "+response.data.size)
+            hideAProgressAndShowNoDataOnceADAtaSizeIsZero(response.data.isEmpty())
+
             adapterVideos = ProfileVideoAdapter(fragmentContext!!,response.data)
 
             recyclerView.adapter = adapterVideos
@@ -94,10 +91,17 @@ class SavedFragment : Fragment() {
         }
     }
 
+    private fun hideAProgressAndShowNoDataOnceADAtaSizeIsZero(empty: Boolean) {
+        progressBar.isVisible = false
+        if (empty)
+            emptyView.isVisible = true
+    }
+
     private fun casting(view: View) {
         recyclerView = view.findViewById<RecyclerView> (R.id.recycler_view)
         emptyView    = view.findViewById<RelativeLayout> (R.id.empty_view)
         progressBar  = view.findViewById<ProgressBar> (R.id.pro_bar_saved_frag)
+
     }
 
 }

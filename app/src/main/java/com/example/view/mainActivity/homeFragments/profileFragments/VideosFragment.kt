@@ -8,10 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apisetup.R
+import com.example.apisetup.notmodel.Status
+import com.example.model.userVideos.Response
+import com.example.utils.MySharableObjectViewModel
 import com.example.view.mainActivity.homeAdapter.profileVideos.ProfileVideoAdapter
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
@@ -50,33 +54,49 @@ class VideosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         casting(view)
 
-        view_model = SpewViewModel.giveMeViewModel(requireActivity())
-        //sent a requisite to get a banner ads
-//        view_model.getNews("1","en")
-
-        //observe banner response
-        observeBannerResponse()
-        createAList()
-    }
-
-    private fun createAList() {
-
-        recyclerView.isNestedScrollingEnabled = false
-
-        if (fragmentContext != null)
+        //server
+        if(MySharableObjectViewModel.viewModel != null)
         {
-//            adapterVideos = ProfileVideoAdapter(fragmentContext!!)
-//
-//            recyclerView.adapter = adapterVideos
-//
-//            recyclerView.layoutManager =
-//                GridLayoutManager(fragmentContext!!, 3)
+            view_model = MySharableObjectViewModel.viewModel!!
+            view_model.getAVideos()
+            observeAResponse()
         }
 
     }
 
-    private fun observeBannerResponse() {
+    private fun observeAResponse() {
+        view_model.userVideo2.observe(requireActivity()){
+            if (it.status== Status.SUCCESS){
+                //handle SUCCESS case
+                fillABasicInfoInTheFragment(it.data!!.response)
+            }else{
+                if (it.status == Status.ERROR){
 
+                }
+            }
+        }
+    }
+
+    private fun fillABasicInfoInTheFragment(response: Response) {
+        recyclerView.isNestedScrollingEnabled = false
+
+        if (fragmentContext != null)
+        {
+            hideAProgressAndShowNoDataOnceADAtaSizeIsZero(response.data.isEmpty())
+
+            adapterVideos = ProfileVideoAdapter(fragmentContext!!,response.data)
+
+            recyclerView.adapter = adapterVideos
+
+            recyclerView.layoutManager =
+                GridLayoutManager(fragmentContext!!, 3)
+        }
+    }
+
+    private fun hideAProgressAndShowNoDataOnceADAtaSizeIsZero(empty: Boolean) {
+        progressBar.isVisible = false
+        if (empty)
+            emptyView.isVisible = true
     }
 
     private fun casting(view: View) {
