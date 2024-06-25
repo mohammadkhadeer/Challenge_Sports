@@ -1,5 +1,6 @@
 package com.example.apisetup.notmodel
 
+import com.example.model.badgesVideo.BadgesVideosRoot
 import com.example.model.banner.BannerRoot
 import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
@@ -82,4 +83,7 @@ interface ApiService {
 
     @GET(" challenges/api/user/my-liked-videos")
     suspend fun getALikedVideos(): UserVideosRoot
+
+    @GET(" challenges/api/user/badges")
+    suspend fun getABadgesVideos(): BadgesVideosRoot
 }

@@ -1,5 +1,6 @@
 package com.example.apisetup.notmodel
 
+import com.example.model.badgesVideo.BadgesVideosRoot
 import com.example.model.banner.BannerRoot
 import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
@@ -36,5 +37,6 @@ interface ApiHelper {
     suspend fun getAUserBookMarkVideos() : UserVideosRoot
     suspend fun getAUserVideos() : UserVideosRoot
     suspend fun getALikeVideos() : UserVideosRoot
+    suspend fun getBadgesVideos() : BadgesVideosRoot
 
 }

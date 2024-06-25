@@ -10,6 +10,7 @@ import com.example.apisetup.notmodel.Resource
 import com.example.model.hotMatches.HotMatchBaseClass
 
 import com.example.apisetup.notmodel.Resource.Companion.loading
+import com.example.model.badgesVideo.BadgesVideosRoot
 import com.example.model.banner.BannerRoot
 import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
@@ -62,14 +63,17 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     //userUpdateInfo
     var basicProfile = MutableLiveData<Resource<UserUpdateInfo>>()
 
-    //user videos
+    //user videos , BookMarkVideos
     var userVideo = MutableLiveData<Resource<UserVideosRoot>>()
 
-    //user videos
+    //user videos , UserVideos
     var userVideo2 = MutableLiveData<Resource<UserVideosRoot>>()
 
-    //user videos
+    //user videos , LikeVideos
     var userVideo3 = MutableLiveData<Resource<UserVideosRoot>>()
+
+    //user videos , BadgesVideos
+    var userVideo4 = MutableLiveData<Resource<BadgesVideosRoot>>()
 
     fun getHotMatches(){
         viewModelScope.launch {
@@ -240,7 +244,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             newsVideoData.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.getANewVideo(lang, pageNumber)
-                println(myData)
+//                println(myData)
                 newsVideoData.postValue(Resource.success(myData))
             } catch (e: Exception) {
                 println(e.toString())
@@ -269,7 +273,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             updatePass.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.updatePassword(passInfo)
-                println(myData)
+//                println(myData)
                 updatePass.postValue(Resource.success(myData))
 
             }catch (e:Exception){
@@ -284,7 +288,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             basicProfile.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.getBasicProfileInfo()
-                println(myData)
+//                println(myData)
                 basicProfile.postValue(Resource.success(myData))
 
             }catch (e:Exception){
@@ -299,7 +303,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             updatePhoto.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.updateBasicInfo(basicInfo)
-                println(myData)
+//                println(myData)
                 updatePhoto.postValue(Resource.success(myData))
 
             }catch (e:Exception){
@@ -314,7 +318,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             userVideo.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.getAUserBookMarkVideos()
-                println(myData)
+//                println(myData)
                 userVideo.postValue(Resource.success(myData))
 
             }catch (e:Exception){
@@ -329,7 +333,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             userVideo2.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.getAUserVideos()
-                println(myData)
+//                println(myData)
                 userVideo2.postValue(Resource.success(myData))
 
             }catch (e:Exception){
@@ -344,14 +348,28 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             userVideo3.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.getALikeVideos()
-                println(myData)
+//                println(myData)
                 userVideo3.postValue(Resource.success(myData))
 
             }catch (e:Exception){
-                println(e.message)
+//                println(e.message)
                 userVideo3.postValue(Resource.error(e.message.toString(),null))
             }
         }
     }
 
+    fun getABadgesVideos(){
+        viewModelScope.launch {
+            userVideo4.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.getBadgesVideos()
+//                println(myData)
+                userVideo4.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                userVideo4.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
 }

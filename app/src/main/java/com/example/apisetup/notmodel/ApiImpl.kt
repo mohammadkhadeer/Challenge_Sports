@@ -1,5 +1,6 @@
 package com.example.apisetup.notmodel
 
+import com.example.model.badgesVideo.BadgesVideosRoot
 import com.example.model.banner.BannerRoot
 import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
@@ -38,4 +39,5 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getAUserBookMarkVideos(): UserVideosRoot = apiService.getAUserBookMarkVideos()
     override suspend fun getAUserVideos(): UserVideosRoot = apiService.getAUserVideos()
     override suspend fun getALikeVideos(): UserVideosRoot = apiService.getALikedVideos()
+    override suspend fun getBadgesVideos(): BadgesVideosRoot = apiService.getABadgesVideos()
 }
