@@ -2,6 +2,15 @@
     <string name="app_name">Challenge Sports</string>
 
 
+    //upload video
+    <string name="upload_video">Upload Video</string>
+    <string name="upload_video_message">What\'s in your mind</string>
+    <string name="upload_video_message_2">Please choose\!</string>
+    <string name="upload_video_message_3">Capture Video</string>
+    <string name="upload_video_message_4">Choose from Gallery</string>
+    <string name="upload_video_message_5">Please select a video</string>
+    <string name="upload">Upload</string>
+
     //update password
     <string name="update_password">Update password</string>
     <string name="update_password_message_1">Set a password for your account </string>

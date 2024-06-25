@@ -17,6 +17,7 @@ import com.example.view.login.Login
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
 import com.example.view.mainActivity.homeFragments.HomeFragment
 import com.example.view.mainActivity.homeFragments.profileFragments.VideosFragment
+import com.example.view.uploadVideo.UploadVideoActivity
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -79,16 +80,20 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener  {
         val addFab = findViewById<FloatingActionButton>(R.id.addFabBtn)
         addFab.setOnClickListener {
             val userData = SharedPreferencesHelper.getUser(this)
-            moveToLoginScreen()
-//            if (userData?.token != null)
-//            {
-//                Log.i("TAG","TAG userData?.token: "+userData?.token)
-//                Log.i("TAG","TAG userData?.name: "+userData?.name)
-//                Log.i("TAG","TAG userData?.email: "+userData?.email)
-//            }else{
-//                moveToLoginScreen()
-//            }
+//            moveToLoginScreen()
+            if (userData?.token != null)
+            {
+                moveToUploadVideo()
+            }else{
+                moveToLoginScreen()
+            }
         }
+    }
+
+    private fun moveToUploadVideo() {
+        val intent = Intent(this, UploadVideoActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.bottom_up_enter, R.anim.bottom_up_exit)
     }
 
     private fun moveToLoginScreen() {
