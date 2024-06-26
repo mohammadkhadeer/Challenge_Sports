@@ -12,8 +12,11 @@ import com.example.model.news.details.NewsPostBase
 import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
 import com.example.model.updatePassword.UpdatePasswordRoot
+import com.example.model.uploadVideo.UploadVideoResponse
 import com.example.model.userVideos.UserVideosRoot
 import com.example.model.videos.random.RandomVidsBase
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class ApiImpl(private val apiService: ApiService) : ApiHelper {
     //matches
@@ -40,4 +43,10 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getAUserVideos(): UserVideosRoot = apiService.getAUserVideos()
     override suspend fun getALikeVideos(): UserVideosRoot = apiService.getALikedVideos()
     override suspend fun getBadgesVideos(): BadgesVideosRoot = apiService.getABadgesVideos()
+    override suspend fun uploadVideo(
+        body: MultipartBody.Part,
+        description: RequestBody,
+        title: RequestBody,
+        type: RequestBody
+    ): UploadVideoResponse = apiService.uploadAVideo(body,description,title,type)
 }

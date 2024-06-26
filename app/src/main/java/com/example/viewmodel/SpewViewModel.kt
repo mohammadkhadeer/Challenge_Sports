@@ -12,13 +12,6 @@ import com.example.apisetup.notmodel.RetorfitBuilderWithToken
 import com.example.viewmodel.videos.VideosViewModel
 
 object SpewViewModel {
-    fun giveMeViewModelWithHeaderFromFragment(context: FragmentActivity?): MyViewModel {
-
-        return ViewModelProvider(
-            context!!.viewModelStore
-            ,ViewModelFactory(ApiImpl(RetorfitBuilderWithToken.getInstance(context)))).get()
-
-    }
 
     fun giveMeViewModelWithHeader(context: AppCompatActivity): MyViewModel {
 

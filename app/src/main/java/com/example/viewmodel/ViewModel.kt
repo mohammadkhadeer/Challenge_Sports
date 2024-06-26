@@ -21,8 +21,11 @@ import com.example.model.news.details.NewsPostBase
 import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.OddsRoot
 import com.example.model.updatePassword.UpdatePasswordRoot
+import com.example.model.uploadVideo.UploadVideoResponse
 import com.example.model.userVideos.UserVideosRoot
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.sql.DriverManager.println
 
 class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
@@ -74,6 +77,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
 
     //user videos , BadgesVideos
     var userVideo4 = MutableLiveData<Resource<BadgesVideosRoot>>()
+
+    //upload videos
+    var uploadVideo = MutableLiveData<Resource<UploadVideoResponse>>()
 
     fun getHotMatches(){
         viewModelScope.launch {
@@ -369,6 +375,25 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             }catch (e:Exception){
                 println(e.message)
                 userVideo4.postValue(Resource.error(e.message.toString(),null))
+            }
+        }
+    }
+
+    fun uploadVideo(body: MultipartBody.Part
+                    , description: RequestBody
+                    , title: RequestBody
+                    , type: RequestBody
+    ){
+        viewModelScope.launch {
+            uploadVideo.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.uploadVideo(body,description,title,type)
+                println(myData)
+                uploadVideo.postValue(Resource.success(myData))
+
+            }catch (e:Exception){
+                println(e.message)
+                uploadVideo.postValue(Resource.error(e.message.toString(),null))
             }
         }
     }

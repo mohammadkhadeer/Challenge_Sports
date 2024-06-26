@@ -13,11 +13,16 @@ import com.example.model.newsVideo.VideoRoot
 import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsRoot
 import com.example.model.updatePassword.UpdatePasswordRoot
+import com.example.model.uploadVideo.UploadVideoResponse
 import com.example.model.userVideos.UserVideosRoot
 import com.example.model.videos.random.RandomVidsBase
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -86,4 +91,11 @@ interface ApiService {
 
     @GET(" challenges/api/user/badges")
     suspend fun getABadgesVideos(): BadgesVideosRoot
+
+    @Multipart
+    @POST(" challenges/api/challange-videos/upload")
+    suspend fun uploadAVideo(@Part video: MultipartBody.Part,
+                             @Part("description") description: RequestBody,
+                             @Part("title") title: RequestBody,
+                             @Part("type") type: RequestBody): UploadVideoResponse
 }

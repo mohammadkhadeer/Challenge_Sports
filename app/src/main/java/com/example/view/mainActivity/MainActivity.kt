@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener  {
         // create a view_model instance here where if we send a requisite from profile fragment we
         //will get a 401 error i don't know why
         MySharableObjectViewModel.viewModel = SpewViewModel.giveMeViewModelWithHeader(this@MainActivity)
+//        println("TAG "+ SharedPreferencesHelper.getAToken(this))
         tabLayout()
     }
 

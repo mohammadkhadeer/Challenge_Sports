@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -31,8 +32,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
+import com.example.apisetup.notmodel.Status
 import com.example.utils.EditProfileTools
 import com.example.utils.UploadTools
+import com.example.utils.getRealPathFromURI
+import com.example.viewmodel.MyViewModel
+import com.example.viewmodel.SpewViewModel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -59,6 +67,9 @@ class UploadVideoActivity : AppCompatActivity() {
     val PERMISSION_REQUEST_CODE = 102
     val REQUEST_VIDEO_PICK = 103
 
+    //server
+    private lateinit var view_model: MyViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_video)
@@ -70,6 +81,22 @@ class UploadVideoActivity : AppCompatActivity() {
         actionListenerToUploadVideo()
         actionListenerToCancelButton()
         actionListenerToUploadVideoToServer()
+
+        //server
+        view_model = SpewViewModel.giveMeViewModelWithHeader(this@UploadVideoActivity)
+        observeAResponse()
+    }
+
+    private fun observeAResponse() {
+        view_model.uploadVideo.observe(this){
+            if (it.status== Status.SUCCESS){
+                //handle SUCCESS case
+                Toast.makeText(this, getString(R.string.update_password_message_6), Toast.LENGTH_SHORT).show()
+
+            }else{
+
+            }
+        }
     }
 
     private fun actionListenerToUploadVideoToServer() {
@@ -77,12 +104,40 @@ class UploadVideoActivity : AppCompatActivity() {
             if (uploadVideo){
                 val videoTitle = editText.text.toString()
 
-                val map = UploadTools.makeMapForUploadVideo(videoTitle, videoUri!!)
-                //view_model.updatePassRequest(map)
+
+
+                val map = UploadTools.makeMapForUploadVideo(videoTitle, videoUri!!,this@UploadVideoActivity)
+
+                val filePath = getRealPathFromURI(videoUri!!,this@UploadVideoActivity)
+
+                val file = File(filePath)
+
+                val requestFile = RequestBody.create("video/*".toMediaTypeOrNull(), file)
+                var body = MultipartBody.Part.createFormData("video", file.name, requestFile)
+                val description = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), videoTitle)
+                val title = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), "empty_title")
+                val type = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), "3")
+
+                view_model.uploadVideo(body,description,title,type)
+
             }else{
                 Toast.makeText(this,getString(R.string.upload_video_message_5),Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun getRealPathFromURI(contentUri: Uri, context: Context): String {
+        var result: String
+        val cursor = contentResolver.query(contentUri, null, null, null, null)
+        if (cursor == null) {
+            result = contentUri.path!!
+        } else {
+            cursor.moveToFirst()
+            val idx = cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
     }
 
     private fun actionListenerToCancelButton() {
@@ -194,21 +249,6 @@ class UploadVideoActivity : AppCompatActivity() {
         update_rl.setBackgroundResource(R.drawable.bg_8)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_PICK) {
-            videoUri = data?.data
-            playVideo()
-        }
-
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
-            videoUri = data?.data
-            // Handle the captured video Uri
-            playVideo()
-        }
-
-    }
-
     private fun playVideo() {
         videoView.isVisible = true
         image_view_bg.isVisible = false
@@ -232,6 +272,17 @@ class UploadVideoActivity : AppCompatActivity() {
         }
     }
 
+    private fun getPathFromUri(uri: Uri): String? {
+        val projection = arrayOf(MediaStore.Video.Media.DATA)
+        contentResolver.query(uri, projection, null, null, null)?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)
+                return cursor.getString(columnIndex)
+            }
+        }
+        return null
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CODE) {
@@ -241,5 +292,20 @@ class UploadVideoActivity : AppCompatActivity() {
                 // Permission was denied
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_PICK) {
+            videoUri = data?.data
+            playVideo()
+        }
+
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
+            videoUri = data?.data
+            // Handle the captured video Uri
+            playVideo()
+        }
+
     }
 }
