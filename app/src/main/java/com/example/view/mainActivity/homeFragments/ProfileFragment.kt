@@ -1,6 +1,7 @@
 package com.example.view.mainActivity.homeFragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -140,4 +141,9 @@ class ProfileFragment : Fragment() {
         nestedScrollView = view.findViewById<NestedScrollView>(R.id.nested_scroll_view)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // i call this override to can use it in child fragment
+        //the fragment name is UserHeaderFragment
+    }
 }

@@ -423,4 +423,13 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         val map = EditProfileTools.makeMapForUpdateNameRequirements(countryName,"country")
         view_model.updateBasicInfoRequest(map)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        val resultIntent = Intent()
+        resultIntent.putExtra("result", "Hello from UserProfileActivity")
+        setResult(RESULT_OK, resultIntent)
+        finish()
+    }
 }

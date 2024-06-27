@@ -1,27 +1,31 @@
 package com.example.view.mainActivity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
-import com.example.view.mainActivity.homeFragments.MatchesFragment
-import com.example.view.mainActivity.homeFragments.ProfileFragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.apisetup.R
-import com.example.apisetup.notmodel.Status
 import com.example.presnter.OnSeeAllMatchesListener
 import com.example.sharedPreferences.SharedPreferencesHelper
+import com.example.utils.EditProfileTools
 import com.example.utils.MySharableObjectViewModel
 import com.example.view.allNewsVideo.AllNewsVideoActivity
 import com.example.view.login.Login
 import com.example.view.mainActivity.Discover.Frags.DiscoverFragment
 import com.example.view.mainActivity.homeFragments.HomeFragment
+import com.example.view.mainActivity.homeFragments.MatchesFragment
+import com.example.view.mainActivity.homeFragments.ProfileFragment
 import com.example.view.mainActivity.homeFragments.profileFragments.VideosFragment
 import com.example.view.uploadVideo.UploadVideoActivity
-import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener  {
     //ui
@@ -122,6 +126,13 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener  {
             val intent = Intent(this, AllNewsVideoActivity::class.java)
             startActivity(intent)
         }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // i call this override to can use it in child fragment
+        //the fragment name is ProfileFragment
     }
 
 }

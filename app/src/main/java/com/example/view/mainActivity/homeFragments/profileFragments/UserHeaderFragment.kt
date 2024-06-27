@@ -52,6 +52,9 @@ class UserHeaderFragment : Fragment() {
     //server
     private lateinit var view_model: MyViewModel
 
+    //use it to can make a update when a come back from update activity
+    private val REQUEST_CODE = 1
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         fragmentContext = context
@@ -114,17 +117,25 @@ class UserHeaderFragment : Fragment() {
 
     private fun moveToUserProfileScreen() {
         val intent = Intent(requireActivity(), UserProfileActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CODE)
     }
 
 
     private fun casting(view: View) {
-        user_name_txt         = view.findViewById<TextView>      (R.id.user_name_txt)
-        following_number_text = view.findViewById<TextView>      (R.id.following_number_text)
-        follower_number_text  = view.findViewById<TextView>      (R.id.follower_number_text)
-        profile_info_txt      = view.findViewById<TextView>      (R.id.profile_info_txt)
-        user_image            = view.findViewById<ImageView>     (R.id.user_image)
-        edit_profile_rl       = view.findViewById<RelativeLayout>(R.id.edit_profile_rl)
+        user_name_txt         = view.findViewById(R.id.user_name_txt)
+        following_number_text = view.findViewById(R.id.following_number_text)
+        follower_number_text  = view.findViewById(R.id.follower_number_text)
+        profile_info_txt      = view.findViewById(R.id.profile_info_txt)
+        user_image            = view.findViewById(R.id.user_image)
+        edit_profile_rl       = view.findViewById(R.id.edit_profile_rl)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        fillABasicInfoInTheFragment(SharedPreferencesHelper.getProfileInfo(requireActivity())!!)
+
     }
 
 }
