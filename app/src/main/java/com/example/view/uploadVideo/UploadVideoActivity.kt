@@ -113,7 +113,7 @@ class UploadVideoActivity : AppCompatActivity() {
                 val title = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), "empty_title")
                 val type = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), "3")
 
-                view_model.uploadVideo(body,description,title,type)
+                view_model.updatePhoto(body,description,title,type)
 
             }else{
                 Toast.makeText(this,getString(R.string.upload_video_message_5),Toast.LENGTH_SHORT).show()

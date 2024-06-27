@@ -2,6 +2,7 @@ package com.example.apisetup.notmodel
 
 import com.example.model.badgesVideo.BadgesVideosRoot
 import com.example.model.banner.BannerRoot
+import com.example.model.editProfile.profilePhoto.ProfilePhoto
 import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
@@ -49,4 +50,12 @@ class ApiImpl(private val apiService: ApiService) : ApiHelper {
         title: RequestBody,
         type: RequestBody
     ): UploadVideoResponse = apiService.uploadAVideo(body,description,title,type)
+
+    override suspend fun uploadPhoto(
+        image: MultipartBody.Part,
+        mediaKey: RequestBody,
+        mimeType: RequestBody,
+        fileName: RequestBody
+    ): UserUpdateInfo = apiService.uploadAPhoto(image,mediaKey,mimeType,fileName)
+
 }

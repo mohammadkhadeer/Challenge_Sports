@@ -3,6 +3,7 @@ package com.example.view.userProfileActivity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -43,6 +44,9 @@ import com.example.view.updateUserInfo.UpdateUserInfoActivity
 import com.example.view.userProfileActivity.adapters.AdapterUserProfile
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 
 class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,GenderSheetListener ,SelectedCountryListener{
@@ -375,17 +379,35 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
             val imageUri: Uri? = data.data
-//            var imageFile = EditProfileTools.getFileFromUri(this@UserProfileActivity, imageUri!!)
             val bitmap = EditProfileTools.getBitmapFromUri(this@UserProfileActivity, imageUri!!)
-//            var compressedImageByteArray = EditProfileTools.compressImageToJpeg(bitmap!!, 50)
-
 
             user_image.setImageURI(imageUri)
             //upload photo to server
 
-            val map = EditProfileTools.makeMapForPhotoRequirements(bitmap!!)
-            view_model.updatePhoto(map)
+
+            val file = File(getRealPathFromURI(this, imageUri))
+            val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
+
+            val image = MultipartBody.Part.createFormData("profile_img", file.name, requestFile)
+            val mediaKey = RequestBody.create("text/plain".toMediaTypeOrNull(), "mediaKey")
+            val mimeType = RequestBody.create("text/plain".toMediaTypeOrNull(), "mimeType")
+            val fileName = RequestBody.create("text/plain".toMediaTypeOrNull(), "profilePic@mohammad_test.jpeg")
+
+            view_model.updatePhoto(image,mediaKey,mimeType,fileName)
         }
+    }
+
+    private fun getRealPathFromURI(context: Context, uri: Uri): String {
+        var result: String? = null
+        val cursor = context.contentResolver.query(uri, arrayOf(MediaStore.Images.Media.DATA), null, null, null)
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                result = cursor.getString(columnIndex)
+            }
+            cursor.close()
+        }
+        return result ?: ""
     }
 
     override fun onDataPassed(data: String) {

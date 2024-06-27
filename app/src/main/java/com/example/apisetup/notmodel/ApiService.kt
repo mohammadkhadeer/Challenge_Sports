@@ -98,4 +98,10 @@ interface ApiService {
                              @Part("description") description: RequestBody,
                              @Part("title") title: RequestBody,
                              @Part("type") type: RequestBody): UploadVideoResponse
+    @Multipart
+    @POST(" challenges/api/user/profile")
+    suspend fun uploadAPhoto(@Part profileImg: MultipartBody.Part,
+                             @Part("description") description: RequestBody,
+                             @Part("title") title: RequestBody,
+                             @Part("type") type: RequestBody): UserUpdateInfo
 }

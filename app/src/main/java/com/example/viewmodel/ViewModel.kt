@@ -12,6 +12,7 @@ import com.example.model.hotMatches.HotMatchBaseClass
 import com.example.apisetup.notmodel.Resource.Companion.loading
 import com.example.model.badgesVideo.BadgesVideosRoot
 import com.example.model.banner.BannerRoot
+import com.example.model.editProfile.profilePhoto.ProfilePhoto
 import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
@@ -304,12 +305,12 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
         }
     }
 
-    fun updatePhoto(basicInfo:HashMap<String, Any>){
+    fun updatePhoto(image: MultipartBody.Part, mediaKey: RequestBody, mimeType: RequestBody, fileName: RequestBody){
         viewModelScope.launch {
             updatePhoto.postValue(Resource.loading(null))
             try {
-                val myData = apiHelper.updateBasicInfo(basicInfo)
-//                println(myData)
+                val myData = apiHelper.uploadPhoto(image,mediaKey,mimeType,fileName)
+                println(myData)
                 updatePhoto.postValue(Resource.success(myData))
 
             }catch (e:Exception){

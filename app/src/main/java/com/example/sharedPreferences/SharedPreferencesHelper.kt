@@ -17,6 +17,8 @@ object SharedPreferencesHelper {
     private const val LANGUAGE = "LANGUAGE"
 
     fun saveProfileInfo(context: Context, user: com.example.model.editProfile.serverModel.UserData) {
+
+
         val prefs = context.getSharedPreferences(PROFILE_INFO, Context.MODE_PRIVATE)
         val gson = Gson()
         val json = gson.toJson(user)

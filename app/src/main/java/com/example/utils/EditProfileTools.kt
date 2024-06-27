@@ -24,6 +24,9 @@ import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsCompanyComp
 import com.example.model.odds.OddsRoot
 import com.example.sharedPreferences.SharedPreferencesHelper
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
@@ -64,17 +67,42 @@ object EditProfileTools {
         return filePath?.let { File(it) }
     }
 
-    fun makeMapForPhotoRequirements(imageFile: Bitmap): HashMap<String, Any> {
+//    fun makeMapForPhotoRequirements(imageUri: Uri,context: Context): HashMap<String, Any> {
+//
+//
+//        val imageFileWithNames = ProfilePhoto(imageFile
+//            , "profile_img"
+//            ,"image/jpeg"
+//            ,"profilePic@mohammad_test.jpeg")
+//        val imageArray = arrayOf(imageFileWithNames)
+//
+//        val map = HashMap<String, Any>()
+//        map["profile_img"] = imageArray
+//
+//        val file = File(getRealPathFromURI(context, imageUri))
+//        val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
+//        val image = MultipartBody.Part.createFormData("profile_img", file.name, requestFile)
+//        val mediaKey = RequestBody.create("text/plain".toMediaTypeOrNull(), "mediaKey")
+//        val mimeType = RequestBody.create("text/plain".toMediaTypeOrNull(), "mimeType")
+//        val fileName = RequestBody.create("text/plain".toMediaTypeOrNull(), "profilePic@mohammad_test.jpeg")
+//
+//
+//        return map
+//    }
 
-        val imageFileWithNames = ProfilePhoto(imageFile, "profile_img","image/jpeg","profilePic@mohammad_test.jpeg")
-        val imageArray = arrayOf(imageFileWithNames)
 
-        val map = HashMap<String, Any>()
-        map["profile_img"] = imageArray
-
-        return map
+    private fun getRealPathFromURI(context: Context, uri: Uri): String {
+        var result: String? = null
+        val cursor = context.contentResolver.query(uri, arrayOf(MediaStore.Images.Media.DATA), null, null, null)
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                result = cursor.getString(columnIndex)
+            }
+            cursor.close()
+        }
+        return result ?: ""
     }
-
 
     fun makeMapForUpdateNameRequirements(value: String,key:String): HashMap<String, Any> {
         val map = HashMap<String, Any>()
@@ -208,13 +236,6 @@ object EditProfileTools {
             else
                 profilePic = "https://cdn.finds.sbs//storage/placeholder.png"
 
-        }else{
-            val userData = SharedPreferencesHelper.getUser(context)
-
-            if (userData?.profile_img != null)
-                profilePic = userData?.profile_img.toString()
-            else
-                profilePic = "https://cdn.finds.sbs//storage/placeholder.png"
         }
 
         return profilePic

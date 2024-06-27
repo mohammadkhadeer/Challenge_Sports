@@ -2,6 +2,7 @@ package com.example.apisetup.notmodel
 
 import com.example.model.badgesVideo.BadgesVideosRoot
 import com.example.model.banner.BannerRoot
+import com.example.model.editProfile.profilePhoto.ProfilePhoto
 import com.example.model.editProfile.serverModel.UserUpdateInfo
 import com.example.model.forgotPassword.ForgotPasswordRootResponse
 import com.example.model.headToHeadMatches.H2HRoot
@@ -45,5 +46,11 @@ interface ApiHelper {
                             , description: RequestBody
                             , title: RequestBody
                             , type: RequestBody) : UploadVideoResponse
+
+    suspend fun uploadPhoto(image: MultipartBody.Part
+                            , mediaKey: RequestBody
+                            , mimeType: RequestBody
+                            , fileName: RequestBody) : UserUpdateInfo
+
 
 }
