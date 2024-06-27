@@ -35,7 +35,6 @@ import com.example.apisetup.R
 import com.example.apisetup.notmodel.Status
 import com.example.utils.EditProfileTools
 import com.example.utils.UploadTools
-import com.example.utils.getRealPathFromURI
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -62,6 +61,7 @@ class UploadVideoActivity : AppCompatActivity() {
     //value
     private var videoUri: Uri? = null
     private var uploadVideo: Boolean = false
+    private lateinit var capturePath: String
 
     val REQUEST_VIDEO_CAPTURE = 101
     val PERMISSION_REQUEST_CODE = 102
@@ -92,7 +92,7 @@ class UploadVideoActivity : AppCompatActivity() {
             if (it.status== Status.SUCCESS){
                 //handle SUCCESS case
                 Toast.makeText(this, getString(R.string.update_password_message_6), Toast.LENGTH_SHORT).show()
-
+                finish()
             }else{
 
             }
@@ -102,16 +102,11 @@ class UploadVideoActivity : AppCompatActivity() {
     private fun actionListenerToUploadVideoToServer() {
         update_rl.setOnClickListener {
             if (uploadVideo){
+                //uploadAVideo()
                 val videoTitle = editText.text.toString()
-
-
-
-                val map = UploadTools.makeMapForUploadVideo(videoTitle, videoUri!!,this@UploadVideoActivity)
-
-                val filePath = getRealPathFromURI(videoUri!!,this@UploadVideoActivity)
+                val filePath = getRealPathFromURI(videoUri!!)
 
                 val file = File(filePath)
-
                 val requestFile = RequestBody.create("video/*".toMediaTypeOrNull(), file)
                 var body = MultipartBody.Part.createFormData("video", file.name, requestFile)
                 val description = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), videoTitle)
@@ -126,7 +121,8 @@ class UploadVideoActivity : AppCompatActivity() {
         }
     }
 
-    private fun getRealPathFromURI(contentUri: Uri, context: Context): String {
+    private fun getRealPathFromURI(contentUri: Uri): String {
+        println("TAG contentUri: "+contentUri)
         var result: String
         val cursor = contentResolver.query(contentUri, null, null, null, null)
         if (cursor == null) {
@@ -303,8 +299,11 @@ class UploadVideoActivity : AppCompatActivity() {
 
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
             videoUri = data?.data
+            //capturePath = data?.data!!.path!!
             // Handle the captured video Uri
             playVideo()
+
+
         }
 
     }

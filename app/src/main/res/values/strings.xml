@@ -10,6 +10,7 @@
     <string name="upload_video_message_4">Choose from Gallery</string>
     <string name="upload_video_message_5">Please select a video</string>
     <string name="upload">Upload</string>
+    <string name="upload_video_message_6">The video upload successfully</string>
 
     //update password
     <string name="update_password">Update password</string>
