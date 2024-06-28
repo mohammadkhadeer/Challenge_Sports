@@ -340,7 +340,7 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
             userVideo2.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.getAUserVideos()
-//                println(myData)
+                println(myData)
                 userVideo2.postValue(Resource.success(myData))
 
             }catch (e:Exception){

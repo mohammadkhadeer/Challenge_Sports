@@ -106,7 +106,7 @@ class LikedFragment : Fragment() {
                 fillABasicInfoInTheFragment(it.data!!.response)
             }else{
                 if (it.status == Status.ERROR){
-
+                    hideAProgressAndShowNoDataOnceADAtaSizeIsZero(true)
                 }
             }
         }

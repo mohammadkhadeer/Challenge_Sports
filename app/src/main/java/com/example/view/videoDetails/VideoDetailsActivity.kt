@@ -17,6 +17,7 @@ import com.example.apisetup.notmodel.Status
 import com.example.model.newsVideo.VideoList
 import com.example.model.newsVideo.VideoRoot
 import com.example.presnter.NewsVideoRecyclerViewOnclick
+import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.MySharableObject
 import com.example.view.mainActivity.homeAdapter.VideoAdapter.VideoNewsAdapterHorizontal
 import com.example.view.videoDetails.suggestionVideos.VideoNewsAdapterV
@@ -67,7 +68,11 @@ class VideoDetailsActivity : AppCompatActivity() {
             if (MySharableObject.videoListObject != null){
                 createASuggestionList()
             }else{
-                view_model.getANewVideo("en","1")
+                var lang = SharedPreferencesHelper.getALanguage(this)!!
+                if (lang == "zh")
+                    lang = "cn"
+
+                view_model.getANewVideo(lang,"1")
             }
         }
 
@@ -111,8 +116,13 @@ class VideoDetailsActivity : AppCompatActivity() {
         // Your code when RecyclerView reaches the bottom
         pro_bar_load_more.isVisible = true
         pageNumber +=1
-        println(pageNumber)
-        view_model.getANewVideo("en",pageNumber.toString())
+
+
+        var lang = SharedPreferencesHelper.getALanguage(this)!!
+        if (lang == "zh")
+            lang = "cn"
+
+        view_model.getANewVideo(lang,pageNumber.toString())
     }
 
     private fun createASuggestionList() {
@@ -162,8 +172,6 @@ class VideoDetailsActivity : AppCompatActivity() {
         exo=player
         player!!.setMediaItem(MediaItem.fromUri(path))
         player!!.prepare()
-        println(MySharableObject.videoNewsObject?.path!!)
-
 
         videoPlayer.player = player
         playThisVideo(MySharableObject.videoNewsObject?.path!!,title,time)

@@ -81,7 +81,6 @@ class ProfileFragment : Fragment() {
     private fun checkIfNestedScrollViewTouchBottom() {
         nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                Log.i("TAG", "BOTTOM SCROLL")
                 videosFragment.updateData()
             }
         })

@@ -19,6 +19,7 @@ import com.example.apisetup.notmodel.Status
 import com.example.model.news.List
 import com.example.model.news.NewsBase
 import com.example.presnter.RecyclerViewOnclick
+import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.view.mainActivity.homeAdapter.newsAdapter.AllNewsAdapter
 import com.example.view.mainActivity.homeAdapter.newsAdapter.NewsAdapter_Horizontal
 import com.example.view.newsDetails.NewsDetailsActivity
@@ -49,8 +50,10 @@ class AllNewsActivity : AppCompatActivity() {
 
         //handle server object
         view_model = SpewViewModel.giveMeViewModel(this)
-        //sent a requisite to get a banner ads
-        view_model.getNews(pageNumber.toString(),"en")
+        var lang = SharedPreferencesHelper.getALanguage(this)!!
+        if (lang == "zh")
+            lang = "cn"
+        view_model.getNews(pageNumber.toString(),lang)
 
         //observe banner response
         observeBannerResponse()
@@ -99,7 +102,11 @@ class AllNewsActivity : AppCompatActivity() {
         println("RecyclerView has reached the bottom.")
         pro_bar_load_more.isVisible = true
         pageNumber +=1
-        view_model.getNews(pageNumber.toString(),"en")
+
+        var lang = SharedPreferencesHelper.getALanguage(this)!!
+        if (lang == "zh")
+            lang = "cn"
+        view_model.getNews(pageNumber.toString(),lang)
     }
 
     private fun populateRecyclerViewsHorizontal(data: NewsBase) {

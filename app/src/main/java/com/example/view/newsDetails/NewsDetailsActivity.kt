@@ -17,6 +17,7 @@ import com.example.apisetup.R
 import com.example.apisetup.notmodel.RetorfitBuilder
 import com.example.apisetup.notmodel.Status
 import com.example.model.news.details.NewsPostBase
+import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.viewmodel.MyViewModel
 import com.example.viewmodel.SpewViewModel
 import com.google.android.material.tabs.TabLayout
@@ -46,7 +47,10 @@ class NewsDetailsActivity : AppCompatActivity() {
         //handle server object
         view_model = SpewViewModel.giveMeViewModel(this)
         //sent a requisite to get a banner ads
-        view_model.getANewsDetails(news_id,"en")
+        var lang = SharedPreferencesHelper.getALanguage(this)!!
+        if (lang == "zh")
+            lang = "cn"
+        view_model.getANewsDetails(news_id,lang)
 
         //observe banner response
         observeBannerResponse()

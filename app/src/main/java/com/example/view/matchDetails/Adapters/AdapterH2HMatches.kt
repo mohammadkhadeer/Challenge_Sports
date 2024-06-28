@@ -19,8 +19,11 @@ class AdapterH2HMatches (var context: Context, var h2hMatchesList:  List<MatchIn
     }
 
     override fun onBindViewHolder(holder: AdapterH2HMatches.AdapterH2HMatchesViewHolder, position: Int) {
-        holder.homeTeamName.text = h2hMatchesList[position].homeEnName
-        holder.awayTeamName.text = h2hMatchesList[position].awayEnName
+
+        holder.homeTeamName.text = GeneralTools.getATextDependALanguage( h2hMatchesList[position].homeEnName, h2hMatchesList[position].homeCnName,context)
+        holder.awayTeamName.text = GeneralTools.getATextDependALanguage( h2hMatchesList[position].awayEnName, h2hMatchesList[position].awayCnName,context)
+
+
         holder.score.text = "${h2hMatchesList[position].homeTeamScore.toString()}" + " - " + "${h2hMatchesList[position].awayTeamScore.toString()}"
         holder.timeTeamName.text = GeneralTools.convertTimeFormat(h2hMatchesList[position].matchTime.toString())
     }

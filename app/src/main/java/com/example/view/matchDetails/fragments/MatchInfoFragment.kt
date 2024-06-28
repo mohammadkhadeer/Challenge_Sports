@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.apisetup.R
+import com.example.utils.GeneralTools
 import com.example.utils.MySharableObject
 
 class MatchInfoFragment : Fragment() {
@@ -36,10 +37,20 @@ class MatchInfoFragment : Fragment() {
 
         if (MySharableObject.matchObject != null)
         {
-            var home_team = MySharableObject.matchObject?.homeInfo?.enName
-            var away_team = MySharableObject.matchObject?.awayInfo?.enName
+            var league_name = GeneralTools.getATextDependALanguage(
+                MySharableObject.matchObject?.leagueInfo?.enName.toString()
+                , MySharableObject.matchObject?.leagueInfo?.cnName.toString(),requireActivity())
+
+            var home_team = GeneralTools.getATextDependALanguage(
+            MySharableObject.matchObject?.homeInfo?.enName.toString()
+            , MySharableObject.matchObject?.homeInfo?.cnName.toString(),requireActivity())
+
+            var away_team = GeneralTools.getATextDependALanguage(
+            MySharableObject.matchObject?.awayInfo?.enName.toString()
+            , MySharableObject.matchObject?.awayInfo?.cnName.toString(),requireActivity())
+
+
             var match_time = MySharableObject.matchObject?.matchTiming
-            var league_name = MySharableObject.matchObject?.leagueInfo?.enName
 
             var about_match = context?.getString(R.string.about) +
                     "\n\n"  + home_team +  "  " + context?.getString(R.string.vs) +"  "+ away_team +
@@ -53,7 +64,7 @@ class MatchInfoFragment : Fragment() {
     }
 
     private fun casting(view: View) {
-        about_match_txt = view.findViewById<TextView>(R.id.about_match_txt)
-        leage_image = view.findViewById<ImageView>(R.id.leag_image)
+        about_match_txt = view.findViewById(R.id.about_match_txt)
+        leage_image     = view.findViewById(R.id.leag_image)
     }
 }

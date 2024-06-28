@@ -55,7 +55,6 @@ class H2HFragment : Fragment() {
         casting(view)
 
         addATabsToTabLayout()
-
         tabLayoutController()
 
         vm = SpewViewModel.giveMeViewModel(requireActivity())
@@ -69,13 +68,13 @@ class H2HFragment : Fragment() {
 
     private fun casting(view: View) {
         //odds_recycler_view_handicap
-        tabLayout = view.findViewById<TabLayout>(R.id.tabLayoutH2HFragments)
-        recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-        horizontalProgressView = view.findViewById<ProgressBar>(R.id.progressBar)
-        number_of_win_txt = view.findViewById<TextView>(R.id.number_of_win_txt)
-        total_matches_txt = view.findViewById<TextView>(R.id.total_matches_txt)
-        number_of_lose_txt = view.findViewById<TextView>(R.id.number_of_lose_txt)
-        per_text = view.findViewById<TextView>(R.id.per_text)
+        tabLayout              = view.findViewById(R.id.tabLayoutH2HFragments)
+        recyclerView           = view.findViewById(R.id.recycler_view)
+        horizontalProgressView = view.findViewById(R.id.progressBar)
+        number_of_win_txt      = view.findViewById(R.id.number_of_win_txt)
+        total_matches_txt      = view.findViewById(R.id.total_matches_txt)
+        number_of_lose_txt     = view.findViewById(R.id.number_of_lose_txt)
+        per_text               = view.findViewById(R.id.per_text)
     }
 
     private fun addATabsToTabLayout() {

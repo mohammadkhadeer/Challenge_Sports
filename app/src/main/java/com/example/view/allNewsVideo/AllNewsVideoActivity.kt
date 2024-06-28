@@ -18,6 +18,7 @@ import com.example.apisetup.notmodel.Status
 import com.example.model.newsVideo.VideoList
 import com.example.model.newsVideo.VideoRoot
 import com.example.presnter.NewsVideoRecyclerViewOnclick
+import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.MySharableObject
 import com.example.view.mainActivity.homeAdapter.newsAdapter.AllNewsAdapter
 import com.example.view.videoDetails.VideoDetailsActivity
@@ -55,7 +56,10 @@ class AllNewsVideoActivity : AppCompatActivity() {
         if (MySharableObject.videoListObject != null){
             createAList(MySharableObject.videoListObject!!)
         }else{
-            view_model.getANewVideo("en","1")
+            var lang = SharedPreferencesHelper.getALanguage(this)!!
+            if (lang == "zh")
+                lang = "cn"
+            view_model.getANewVideo(lang,"1")
         }
 
         observeResponse()
@@ -125,8 +129,12 @@ class AllNewsVideoActivity : AppCompatActivity() {
         // Your code when RecyclerView reaches the bottom
         pro_bar_load_more.isVisible = true
         pageNumber +=1
-        println(pageNumber)
-        view_model.getANewVideo("en",pageNumber.toString())
+
+        var lang = SharedPreferencesHelper.getALanguage(this)!!
+        if (lang == "zh")
+            lang = "cn"
+
+        view_model.getANewVideo(lang,pageNumber.toString())
     }
 
     private fun actionListenerToBack() {

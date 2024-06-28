@@ -19,6 +19,7 @@ import com.example.apisetup.notmodel.Resource
 import com.example.apisetup.notmodel.Status
 import com.example.model.news.NewsBase
 import com.example.presnter.RecyclerViewOnclick
+import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.view.allNews.AllNewsActivity
 import com.example.view.mainActivity.homeAdapter.bannerAdapter.ImageSliderAdapter
 import com.example.view.mainActivity.homeAdapter.newsAdapter.NewsAdapter_Horizontal
@@ -63,7 +64,10 @@ class HorzNewsFragment : Fragment() {
         //handle server object
         view_model = SpewViewModel.giveMeViewModel(requireActivity())
         //sent a requisite to get a banner ads
-        view_model.getNews("1","en")
+        var lang = SharedPreferencesHelper.getALanguage(requireContext())!!
+        if (lang == "zh")
+            lang = "cn"
+        view_model.getNews("1", lang)
 
         //observe banner response
         observeBannerResponse()

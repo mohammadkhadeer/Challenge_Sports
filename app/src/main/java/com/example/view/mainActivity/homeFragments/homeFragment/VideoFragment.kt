@@ -28,6 +28,7 @@ import com.example.presnter.NewsVideoRecyclerViewOnclick
 import com.example.presnter.OnSeeAllMatchesListener
 import com.example.presnter.RecyclerViewOnclick
 import com.example.presnter.RecyclerViewOnclickMatch
+import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.MySharableObject
 import com.example.view.allNews.AllNewsActivity
 import com.example.view.mainActivity.homeAdapter.VideoAdapter.VideoNewsAdapterHorizontal
@@ -84,8 +85,11 @@ class VideoFragment : Fragment() {
 
         //handle server object
         view_model = SpewViewModel.giveMeViewModel(requireActivity())
-        //sent a requisite to get a banner ads
-        view_model.getANewVideo("en","1")
+
+        var lang = SharedPreferencesHelper.getALanguage(requireActivity())!!
+        if (lang == "zh")
+            lang = "cn"
+        view_model.getANewVideo(lang,"1")
 
         actionListenerToSeeAll()
         //observe banner response

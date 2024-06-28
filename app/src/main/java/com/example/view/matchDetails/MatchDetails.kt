@@ -94,8 +94,17 @@ class MatchDetails : AppCompatActivity() {
     }
 
     private fun fillABasicInfo() {
-        leagueNameShort.text = MySharableObject.matchObject?.leagueInfo?.enName
-        home_team_name.text= MySharableObject.matchObject?.homeInfo?.enName
+        leagueNameShort.text = GeneralTools.getATextDependALanguage(
+            MySharableObject.matchObject?.leagueInfo?.enName.toString()
+            , MySharableObject.matchObject?.leagueInfo?.cnName.toString(),this)
+
+        home_team_name.text = GeneralTools.getATextDependALanguage(
+            MySharableObject.matchObject?.homeInfo?.enName.toString()
+            , MySharableObject.matchObject?.homeInfo?.cnName.toString(),this)
+
+        away_team_name.text = GeneralTools.getATextDependALanguage(
+            MySharableObject.matchObject?.awayInfo?.enName.toString()
+            , MySharableObject.matchObject?.awayInfo?.cnName.toString(),this)
 
         away_team_name.text=MySharableObject.matchObject?.awayInfo?.enName
 

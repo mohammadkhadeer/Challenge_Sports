@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Challenge Sports</string>
+    <string name="app_name">挑战体育</string>
 
 
     //upload video
@@ -208,7 +208,7 @@
     <string name="weather_case_4">晴</string>
     <string name="weather_case_5">阴雨/有点雷雨</string>
     <string name="weather_case_6">阴天</string>
-    <string name="weather_case_7">mist</string>
+    <string name="weather_case_7">薄雾</string>
     <string name="weather_case_8">阴天有雨</string>
     <string name="weather_case_9">阴天有雨</string>
     <string name="weather_case_10">多云，有雨/局部雷雨</string>
