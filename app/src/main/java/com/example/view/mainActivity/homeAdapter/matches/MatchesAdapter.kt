@@ -80,14 +80,13 @@ class MatchesAdapter (var context: Context
 
         val dataObject = dataList.get(position)
 
-        holder.leagueNameShort.text = dataObject?.leagueInfo?.enName
-        holder.home_team_name.text= dataObject?.homeInfo?.enName
-
-        holder.away_team_name.text=dataObject?.awayInfo?.enName
+        holder.leagueNameShort.text = GeneralTools.getATextDependALanguage(dataObject?.leagueInfo?.enName!!,dataObject?.leagueInfo?.cnName!!,context)
+        holder.home_team_name.text  = GeneralTools.getATextDependALanguage(dataObject?.homeInfo?.enName!!,dataObject?.homeInfo?.cnName!!,context)
+        holder.away_team_name.text  = GeneralTools.getATextDependALanguage(dataObject?.awayInfo?.enName!!,dataObject?.awayInfo?.cnName!!,context)
 
         var weather_number = dataObject?.environment?.weather
         if (weather_number != null) {
-            holder.weather_status_txt.text = GeneralTools.getWeatherStatus(context, weather_number )
+            holder.weather_status_txt.text = GeneralTools.getWeatherStatus(context, weather_number)
         }else{
             holder.weather_status_txt.text = context.getString(R.string.weather_empty)
         }

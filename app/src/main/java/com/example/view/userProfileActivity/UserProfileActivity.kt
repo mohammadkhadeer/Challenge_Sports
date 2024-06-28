@@ -2,7 +2,6 @@ package com.example.view.userProfileActivity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -17,7 +16,6 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -34,10 +32,12 @@ import com.example.presnter.RecyclerViewOnclickProfile
 import com.example.presnter.SelectedCountryListener
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.EditProfileTools
+import com.example.utils.GeneralTools
 import com.example.utils.HandelPopup
 import com.example.view.bottomSheet.updateProfileBottomSheet.SelectGenderBottomSheetFragment
 import com.example.view.bottomSheet.updateProfileBottomSheet.SelectLanguageBottomSheetFragment
 import com.example.view.mainActivity.MainActivity
+import com.example.view.splashScreen.SplashScreen
 import com.example.view.updateBirthday.UpdateBirthdayActivity
 import com.example.view.updatePassword.UpdatePasswordActivity
 import com.example.view.updateUserInfo.UpdateUserInfoActivity
@@ -83,6 +83,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        GeneralTools.setLocale(this, SharedPreferencesHelper.getALanguage(this)!!)
         setContentView(R.layout.activity_user_profile)
 
         statusBarColor()
@@ -218,6 +219,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
             val modalBottomSheet = SelectLanguageBottomSheetFragment()
             modalBottomSheet.listener = this
             modalBottomSheet.show(supportFragmentManager, SelectLanguageBottomSheetFragment::class.java.simpleName)
+
         }
     }
 
@@ -412,6 +414,11 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
 
     override fun onDataPassed(data: String) {
         selected_language_txt.text = data
+
+        SharedPreferencesHelper.saveLanguage(this,SharedPreferencesHelper.getALanguage(this).toString())
+        val intent = Intent(this, SplashScreen::class.java)
+        this.startActivity(intent)
+        this.finishAffinity()
     }
 
     override fun onGenderPassed() {

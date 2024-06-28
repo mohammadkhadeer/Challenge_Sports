@@ -1,8 +1,13 @@
 package com.example.view.mainActivity
 
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -10,6 +15,7 @@ import com.example.apisetup.R
 import com.example.presnter.OnSeeAllMatchesListener
 import com.example.sharedPreferences.SharedPreferencesHelper
 import com.example.utils.EditProfileTools
+import com.example.utils.GeneralTools
 import com.example.utils.MySharableObjectViewModel
 import com.example.view.allNewsVideo.AllNewsVideoActivity
 import com.example.view.login.Login
@@ -26,6 +32,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener  {
     //ui
@@ -42,6 +49,7 @@ class MainActivity : AppCompatActivity() , OnSeeAllMatchesListener  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        GeneralTools.setLocale(this, SharedPreferencesHelper.getALanguage(this)!!)
         setContentView(R.layout.base_activity_drawer_container)
 
         statusBarColor()

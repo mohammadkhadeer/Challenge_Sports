@@ -6,10 +6,13 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ResolveInfo
+import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.os.Parcelable
 import android.util.Log
 import android.util.Patterns
+import androidx.annotation.RequiresApi
 import com.example.apisetup.BuildConfig
 import com.example.apisetup.R
 import com.example.model.headToHeadMatches.History
@@ -18,11 +21,44 @@ import com.example.model.hotMatches.MatchStatusJ
 import com.example.model.odds.Oddlist
 import com.example.model.odds.OddsCompanyComp
 import com.example.model.odds.OddsRoot
+import com.example.sharedPreferences.SharedPreferencesHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 object GeneralTools {
+
+    fun getATextDependALanguage(txtEn: String,txtZh: String,context: Context): String {
+        var lan = SharedPreferencesHelper.getALanguage(context)
+
+        return if (lan == "en") txtEn else txtZh
+    }
+
+    fun setLocale(context: Context, languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val resources = context.resources
+        val config = Configuration(resources.configuration)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            config.setLocale(locale)
+        } else {
+            config.locale = locale
+        }
+
+        resources.updateConfiguration(config, resources.displayMetrics)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getCurrentLanguage(context: Context): String {
+        val locale: Locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            context.resources.configuration.locales[0]
+        } else {
+            context.resources.configuration.locale
+        }
+        return locale.language
+    }
 
     fun isValidEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -330,10 +366,6 @@ object GeneralTools {
         }
 
         return weathr_status_string
-    }
-
-    fun setLocale(context: Context,locale:String) {
-        SharedPreference.getInstance().saveStringToPreferences(SharedPreference.LOCALE_KEY,locale,context)
     }
 
     @SuppressLint("SimpleDateFormat")

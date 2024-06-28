@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.core.app.ActivityCompat.recreate
 import com.example.apisetup.R
 import com.example.apisetup.databinding.FragmentModalBottomSheetBinding
 import com.example.presnter.LanguageBottomSheetListener
@@ -35,6 +36,7 @@ class SelectLanguageBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         selectedLanguage = SharedPreferencesHelper.getALanguage(requireContext()).toString()
+        println("TAG selectedLanguage: "+selectedLanguage)
     }
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Apply the custom style here
@@ -54,12 +56,12 @@ class SelectLanguageBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun fillARadioButton() {
-        if (selectedLanguage != null && selectedLanguage == "ENGLISH")
+        if (selectedLanguage != null && selectedLanguage == "en")
         {
             radioGroup.check(R.id.radioButton1)
         }
 
-        if (selectedLanguage != null && selectedLanguage == "CHINES")
+        if (selectedLanguage != null && selectedLanguage == "zh")
         {
             radioGroup.check(R.id.radioButton2)
         }
@@ -74,10 +76,10 @@ class SelectLanguageBottomSheetFragment : BottomSheetDialogFragment() {
             val radioButton: RadioButton = view_global.findViewById(checkedId)
             if (radioButton.text == "English")
             {
-                SharedPreferencesHelper.saveLanguage(requireContext(),"ENGLISH")
+                SharedPreferencesHelper.saveLanguage(requireContext(),"en")
                 listener!!.onDataPassed(requireContext().getString(R.string.english_choose))
             }else{
-                SharedPreferencesHelper.saveLanguage(requireContext(),"CHINES")
+                SharedPreferencesHelper.saveLanguage(requireContext(),"zh")
                 listener!!.onDataPassed(requireContext().getString(R.string.chines_choose))
             }
             //here i use a timer just to give user expiration he is press on the button
