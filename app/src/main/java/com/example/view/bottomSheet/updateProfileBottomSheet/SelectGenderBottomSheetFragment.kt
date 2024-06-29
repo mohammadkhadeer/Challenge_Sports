@@ -75,48 +75,19 @@ class SelectGenderBottomSheetFragment : BottomSheetDialogFragment() {
 
         fillARadioButton()
 
-
         //server
         val activity = activity as? UserProfileActivity
         view_model = SpewViewModel.giveMeViewModelWithHeader(activity!!)
-        observeAResponse()
 
         return view
     }
 
-    private fun observeAResponse() {
-        view_model.updateBasicInfo.observe(this){
-            if (it.status== Status.SUCCESS){
-                //handle SUCCESS case
-                SharedPreferencesHelper.saveProfileInfo(requireContext(), it.data!!.response.data)
-                listener!!.onGenderPassed()
-
-                progress_bar.isVisible = false
-                relativeLayout.isVisible = false
-                dismiss()
-//                handler.postDelayed({ dismiss() }, 1000)
-
-
-            }else{
-                if (it.status == Status.ERROR){
-                    this.dismiss()
-                }
-
-            }
-        }
-    }
-
-
     private fun fillARadioButton() {
         if (selectedgender != null && selectedgender == "Male")
-        {
             radioGroup.check(R.id.radioButton1)
-        }
 
         if (selectedgender != null && selectedgender == "Female")
-        {
             radioGroup.check(R.id.radioButton2)
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -131,13 +102,12 @@ class SelectGenderBottomSheetFragment : BottomSheetDialogFragment() {
             val radioButton: RadioButton = view_global.findViewById(checkedId)
             if (radioButton.text == getString(R.string.male))
             {
-                val map = EditProfileTools.makeMapForUpdateNameRequirements("male","gender")
-                view_model.updateBasicInfoRequest(map)
+                listener!!.onGenderPassed("male")
             }else{
-                val map = EditProfileTools.makeMapForUpdateNameRequirements("female","gender")
-                view_model.updateBasicInfoRequest(map)
+                listener!!.onGenderPassed("female")
             }
 
+            dismiss()
         }
     }
 
@@ -145,6 +115,9 @@ class SelectGenderBottomSheetFragment : BottomSheetDialogFragment() {
         radioGroup     = view.findViewById<RadioGroup>(R.id.radioGroup)
         progress_bar   = view.findViewById<ProgressBar>(R.id.progressBar)
         relativeLayout = view.findViewById<RelativeLayout>(R.id.relativeLayout)
+
+        progress_bar.isVisible = false
+        relativeLayout.isVisible = false
     }
 
     override fun onDestroyView() {

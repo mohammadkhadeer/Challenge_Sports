@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -106,6 +107,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         view_model = SpewViewModel.giveMeViewModelWithHeader(this)
         observeAResponse()
         observeUpdatePhotoAResponse()
+        observeAGenderResponse()
     }
 
     private fun fillAProfileImage() {
@@ -137,7 +139,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
                 //handle SUCCESS case
                 title = getString(R.string.photo)
                 Toast.makeText(this, getString(R.string.update_successfully_message1) +" "+ title + " "+getString(R.string.update_successfully_message2), Toast.LENGTH_SHORT).show()
-                Log.i("TAG","myData "+ it.data!!)
+//                Log.i("TAG","myData "+ it.data!!)
                 SharedPreferencesHelper.saveProfileInfo(this, it.data!!.response.data)
                 fillAProfileImage()
 
@@ -158,7 +160,7 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
                 //handle SUCCESS case
                 title = getString(R.string.country)
                 Toast.makeText(this, getString(R.string.update_successfully_message1) +" "+ title + " "+getString(R.string.update_successfully_message2), Toast.LENGTH_SHORT).show()
-                Log.i("TAG","myData "+ it.data!!)
+//                Log.i("TAG","myData "+ it.data!!)
                 SharedPreferencesHelper.saveProfileInfo(this, it.data!!.response.data)
 
                 handleARecyclerView()
@@ -183,19 +185,14 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
 
     private fun actionListenerToSignOut() {
         sign_out_ll.setOnClickListener{
-            SharedPreferencesHelper.clearData(this)
+
+            SharedPreferencesHelper.clearData(this) //here is the problem
             SharedPreferencesHelper.clearProfileInfo(this)
 
-            moveToNextActivity()
+            reStartApp()
         }
     }
 
-    private fun moveToNextActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
-        finish()
-    }
     private fun actionListenerToTermsAndConditions() {
         terms_and_conditions_ll.setOnClickListener{
             moveToBrowser(RetorfitBuilder.termsAndConditions)
@@ -416,13 +413,13 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         selected_language_txt.text = data
 
         SharedPreferencesHelper.saveLanguage(this,SharedPreferencesHelper.getALanguage(this).toString())
+        reStartApp()
+    }
+
+    private fun reStartApp() {
         val intent = Intent(this, SplashScreen::class.java)
         this.startActivity(intent)
         this.finishAffinity()
-    }
-
-    override fun onGenderPassed() {
-        handleARecyclerView()
     }
 
     override fun onCountryPassed(countryName: String,popupWindow: PopupWindow) {
@@ -438,5 +435,27 @@ class UserProfileActivity : AppCompatActivity() , LanguageBottomSheetListener ,G
         resultIntent.putExtra("result", "Hello from UserProfileActivity")
         setResult(RESULT_OK, resultIntent)
         finish()
+    }
+
+    override fun onGenderPassed(selectedGender: String) {
+        val map = EditProfileTools.makeMapForUpdateNameRequirements(selectedGender,"gender")
+        view_model.updateBasicGenderInfoRequest(map)
+
+    }
+
+    private fun observeAGenderResponse() {
+        view_model.updateGenderInfo.observe(this){
+            if (it.status== Status.SUCCESS){
+                //handle SUCCESS case
+                SharedPreferencesHelper.saveProfileInfo(this, it.data!!.response.data)
+                handleARecyclerView()
+
+            }else{
+                if (it.status == Status.ERROR){
+                    //this.dismiss()
+                }
+
+            }
+        }
     }
 }

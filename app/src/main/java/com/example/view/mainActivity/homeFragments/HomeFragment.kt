@@ -87,7 +87,7 @@ class HomeFragment : Fragment() , ImageSliderAdapter.OnItemClickListener{
     }
 
     private fun observeBannerResponse() {
-        view_model.bannerRoot.observe(this){
+        view_model.bannerRoot.observe(requireActivity()){
             if (it.status== Status.SUCCESS){
                 if (fragmentContext != null){
                     pro_bar.isVisible = false
@@ -108,7 +108,7 @@ class HomeFragment : Fragment() , ImageSliderAdapter.OnItemClickListener{
 
     private fun casting(view: View) {
         view_pager_ads = view.findViewById<ViewPager2>(R.id.viewpager)
-        pro_bar = view.findViewById<ProgressBar>(R.id.pro_bar)
+        pro_bar        = view.findViewById<ProgressBar>(R.id.pro_bar)
         //to freeze view pager slid option
         view_pager_ads.isUserInputEnabled = false
     }

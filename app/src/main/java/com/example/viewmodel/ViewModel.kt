@@ -58,6 +58,9 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
     //userUpdateInfo
     var updateBasicInfo = MutableLiveData<Resource<UserUpdateInfo>>()
 
+    //userUpdateInfo,gender
+    var updateGenderInfo = MutableLiveData<Resource<UserUpdateInfo>>()
+
     //userUpdateInfo //photo
     var updatePhoto = MutableLiveData<Resource<UserUpdateInfo>>()
 
@@ -260,12 +263,27 @@ class MyViewModel(private val apiHelper: ApiHelper) : ViewModel(){
         }
     }
 
+    fun updateBasicGenderInfoRequest(basicInfo: HashMap<String, Any>) {
+        viewModelScope.launch {
+            updateGenderInfo.postValue(Resource.loading(null))
+            try {
+                val myData = apiHelper.updateBasicInfo(basicInfo)
+                println(myData)
+                updateGenderInfo.postValue(Resource.success(myData))
+
+            } catch (e: Exception) {
+                println(e.message)
+                updateGenderInfo.postValue(Resource.error(e.message.toString(), null))
+            }
+        }
+    }
+
     fun updateBasicInfoRequest(basicInfo:HashMap<String, Any>){
         viewModelScope.launch {
             updateBasicInfo.postValue(Resource.loading(null))
             try {
                 val myData = apiHelper.updateBasicInfo(basicInfo)
-                //println(myData)
+                println(myData)
                 updateBasicInfo.postValue(Resource.success(myData))
 
             }catch (e:Exception){

@@ -106,7 +106,6 @@ class MatchDetails : AppCompatActivity() {
             MySharableObject.matchObject?.awayInfo?.enName.toString()
             , MySharableObject.matchObject?.awayInfo?.cnName.toString(),this)
 
-        away_team_name.text=MySharableObject.matchObject?.awayInfo?.enName
 
         var weather_number = MySharableObject.matchObject?.environment?.weather
         if (weather_number != null) {

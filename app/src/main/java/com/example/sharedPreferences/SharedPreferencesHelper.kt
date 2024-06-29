@@ -37,6 +37,13 @@ object SharedPreferencesHelper {
         editor.apply()
     }
 
+    fun clearData(context: Context) {
+        var sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences!!.edit()
+        editor.clear()
+        editor.apply()
+    }
+
     // Save user object to SharedPreferences
     fun saveUser(context: Context, user: UserData) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -58,14 +65,8 @@ object SharedPreferencesHelper {
     }
 
     private fun getSharedPreferencesProfileInfo(context: Context) {
+        //
         sharedPreferences = context.getSharedPreferences(PROFILE_INFO, Context.MODE_PRIVATE)
-    }
-
-    fun clearData(context: Context) {
-        getSharedPreferencesObject(context)
-        val editor = sharedPreferences!!.edit()
-        editor.clear()
-        editor.apply()
     }
 
     fun saveLanguage(context: Context, value: String) {
